@@ -1,0 +1,38 @@
+body{
+    padding-top: 100px;
+    padding-bottom: 70px;
+}
+
+/* custom navbar properties properties */
+.navbar-bg{
+	background: #51EAEA;
+}
+
+
+/* custom drop-dpwn */
+.custom-dropdown
+{
+    right:0;
+    left:auto;
+}
+
+/* donor profile form customization */
+
+.align-center{
+    text-align: center;
+}
+
+.card-content{
+    padding: 25px;
+}
+
+.card-header{
+    color: #ffff;
+    background-color: #51EAEA;
+}
+
+.btn-color{
+    color:#ffff;
+    background: #007bff;
+    border-color: black;
+}
