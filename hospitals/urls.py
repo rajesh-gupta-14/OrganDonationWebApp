@@ -1,8 +1,8 @@
-from django.urls import path
+from django.urls import re_path
 
 from . import views
 
 urlpatterns = [
-    path('register/', views.register, name='hospital-register'),
-    path('login/', views.login, name='hospital-login')
+    re_path('register/$', views.hospital_register, name='hospital-register'),
+    re_path('login/$', views.hospital_login, name='hospital-login')
 ]

@@ -1,7 +1,8 @@
-from django.urls import path
+from django.urls import re_path
 
 from . import views
 
 urlpatterns = [
-    path('register/', views.register, name='donor-register'),
+    re_path('register/$', views.donor_register, name='donor-register'),
+    re_path('login/$', views.donor_login, name='donor-login')
 ]
