@@ -21,7 +21,7 @@ class DonationRequests(models.Model):
     request_datetime = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.request_datetime
+        return f"{self.donor}/{self.organ_type}"
 
 class Appointments(models.Model):
 
@@ -35,4 +35,4 @@ class Appointments(models.Model):
     time = models.CharField(max_length=100, blank=False, null=False)
 
     def __str__(self):
-        return self.date
+        return f"{self.donation_request}"
