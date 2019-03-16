@@ -2,7 +2,7 @@
 .custom-header{
     border: 5px;
     height: 75px;
-    background-color: #007bff;
+    background-color: #51EAEA;
     text-align: center;
     font-size: 2.4em;
     color: #000000;
@@ -13,7 +13,7 @@
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: #007bff;
+    background-color: #51EAEA;
     text-align: center;
     color: #000000;
 }

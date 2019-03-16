@@ -32,7 +32,7 @@
                 <a class="nav-link" href="#">Book an appointment</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="new-donation-request.html">New donation request</a>
+                <a class="nav-link" href="{% url 'donor-profile-update'  %}">New donation request</a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
@@ -42,9 +42,9 @@
                         Settings
                 </a>
                 <div class="dropdown-menu custom-dropdown">
-                    <a class="dropdown-item" href="user-profile-update.html">User profile</a>
-                    <a class="dropdown-item" href="user-profile-update.html">Change password</a>
-                    <a class="dropdown-item" href="#">Log out</a>
+                    <a class="dropdown-item" href="{% url 'donor-profile-update' %}">User profile</a>
+                    <a class="dropdown-item" href="{% url 'donor-profile-update' %}">Change password</a>
+                    <a class="dropdown-item" href="{% url 'donor-logout' %}">Log out</a>
                 </div>
             </li>
         </ul>
@@ -64,69 +64,55 @@
         </header>
         
         <div class="card-content">
-        <form>
-    
-            <div class="form-row">
-                <div class="form-group col-md-6">
+        <form method="POST" action="{% url 'donor-profile-update'  %}">
+            {% csrf_token %}
+            <div class="form-group">
+                {% if success and pfcheck %} {{msg}} {% endif %}
+
+            </div>
+            <div class="form-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                <label>First name</label>
-                <input type="text" class="form-control" value="Rajesh" id="fn" disabled>
-                </div>
-                <div class="form-group col-md-6">
-                <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                <label>Last name</label>
-                <input type="text" class="form-control" value="Gupta" id="ln" disabled>
-                </div>
+                <label>Donor name</label>   
+                <input type="text" name="donor_name" value="{{ donor.first_name }}" id="fn" class="form-control" placeholder="" required disabled>
             </div>
             <div class="form-group">
                 <span class="input-group-addon"><i class="fa fa-at"></i></span>
                 <label>Email address</label>
-                <input type="email" class="form-control" placeholder="" id="email" value="xyz@gmail.com" disabled required>
-            </div>
-			<div class="form-group">
-					<label for="start">Date of Birth:&nbsp;</label>
-					<input type="date" id="start" value="1996-02-14" max="2001-01-01" disabled>
-			</div>
-            <div class="form-group">
-                    <span> Gender&nbsp;&nbsp;</span>
-                    <label class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="gender" id="male" value="option1" checked disabled>
-                        <span class="form-check-label"> Male </span>
-                    </label>
-                    <label class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="gender" id="female" value="option2" disabled>
-                        <span class="form-check-label"> Female </span>
-                    </label>
-                    <label class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="gender" id="other" value="option3" disabled>
-                        <span class="form-check-label"> Other </span>
-                    </label>
+                <input type="email" class="form-control" name="email" placeholder="" id="email" value="{{ donor.email}}" disabled required>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                 <span class="input-group-addon"><i class="fa fa-building"></i></span>
                 <label>City</label>
-                <input type="text" id="city" class="form-control" value="Chennai" disabled>
+                <input type="text" id="city" name="city" class="form-control" value="{{ donor.city }}" disabled>
                 </div>
                 <div class="form-group col-md-6">
-                <span class="input-group-addon"><i class="fa fa-building"></i></span>
-                <label>Preferred hospital of donation</label>
-                <select id="input-hospital" class="form-control" disabled>
-                    <option selected="">ABC hospital</option>
-                    <option>XYZ hospital</option>
-                </select>
-                </div>
+                    <span class="input-group-addon"><i class="fa fa-building"></i></span>
+                    <label>Province</label>
+                    <select id="input-province" name="province" value="Ontario" class="form-control" disabled>
+                        <option value="Nova Scotia"{% if provinces.0 %} selected{% endif %}>Nova Scotia</option>
+                        <option value="British Columbia"{% if provinces.1 %} selected {% endif %}>British Columbia</option>
+                        <option value="Ontario"{% if provinces.2 %} selected {% endif %}>Ontario</option>
+                        <option value="Quebec"{% if provinces.3 %} selected {% endif %}>Quebec</option>
+                        <option value="Alberta"{% if provinces.4 %} selected {% endif %}>Alberta</option>
+                        <option value="New Brunswick"{% if provinces.5 %} selected {% endif %}>New Brunswick</option>
+                        <option value="Manitoba"{% if provinces.6 %} selected {% endif %}>Manitoba</option>
+                        <option value="Sasketchawan"{% if provinces.7 %} selected {% endif %}>Sasketchawan</option>
+                        <option value="New Foundland and Labrador"{% if provinces.8 %} selected {% endif %}>New Foundland and Labrador</option>
+                        <option value="Prince Edward Island"{% if provinces.9 %} selected {% endif %}>Prince Edward Island</option>
+                    </select>
+                    </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                 <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
                 <label>Contact no. (+1)</label>
-                <input type="text" id="contact" class="form-control" maxlength="10" minlength="10" value="1234567890" disabled>
+                <input type="text" id="contact" name="contact" class="form-control" maxlength="10" minlength="10" value="{{ donor.contact_number }}" disabled>
                 </div>
                 <div class="form-group col-md-6">
                 <span class="input-group-addon"><i class="fa fa-building"></i></span>
                 <label>Country</label>
-                <select id="input-country" class="form-control" disabled>
+                <select id="input-country" name="country" class="form-control" disabled>
                     <option selected="">Canada</option>
                 </select>
                 </div>
@@ -134,10 +120,10 @@
             <div class="form-group">
             </div>
             <div class="form-group">
-                <button type="submit" id="submit" class="btn navbar-bg btn-block" disabled> Update </button>
+                <button name="profile" type="submit" id="submit" class="btn navbar-bg btn-block" disabled> Update </button>
             </div>      
             
-        </form>
+        
         </div>
         </div>
         </div>
@@ -150,18 +136,20 @@
                     <h4 class="card-title mt-2 black">Password details</h4>
                 </header>
                 <div class="card-content">
-                <form>
-                    
+                
+                    <div class="form-group">
+                        {% if success and pscheck %} {{msg}} {% endif %}
+                    </div>
                     <div class="form-group">
                         <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                         <label>Old password</label>   
-                        <input type="password" id="password1" class="form-control" disabled required>
+                        <input type="password" id="password1" name="old_password" class="form-control" disabled required>
                     </div>
                 
                     <div class="form-group">
                         <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                         <label>New password</label>
-                        <input class="form-control" type="password" minlength="6" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}" title="Please include 1 uppercase letter, 1 lowercase letter and 1 digit in your password" id="password2" disabled required>
+                        <input class="form-control" type="password" name="new_password" minlength="6" pattern="(?=.*[a-z])(?=.*\d).{6,}" title="Please include 1 uppercase letter, 1 lowercase letter and 1 digit in your password" id="password2" disabled required>
                     </div>
                     <div class="form-group">
                         <span class="input-group-addon"><i class="fa fa-lock"></i></span>
@@ -172,7 +160,7 @@
                         <span id="password-validation-msg"></span>
                     </div>
                     <div class="form-group">
-                        <button type="submit" id="update-password" class="btn navbar-bg btn-block" disabled> Update </button>
+                        <button name="password" type="submit" id="update-password" class="btn navbar-bg btn-block" disabled> Update </button>
                     </div>      
                     
                 </form>
@@ -190,7 +178,7 @@
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="js/bootstrap-filestyle.min.js"> </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-filestyle/2.1.0/bootstrap-filestyle.min.js"> </script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     
     </body>

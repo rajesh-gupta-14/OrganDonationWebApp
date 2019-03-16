@@ -9,12 +9,20 @@
 }
 
 .card-header{
-    color: #ffff;
-    background-color: #007bff;;
+    color: #000000;
+    background-color: #51EAEA;
 }
 
 .card-content{
     padding: 25px;
+}
+
+.btn-color{
+    background-color:#51EAEA;
+}
+
+.fnt-color{
+    color: #000000;
 }
 
 .align-center{

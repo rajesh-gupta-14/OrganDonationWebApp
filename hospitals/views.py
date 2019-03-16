@@ -3,6 +3,13 @@ from .models import User
 from django.contrib.auth import login, logout, authenticate
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
+import smtplib, getpass
+from email.mime.multipart import MIMEMultipart
+from email.mime.base import MIMEBase
+from email.mime.text import MIMEText
+from email.utils import COMMASPACE, formatdate
+from email import encoders
+import string, secrets, ast, random
 
 # Create your views here.
 
@@ -36,9 +43,50 @@ def hospital_login(request):
             if user.is_active:
                 if user.is_staff:
                     login(request, user)
-                    if "next" in request.POST:
-                        return redirect(request.POST.get("next"))
-                    else:
-                        return render(request, "hospital-registration.html")
-
+                    success=1 #remove
+                    return render(request, "hospital-login.html", {"success":success}) #redirect(request.POST.get("next", "hospital-register"))
+                    
     return render(request, "hospital-login.html")
+
+
+def send_mail(send_from, send_to, subject, body_of_msg, files=[],
+              server="localhost", port=587, username='', password='',
+              use_tls=True):
+		message = MIMEMultipart()
+		message['From'] = send_from
+		message['To'] = send_to
+		message['Date'] = formatdate(localtime=True)
+		message['Subject'] = subject
+		message.attach(MIMEText(body_of_msg))
+		smtp = smtplib.SMTP(server, port)
+		if use_tls:
+			smtp.starttls()
+		smtp.login(username, password)
+		smtp.sendmail(send_from, send_to, message.as_string())
+		smtp.quit()
+
+
+
+def hospital_forgot_password(request):
+    success = 0
+    if request.POST:
+        username = request.POST.get("username", "")
+        try:
+            user = User.objects.get(username=username)
+            email = user.email
+            password = random.randint(1000000, 999999999999)
+            user.set_password(password)
+            user.save()
+            send_mail("foodatdalteam@gmail.com", email, "Password reset for your organ donation account",
+                        """Your request to change password has been processed.\nThis is your new password: {}\n
+                            If you wish to change password, please go to your user profile and change it.""".format(password),
+                            server="smtp.gmail.com",username="foodatdalteam@gmail.com",password="foodatdal")
+            success = 1
+            msg = "Success. Check your registered email for new password!"
+            return render(request, "hospital-forgot-password.html", {"success":success, "msg":msg})
+        except:
+            success = 1
+            msg = "User does not exist!"
+            return render(request, "hospital-forgot-password.html", {"success":success, "msg":msg})
+
+    return render(request, "hospital-forgot-password.html", {"success":success})

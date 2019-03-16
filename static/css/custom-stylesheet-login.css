@@ -13,9 +13,17 @@ body{
 }
 
 .card-header, .card-footer{
-    color: #ffff;
+    color: #000000;
     text-align: center;
-    background-color: #007bff;;
+    background-color: #51EAEA;
+}
+
+.btn-color{
+    background-color:#51EAEA;
+}
+
+.fnt-color{
+    color: #000000;
 }
 
 .card-content{
