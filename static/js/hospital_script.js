@@ -313,6 +313,11 @@ function displaySearchResults(donors){
               dummyIndex = this.rowIndex;
               donorToContact = this.cells[2].innerHTML;
               this.cells[0].childNodes[0].checked = true;
+
+              var removeDiv = document.getElementById("details_of_donation");
+              if (removeDiv != null){
+                  removeDiv.parentNode.removeChild(removeDiv);
+              }
             }
         }
 
