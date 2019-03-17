@@ -10,6 +10,13 @@ from email.mime.text import MIMEText
 from email.utils import COMMASPACE, formatdate
 from email import encoders
 import string, secrets, ast, random
+from donors.models import DonationRequests, Appointments
+from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from io import StringIO, BytesIO
+from xhtml2pdf import pisa
+from PyPDF2 import PdfFileMerger, PdfFileReader
 
 # Create your views here.
 
@@ -90,3 +97,21 @@ def hospital_forgot_password(request):
             return render(request, "hospital-forgot-password.html", {"success":success, "msg":msg})
 
     return render(request, "hospital-forgot-password.html", {"success":success})
+
+def form_to_PDF(request, donor_id=1):
+    user = User.objects.get(username="abram") #change condition
+    donation_request = DonationRequests.objects.get(donor=user)
+    html_string = render_to_string('user-details.html', {'user': user})
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'inline; filename="report.pdf"'
+    result = BytesIO()
+    pisa.CreatePDF(html_string, result)
+    userpdf=PdfFileReader(result)
+    usermedicaldoc=donation_request.upload_medical_doc.read()
+    usermedbytes=BytesIO(usermedicaldoc)
+    usermedicalpdf=PdfFileReader(usermedbytes)
+    merger = PdfFileMerger()
+    merger.append(userpdf)
+    merger.append(usermedicalpdf)
+    merger.write(response)
+    return response

@@ -21,7 +21,11 @@ class DonationRequests(models.Model):
     request_datetime = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.donor}/{self.organ_type}"
+        return f"{self.donor.first_name}/{self.organ_type}"
+
+    class Meta: 
+        verbose_name_plural = "Donation Requests"
+        verbose_name = "Donation Requests" 
 
 class Appointments(models.Model):
 
@@ -36,3 +40,8 @@ class Appointments(models.Model):
 
     def __str__(self):
         return f"{self.donation_request}"
+    
+    class Meta: 
+        verbose_name_plural = "Appointments"
+        verbose_name = "Appointments" 
+
