@@ -237,7 +237,6 @@ function performSearch(){
     var dummyIndex;
     var donors ;
     if(checkSearchInput(searchInput)){
-        //donors= createGETRequest("http://localhost:8000/hospitals/search-donations/");
         var xhttp = new XMLHttpRequest();
         var getObject;
         const url = "http://localhost:8000/hospitals/search-donations";
@@ -298,10 +297,10 @@ function displaySearchResults(donors){
             radioBtn.setAttribute("name","radioID");
             radioBtn.className = "searchRadios";
             td0.appendChild(radioBtn);
-            td1.appendChild(document.createTextNode(donors[i].Donation_ID));
-            td2.appendChild(document.createTextNode(donors[i].Donor));
-            td3.appendChild(document.createTextNode(donors[i].Organ));
-            td4.appendChild(document.createTextNode(donors[i].Blood_Group));
+            td1.appendChild(document.createTextNode(donors[i].donation_id));
+            td2.appendChild(document.createTextNode(donors[i].donor));
+            td3.appendChild(document.createTextNode(donors[i].organ));
+            td4.appendChild(document.createTextNode(donors[i].blood_group));
             tableBody.appendChild(row);
             row.onclick = function(){
                 //removing the highlighting colour for the unselected rows
@@ -356,12 +355,32 @@ function isSearchRowSelected(){
 
 //Function to alert the user regarding donation details
 function searchDetails(){
-Swal.fire({
-      type: 'info',
-      title: 'In progress',
-      text: 'The details of the donor will be updated soon!',
-      footer: 'Thanks for your patience.'
-    });
+
+var xhttp = new XMLHttpRequest();
+        var getObject;
+        const url = "http://localhost:8000/hospitals/search-donation-details";
+        var searchParam = "?" + "keyword=" +searchInput;
+        console.log(url+searchParam);
+        xhttp.onreadystatechange = function() {
+             if (this.readyState == 4 && this.status == 200) {
+                 getObject = JSON.parse(this.responseText);
+                 console.log("Number of donations: ",getObject.length);
+                 if(getObject.length <= 0){
+                     Swal.fire({
+                        type: 'info',
+                        title: 'No donations found',
+                        text: 'Your search keyword has no donations associated with it.',
+                      });
+                 }
+                 else{
+                   displaySearchResults(getObject);
+                 }
+             }
+        };
+        xhttp.open("GET",url+searchParam, true);
+        xhttp.send();
+window.open("","_blank");
+
 }
 
 //Function to alert the user when email button is clicked
