@@ -276,4 +276,19 @@ height: 275px;
   border-radius: 9px;
 }
 
+.enable-scroll{
+overflow: auto;
+height: 850px;
+}
 
+.details-grid-container{
+  display: grid;
+  grid-template-columns: 50% 50%;
+  padding: 10px;
+}
+
+.details-grid-item{
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}

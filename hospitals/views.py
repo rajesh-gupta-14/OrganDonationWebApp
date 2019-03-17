@@ -46,7 +46,8 @@ def search_donation_details(request):
         pass
     else:
         # Fetching donation details
-        donations = DonationRequests.objects.filter(Q(id=int(1)))
+        donation_id_from_UI = request.GET.get('donation_id', '')
+        donations = DonationRequests.objects.filter(Q(id=int(donation_id_from_UI)))
         for donation in donations:
             user_name = donation.donor.username
             temp_dict = {}
@@ -58,7 +59,7 @@ def search_donation_details(request):
             temp_dict["email"] = donation.donor.email
             temp_dict["contact_number"] = donation.donor.contact_number
             temp_dict["city"] = donation.donor.city
-            temp_dict["country"] = donation.donor.city
+            temp_dict["country"] = donation.donor.country
             temp_dict["province"] = donation.donor.province
             # Donation details
             temp_dict["organ"] = donation.organ_type
@@ -68,10 +69,9 @@ def search_donation_details(request):
             temp_dict["family_member_name"] = donation.family_relation_name
             temp_dict["family_member_relation"] = donation.family_relation
             temp_dict["family_member_contact"] = donation.family_contact_number
-
-        donation_list.append(temp_dict)
-        donation_details = json.dumps(donation_list)
-    return HttpResponse(donation_details)
+            donation_list.append(temp_dict)
+            donation_details = json.dumps(donation_list)
+        return HttpResponse(donation_details)
 
 
 def approve_appointments(request):
