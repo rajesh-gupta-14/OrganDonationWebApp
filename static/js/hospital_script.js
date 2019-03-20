@@ -4,6 +4,7 @@
 var appointmentLink = document.getElementById("appointDiv");
 appointmentLink.onclick = function(){
       $('[href="#appointment_approvals"]').tab('show');
+      fetchAppointments();
 }
 //Switching to donation approval tabs on clicking the card
 var donationLink = document.getElementById("donationsDiv");
@@ -34,11 +35,86 @@ clearButton.addEventListener("click", clearUpdatedDetails);
 
 //Appointment approval page
 var appointmentTable = document.getElementById("appointmentTable"),rIndex;
+var appointmentTab = document.getElementById("appointmentTab");
 var isAppointmentRowSelected = false;
 var donorName;
+appointmentTab.addEventListener("click", fetchAppointments);
+
+function fetchAppointments(){
+var xhttp = new XMLHttpRequest();
+        var getObject;
+        const url = "http://localhost:8000/hospitals/fetch-appointments";
+        //var searchParam = "?" + "keyword=" +searchInput;
+        //console.log(url+searchParam);
+        xhttp.onreadystatechange = function() {
+             if (this.readyState == 4 && this.status == 200) {
+                 getObject = JSON.parse(this.responseText);
+                 console.log("Number of appointments: ",getObject.length);
+                 if(getObject.length <= 0){
+                     Swal.fire({
+                        type: 'info',
+                        title: 'No appointments found',
+                      });
+                 }
+                 else{
+                   displayAppointments(getObject);
+                 }
+             }
+        };
+        xhttp.open("GET",url, true);
+        xhttp.send();
+}
+
+function displayAppointments(appointments){
+        var appointmentTable = document.getElementById("appointmentTable");
+        var tableBody = document.getElementById("appointmentsTableBody");
+        var rowLength = tableBody.getElementsByTagName("tr").length;
+
+        //Removing previous search results
+        if(rowLength > 0){
+          while(tableBody.hasChildNodes()){
+           tableBody.removeChild(tableBody.lastChild);
+          }
+        }
+
+        for(var i = 0; i < appointments.length ; i++){
+            var row = document.createElement("tr");
+            row.className = "selectable_row";
+            var td0 = row.insertCell();
+            var td1 = row.insertCell();
+            var td2 = row.insertCell();
+            var td3 = row.insertCell();
+            var td4 = row.insertCell();
+            var td5 = row.insertCell();
+            var radioBtn = document.createElement("input");
+            radioBtn.setAttribute("type","radio");
+            radioBtn.setAttribute("name","radioID");
+            radioBtn.className = "appointRadios";
+            td0.appendChild(radioBtn);
+            td1.appendChild(document.createTextNode(appointments[i].appointment_id));
+            td2.appendChild(document.createTextNode(appointments[i].first_name + " " + appointments[i].last_name));
+            td3.appendChild(document.createTextNode(appointments[i].organ));
+            td4.appendChild(document.createTextNode(appointments[i].date));
+            td5.appendChild(document.createTextNode(appointments[i].time));
+            tableBody.appendChild(row);
+            row.onclick = function(){
+                //removing the highlighting colour for the unselected rows
+                if(typeof rIndex !== "undefined"){
+            appointmentTable.rows[rIndex].classList.toggle("blue");
+            this.cells[0].childNodes[0].checked = false;
+        }
+        //highlighting the selected row and enabling the corresponding radio button
+              rIndex = this.rowIndex;
+              this.classList.toggle("blue");
+              donorName = this.cells[2].innerHTML;
+              this.cells[0].childNodes[0].checked = true;
+
+            }
+        }
+}
 
 //Row selection for appointment approval table
-for(var i = 0; i < appointmentTable.rows.length; i++){
+/*for(var i = 0; i < appointmentTable.rows.length; i++){
     appointmentTable.rows[i].onclick=function(){
         //removing the highlighting colour for the unselected rows
         if(this.rowIndex !== 0){
@@ -57,7 +133,7 @@ for(var i = 0; i < appointmentTable.rows.length; i++){
         }
 
     };
-}
+}*/
 var appointmentDetailsBtn = document.getElementById("appointmentDtls");
 var appointmentAcceptBtn = document.getElementById("appointmentApprv");
 var appointmentDenyBtn = document.getElementById("appointmentDeny");
@@ -87,16 +163,21 @@ function acceptAppointment(){
     });
    }
    else{
-      Swal.fire({
-      type: 'success',
-      title: 'Done',
-      text: donorName+ "\'s appointment has been approved!",
-      footer: 'Next step: The donation can now be accepted or denied under the pending donations approval tab.'
-    });
-      appointmentTable.deleteRow(rIndex);
-      rIndex = undefined;
+      //Fetching the appointment ID of the selected row
+        var radiosAppointment = document.getElementsByClassName("appointRadios");
+        for(var i = 0; i<radiosAppointment.length;i++){
+         if(radiosAppointment[i].type === "radio" && radiosAppointment[i].checked){
+               dummy = ++i;
+         }
+       }
+        appointmentID = appointmentTable.rows[dummy].cells[1].innerHTML;
+        console.log("appointment Id: " +appointmentID);
+
+      createPOSTRequest("http://localhost:8000/hospitals/appointments-approval/",true,true,appointmentID);
+
    }
 }
+
 
 //Function to alert the user when appointment is denied
 function denyAppointment(){
@@ -110,21 +191,145 @@ function denyAppointment(){
     });
    }
    else{
-      Swal.fire("Done",donorName+ "\'s appointment has been denied!","success");
-      appointmentTable.deleteRow(rIndex);
-      rIndex = undefined;
+     var radiosAppointment = document.getElementsByClassName("appointRadios");
+        for(var i = 0; i<radiosAppointment.length;i++){
+         if(radiosAppointment[i].type === "radio" && radiosAppointment[i].checked){
+               dummy = ++i;
+         }
+       }
+        appointmentID = appointmentTable.rows[dummy].cells[1].innerHTML;
+        console.log("appointment Id: " +appointmentID);
+
+      createPOSTRequest("http://localhost:8000/hospitals/appointments-approval/",true,false,appointmentID);
    }
 }
 
 //Function to alert the user regarding details
 function detailsOfAppointment(){
-Swal.fire({
-      type: 'info',
-      title: 'In progress',
-      text: 'The details of the appointment will be updated soon!',
-      footer: 'Thanks for your patience.'
-    });
+        var appointmentID;
+        var dummy;
+
+        //Fetching the appointment ID of the selected row
+        var radiosAppointment = document.getElementsByClassName("appointRadios");
+        for(var i = 0; i<radiosAppointment.length;i++){
+         if(radiosAppointment[i].type === "radio" && radiosAppointment[i].checked){
+               dummy = ++i;
+         }
+       }
+        appointmentID = appointmentTable.rows[dummy].cells[1].innerHTML;
+        console.log("appointment Id: " +appointmentID);
+
+        var xhttp = new XMLHttpRequest();
+        var getObject;
+        const url = "http://localhost:8000/hospitals/fetch-appointment-details";
+        var searchParam = "?" + "appointment_id=" +appointmentID;
+        //console.log(url+searchParam);
+        xhttp.onreadystatechange = function() {
+             if (this.readyState == 4 && this.status == 200) {
+                 getObject = JSON.parse(this.responseText);
+                 console.log("Number of appointments: ",getObject.length);
+                 displayAppointmentDetails(getObject);
+
+             }
+        };
+        xhttp.open("GET",url+searchParam, true);
+        xhttp.send();
 }
+
+
+function displayAppointmentDetails(appointment){
+
+var appointmentDiv = document.getElementById("appointment_approvals");
+
+  var removeDiv = document.getElementById("details_of_appointment");
+  if (removeDiv != null){
+      removeDiv.parentNode.removeChild(removeDiv);
+  }
+  var appointmentDetailsDiv = document.createElement("div");
+  appointmentDetailsDiv.classList = "card";
+  appointmentDetailsDiv.classList = "top";
+  appointmentDetailsDiv.id = "details_of_appointment";
+  var firstDivChild = document.createElement("div");
+  firstDivChild.className = "card-header";
+  firstDivChild.appendChild(document.createTextNode("Appointment Details"));
+
+  var secondDivChild = document.createElement("div");
+  secondDivChild.className = "card-body";
+
+  //Donor details
+  var gridContainerDiv = document.createElement("div");
+  gridContainerDiv.className = "details-grid-container";
+
+  var gridItem1 = document.createElement("div");
+  gridItem1.className = ".details-grid-item";
+
+  var firstName = document.createElement("p");
+  firstName.className = "card-text";
+  firstName.appendChild(document.createTextNode("First Name: " +appointment[0].first_name));
+  gridItem1.appendChild(firstName);
+
+  var lastName = document.createElement("p");
+  lastName.className = "card-text";
+  lastName.appendChild(document.createTextNode("Last Name: " +appointment[0].last_name));
+  gridItem1.appendChild(lastName);
+
+  var contactNo = document.createElement("p");
+  contactNo.className = "card-text";
+  contactNo.appendChild(document.createTextNode("Contact Number: " +appointment[0].contact_number));
+  gridItem1.appendChild(contactNo);
+
+  var email = document.createElement("p");
+  email.className = "card-text";
+  email.appendChild(document.createTextNode("Email: " +appointment[0].email));
+  gridItem1.appendChild(email);
+
+  var city = document.createElement("p");
+  city.className = "card-text";
+  city.appendChild(document.createTextNode("City: " +appointment[0].city));
+  gridItem1.appendChild(city);
+
+  var country = document.createElement("p");
+  country.className = "card-text";
+  country.appendChild(document.createTextNode("Country: " +appointment[0].country));
+  gridItem1.appendChild(country);
+
+  var province = document.createElement("p");
+  province.className = "card-text";
+  province.appendChild(document.createTextNode("Province: " +appointment[0].province));
+  gridItem1.appendChild(province);
+
+  var gridItem2 = document.createElement("div");
+  gridItem2.className = ".details-grid-item";
+
+  var appointment_status = document.createElement("p");
+  appointment_status.className = "card-text";
+  appointment_status.appendChild(document.createTextNode("Appointment Status: " +appointment[0].appointment_status));
+  gridItem2.appendChild(appointment_status);
+
+  var date = document.createElement("p");
+  date.className = "card-text";
+  date.appendChild(document.createTextNode("Appointment Date: " +appointment[0].date));
+  gridItem2.appendChild(date);
+
+  var time = document.createElement("p");
+  time.className = "card-text";
+  time.appendChild(document.createTextNode("Appointment Time: " +appointment[0].time));
+  gridItem2.appendChild(time);
+
+  var organ = document.createElement("p");
+  organ.className = "card-text";
+  organ.appendChild(document.createTextNode("Organ: " +appointment[0].organ));
+  gridItem2.appendChild(organ);
+
+  gridContainerDiv.appendChild(gridItem1);
+  gridContainerDiv.appendChild(gridItem2);
+  secondDivChild.appendChild(gridContainerDiv);
+  appointmentDetailsDiv.appendChild(firstDivChild);
+  appointmentDetailsDiv.appendChild(secondDivChild);
+
+  appointmentDiv.appendChild(appointmentDetailsDiv);
+}
+
 
 appointmentAcceptBtn.addEventListener("click", acceptAppointment);
 appointmentDetailsBtn.addEventListener("click", detailsOfAppointment);
@@ -358,7 +563,6 @@ function isSearchRowSelected(){
 function searchDetails(){
 
 var xhttp = new XMLHttpRequest();
-        var getObject;
         var donationId;
         var dummy;
 
@@ -582,14 +786,46 @@ function createGETRequest(url){
     return getObject;
 }
 
-function createPOSTRequest(url){
+function createPOSTRequest(url,isAppointment,isAccept,id){
+  console.log("Is appointment: " +isAppointment);
+  console.log("Is accept: " +isAccept);
+  console.log("ID: " +id);
   var xhttp = new XMLHttpRequest();
+  var actionToPerform;
+  if(isAccept){
+  actionToPerform = "Approved";
+  }
+  else{
+    actionToPerform = "Denied";
+  }
+  console.log("ID=" +id+ "&action=" +actionToPerform);
     xhttp.onreadystatechange = function() {
          if (this.readyState == 4 && this.status == 200) {
-             alert(this.responseText);
+             if(isAppointment && isAccept){
+              Swal.fire({
+              type: 'success',
+              title: 'Done',
+              text: donorName+ "\'s appointment has been approved!",
+              footer: 'Next step: The donation can now be accepted or denied under the pending donations approval tab.'
+            });
+              appointmentTable.deleteRow(rIndex);
+              rIndex = undefined;
+             }
+             else if(isAppointment && !isAccept){
+                Swal.fire("Done",donorName+ "\'s appointment has been denied!","success");
+                appointmentTable.deleteRow(rIndex);
+                rIndex = undefined;
+             }
+             else if(!isAppointment && isAccept){
+
+             }
+              else if(!isAppointment && !isAccept){
+
+             }
          }
     };
-    xhttp.open("POST", "Your Rest URL Here", true);
-    xhttp.setRequestHeader("Content-type", "application/json");
-    xhttp.send("Your JSON Data Here");
+    xhttp.open("POST",url,true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("ID=" +id+ "&action=" +actionToPerform);
+
 }

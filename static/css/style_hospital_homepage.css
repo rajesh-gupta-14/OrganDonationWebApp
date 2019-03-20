@@ -247,9 +247,7 @@ height: 275px;
   display: flex;
 }
  .update-flex-child2{
-  justify-content: center;
-  align-items: center;
-  align-self: center;
+   text-align: center;
  }
 .selectable_row{
   cursor:pointer;
@@ -291,4 +289,17 @@ height: 850px;
   padding: 20px;
   font-size: 30px;
   text-align: center;
+}
+
+.details-grid-item2{
+  padding: 20px;
+  text-align: center;
+}
+
+.card{
+  cursor: pointer;
+}
+
+.card:hover{
+ box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
 }

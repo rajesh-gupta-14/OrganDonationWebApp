@@ -33,6 +33,7 @@ class Appointments(models.Model):
               ("Denied", "Denied")
               ]
     donation_request = models.ForeignKey(DonationRequests, on_delete=models.CASCADE)
+    appointment_status = models.CharField(max_length=20, choices=STATUS, blank=False, null=False)
     hospital = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.CharField(max_length=100, blank=False, null=False)
     time = models.CharField(max_length=100, blank=False, null=False)

@@ -32,13 +32,26 @@
 <!-- Tab content for the Action item page starts -->
     <div id="home" class="tab-pane active">
       <div class = "flex_container">
+
       <div class = "top summary"><h3>Summary of action items</h3></div>
-      <div class = "card_container top">
-      <div class = "zone blue text-size" id = "appointDiv"> <p>You have 8 appointments to approve. Click on the card to proceed.</p> </div>
-      <div class = "zone blue text-size" id = "donationsDiv"> <p>You have 3 donations to approve. Click on the card to proceed.</p> </div>
+      <div class = "card_container top details-grid-container">
+      <div class="card text-white bg-primary mb-3 details-grid-item2" style="max-width: 18rem;" id = "appointDiv">
+      <div class="card-header">Action Item 1</div>
+      <div class="card-body">
+      <h5 class="card-title">Pending appointments</h5>
+      <p class="card-text">You have 8 appointments to approve. Click on the card to proceed.</p>
+      </div>
+      </div>
+      <div class="card text-white bg-primary mb-3 details-grid-item2" style="max-width: 18rem;" id = "donationsDiv">
+      <div class="card-header">Action Item 2</div>
+      <div class="card-body">
+      <h5 class="card-title">Pending donations</h5>
+      <p class="card-text">You have 5 donations to approve. Click on the card to proceed.</p>
+      </div>
       </div>
     </div>
     </div>
+  </div>
     <!-- Tab content for the Action item page ends -->
     <div id="appointment_approvals" class="tab-pane fade">
       <!-- Tab content for the Pending appointments page starts -->
@@ -56,71 +69,8 @@
             <th scope="col">Appointment time</th>
           </tr>
         </thead>
-        <tbody>
-          <tr class = "selectable_row">
-            <td><input type="radio" name="radioID" class="appointRadios"></td>
-            <td>1</td>
-            <td>Ross Geller</td>
-            <td>Kidney</td>
-            <td>11 Feb 2019</td>
-            <td>03:45 PM</td>
-          </tr>
-          <tr class = "selectable_row">
-            <td><input type="radio" name="radioID" class="appointRadios"></td>
-            <td>2</td>
-            <td>Rachel Green</td>
-            <td>Kidney</td>
-            <td>12 Feb 2019</td>
-            <td>01:15 PM</td>
-          </tr>
-          <tr class = "selectable_row">
-            <td><input type="radio" name="radioID" class="appointRadios"></td>
-            <td>3</td>
-            <td>Chandler Bing</td>
-            <td>Kidney</td>
-            <td>12 Feb 2019</td>
-            <td>09:40 AM</td>
-          </tr>
-          <tr class = "selectable_row">
-            <td><input type="radio" name="radioID" class="appointRadios"></td>
-            <td>4</td>
-            <td>Michel Scott</td>
-            <td>Liver</td>
-            <td>15 Feb 2019</td>
-            <td>11:30 PM</td>
-          </tr>
-          <tr class = "selectable_row">
-            <td><input type="radio" name="radioID" class="appointRadios"></td>
-            <td>5</td>
-            <td>Dwight Schrute</td>
-            <td>Pancreas</td>
-            <td>15 Feb 2019</td>
-            <td>01:00 PM</td>
-          </tr>
-          <tr class = "selectable_row">
-            <td><input type="radio" name="radioID" class="appointRadios"></td>
-            <td>6</td>
-            <td>Pam Beasley</td>
-            <td>Kidney</td>
-            <td>16 Feb 2019</td>
-            <td>11:00 AM</td>
-          </tr>
-          <tr class = "selectable_row">
-            <td><input type="radio" name="radioID" class="appointRadios"></td>
-            <td>7</td>
-            <td>Kevin Malone</td>
-            <td>Liver</td>
-            <td>18 Feb 2019</td>
-            <td>02:00 PM</td>
-          </tr>
-          <tr class = "selectable_row">
-            <td><input type="radio" name="radioID" class="appointRadios"></td>
-            <td>8</td>
-            <td>Andy Bernard</td>
-            <td>Liver</td>
-            <td>18 Feb 2019</td>
-            <td>03:00 PM</td>
-          </tr>
+        <tbody id="appointmentsTableBody">
+
         </tbody>
       </table>
       </div>
