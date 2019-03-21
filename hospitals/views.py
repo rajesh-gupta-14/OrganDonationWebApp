@@ -49,28 +49,28 @@ def search_donation_details(request):
     else:
         # Fetching donation details
         donation_id_from_UI = request.GET.get('donation_id', '')
-        donations = DonationRequests.objects.filter(Q(id=int(donation_id_from_UI)))
+        donations = Appointments.objects.filter(Q(donation_request__id=int(donation_id_from_UI)))
         donation_list = []
         for donation in donations:
-            user_name = donation.donor.username
             temp_dict = {}
             # Donor details
-            temp_dict["user_name"] = donation.donor.username
-            temp_dict["first_name"] = donation.donor.first_name
-            temp_dict["last_name"] = donation.donor.last_name
-            temp_dict["email"] = donation.donor.email
-            temp_dict["contact_number"] = donation.donor.contact_number
-            temp_dict["city"] = donation.donor.city
-            temp_dict["country"] = donation.donor.country
-            temp_dict["province"] = donation.donor.province
+            temp_dict["user_name"] = donation.donation_request.donor.username
+            temp_dict["first_name"] = donation.donation_request.donor.first_name
+            temp_dict["last_name"] = donation.donation_request.donor.last_name
+            temp_dict["email"] = donation.donation_request.donor.email
+            temp_dict["contact_number"] = donation.donation_request.donor.contact_number
+            temp_dict["city"] = donation.donation_request.donor.city
+            temp_dict["country"] = donation.donation_request.donor.country
+            temp_dict["province"] = donation.donation_request.donor.province
             # Donation details
-            temp_dict["organ"] = donation.organ_type
-            temp_dict["donation_id"] = donation.id
-            temp_dict["blood_group"] = donation.blood_type
-            temp_dict["donation_status"] = donation.donation_status
-            temp_dict["family_member_name"] = donation.family_relation_name
-            temp_dict["family_member_relation"] = donation.family_relation
-            temp_dict["family_member_contact"] = donation.family_contact_number
+            temp_dict["organ"] = donation.donation_request.organ_type
+            temp_dict["donation_id"] = donation.donation_request.id
+            temp_dict["blood_group"] = donation.donation_request.blood_type
+            temp_dict["donation_status"] = donation.donation_request.donation_status
+            temp_dict["approved_by"] = donation.hospital.hospital_name
+            temp_dict["family_member_name"] = donation.donation_request.family_relation_name
+            temp_dict["family_member_relation"] = donation.donation_request.family_relation
+            temp_dict["family_member_contact"] = donation.donation_request.family_contact_number
             donation_list.append(temp_dict)
         donation_details = json.dumps(donation_list)
         return HttpResponse(donation_details)
@@ -99,6 +99,33 @@ def fetch_appointments(request):
             temp_dict["appointment_status"] = appointment.appointment_status
             appointment_list.append(temp_dict)
         appointment_details = json.dumps(appointment_list)
+        return HttpResponse(appointment_details)
+
+
+def fetch_donations(request):
+    if request.POST:
+        pass
+    else:
+        donation_status = "Pending"
+        appointment_status = "Approved"
+        appointments = Appointments.objects.filter(Q(hospital__hospital_name__iexact="IWK Health Centre") & Q(appointment_status__iexact=appointment_status) & Q(donation_request__donation_status__iexact=donation_status))
+        appointment_list = []
+        for appointment in appointments:
+            temp_dict = {}
+            temp_dict["first_name"] = appointment.donation_request.donor.first_name
+            temp_dict["last_name"] = appointment.donation_request.donor.last_name
+            # Donation details
+            temp_dict["organ"] = appointment.donation_request.organ_type
+            temp_dict["donation_id"] = appointment.donation_request.id
+            temp_dict["blood_group"] = appointment.donation_request.blood_type
+            # Appointment details
+            temp_dict["appointment_id"] = appointment.id
+            temp_dict["date"] = appointment.date
+            temp_dict["time"] = appointment.time
+            temp_dict["appointment_status"] = appointment.appointment_status
+            appointment_list.append(temp_dict)
+        appointment_details = json.dumps(appointment_list)
+
         return HttpResponse(appointment_details)
 
 
@@ -139,6 +166,39 @@ def fetch_appointment_details(request):
         return HttpResponse(appointment_details)
 
 
+def fetch_donation_details(request):
+    if request.POST:
+        pass
+    else:
+        # Fetching donation details
+        donation_id_from_UI = request.GET.get('donation_id', '')
+        print('donation id', donation_id_from_UI)
+        donations = DonationRequests.objects.filter(Q(id=int(donation_id_from_UI)))
+        donation_list = []
+        for donation in donations:
+            # Donor details
+            temp_dict = {}
+            temp_dict["first_name"] = donation.donor.first_name
+            temp_dict["last_name"] = donation.donor.last_name
+            temp_dict["email"] = donation.donor.email
+            temp_dict["contact_number"] = donation.donor.contact_number
+            temp_dict["city"] = donation.donor.city
+            temp_dict["country"] = donation.donor.country
+            temp_dict["province"] = donation.donor.province
+            # Donation details
+            temp_dict["organ"] = donation.organ_type
+            temp_dict["donation_id"] = donation.id
+            temp_dict["blood_group"] = donation.blood_type
+            temp_dict["donation_status"] = donation.donation_status
+            temp_dict["family_member_name"] = donation.family_relation_name
+            temp_dict["family_member_relation"] = donation.family_relation
+            temp_dict["family_member_contact"] = donation.family_contact_number
+
+            donation_list.append(temp_dict)
+        donation_details = json.dumps(donation_list)
+        return HttpResponse(donation_details)
+
+
 @csrf_exempt
 def approve_appointments(request):
     if request.POST:
@@ -152,7 +212,14 @@ def approve_appointments(request):
     return HttpResponse("success")
 
 
+@csrf_exempt
 def approve_donations(request):
     if request.POST:
-        pass
-    return render(request, "hospital-main-page.html")
+        donation_id_from_UI = request.POST.get('ID', '')
+        actionToPerform = request.POST.get('action', '')
+        print('donation id', donation_id_from_UI)
+        print('actionToPerform', actionToPerform)
+        donation = get_object_or_404(DonationRequests, id=donation_id_from_UI)
+        donation.donation_status = actionToPerform
+        donation.save(update_fields=["donation_status"])
+    return HttpResponse("success")

@@ -10,6 +10,7 @@ appointmentLink.onclick = function(){
 var donationLink = document.getElementById("donationsDiv");
 donationLink.onclick = function(){
       $('[href="#donation_approvals"]').tab('show');
+      fetchDonations();
 }
 
 
@@ -165,6 +166,7 @@ function acceptAppointment(){
    else{
       //Fetching the appointment ID of the selected row
         var radiosAppointment = document.getElementsByClassName("appointRadios");
+        var appointmentID;
         for(var i = 0; i<radiosAppointment.length;i++){
          if(radiosAppointment[i].type === "radio" && radiosAppointment[i].checked){
                dummy = ++i;
@@ -338,9 +340,84 @@ appointmentDenyBtn.addEventListener("click", denyAppointment);
 //Donation approval page
 
 var donationTable = document.getElementById("donationTable"),dIndex;
+var donationTab = document.getElementById("donationTab");
 var donorNameforDonation;
+donationTab.addEventListener("click", fetchDonations);
 
-//Row selection for donation approval table
+function fetchDonations(){
+var xhttp = new XMLHttpRequest();
+var getObject;
+        const url = "http://localhost:8000/hospitals/fetch-donations";
+        //var searchParam = "?" + "keyword=" +searchInput;
+        console.log(url);
+        xhttp.onreadystatechange = function() {
+             if (this.readyState == 4 && this.status == 200) {
+                 getObject = JSON.parse(this.responseText);
+                 console.log("Number of donations: ",getObject.length);
+                 if(getObject.length <= 0){
+                     Swal.fire({
+                        type: 'info',
+                        title: 'No donations found',
+                      });
+                 }
+                 else{
+                   displayDonations(getObject);
+                 }
+             }
+        };
+        xhttp.open("GET",url, true);
+        xhttp.send();
+}
+
+
+function displayDonations(donations){
+        var donationTable = document.getElementById("donationTable");
+        var tableBody = document.getElementById("donationTableBody");
+        var rowLength = tableBody.getElementsByTagName("tr").length;
+
+        //Removing previous search results
+        if(rowLength > 0){
+          while(tableBody.hasChildNodes()){
+           tableBody.removeChild(tableBody.lastChild);
+          }
+        }
+
+        for(var i = 0; i < donations.length ; i++){
+            var row = document.createElement("tr");
+            row.className = "selectable_row";
+            var td0 = row.insertCell();
+            var td1 = row.insertCell();
+            var td2 = row.insertCell();
+            var td3 = row.insertCell();
+            var td4 = row.insertCell();
+            var radioBtn = document.createElement("input");
+            radioBtn.setAttribute("type","radio");
+            radioBtn.setAttribute("name","radioID");
+            radioBtn.className = "selectionRadios";
+            td0.appendChild(radioBtn);
+            td1.appendChild(document.createTextNode(donations[i].donation_id));
+            td2.appendChild(document.createTextNode(donations[i].first_name + " " + donations[i].last_name));
+            td3.appendChild(document.createTextNode(donations[i].organ));
+            td4.appendChild(document.createTextNode(donations[i].blood_group));
+            tableBody.appendChild(row);
+            row.onclick = function(){
+                //removing the highlighting colour for the unselected rows
+                if(typeof dIndex !== "undefined"){
+            donationTable.rows[dIndex].classList.toggle("blue");
+            this.cells[0].childNodes[0].checked = false;
+        }
+        //highlighting the selected row and enabling the corresponding radio button
+              dIndex = this.rowIndex;
+              this.classList.toggle("blue");
+              donorNameforDonation = this.cells[2].innerHTML;
+              this.cells[0].childNodes[0].checked = true;
+
+            }
+        }
+}
+
+
+/*//Row selection for donation approval table
 for(var i = 0; i < donationTable.rows.length; i++){
     donationTable.rows[i].onclick=function(){
         if(this.rowIndex !== 0){
@@ -358,7 +435,7 @@ for(var i = 0; i < donationTable.rows.length; i++){
         this.cells[0].childNodes[0].checked = true;
     }
     };
-}
+}*/
 var donationDetailsBtn = document.getElementById("donationDtls");
 var donationAcceptBtn = document.getElementById("donationApprv");
 var donationDenyBtn = document.getElementById("donationDeny");
@@ -386,14 +463,20 @@ function acceptDonation(){
     });
    }
    else{
-      Swal.fire({
-      type: 'success',
-      title: 'Done',
-      text: donorNameforDonation+ "\'s donation has been approved!",
-      footer: 'Next step: The donation can now be searched under the search donations tab.'
-    });
-      donationTable.deleteRow(dIndex);
-      dIndex = undefined;
+
+     //Fetching the donation ID of the selected row
+        var donationID;
+        var radioDonations = document.getElementsByClassName("selectionRadios");
+        for(var i = 0; i<radioDonations.length;i++){
+         if(radioDonations[i].type === "radio" && radioDonations[i].checked){
+               dummy = ++i;
+         }
+       }
+        donationID = donationTable.rows[dummy].cells[1].innerHTML;
+        console.log("donation Id: " +donationID);
+
+      createPOSTRequest("http://localhost:8000/hospitals/donations-approval/",false,true,donationID);
+
    }
 }
 
@@ -408,21 +491,165 @@ function denyDonation(){
     });
    }
    else{
-      Swal.fire("Done",donorNameforDonation+ "\'s donation has been denied!","success");
-      donationTable.deleteRow(dIndex);
-      dIndex = undefined;
+
+      //Fetching the donation ID of the selected row
+        var donationID;
+        var radioDonations = document.getElementsByClassName("selectionRadios");
+        for(var i = 0; i<radioDonations.length;i++){
+         if(radioDonations[i].type === "radio" && radioDonations[i].checked){
+               dummy = ++i;
+         }
+       }
+        donationID = donationTable.rows[dummy].cells[1].innerHTML;
+        console.log("donation Id: " +donationID);
+
+      createPOSTRequest("http://localhost:8000/hospitals/donations-approval/",false,false,donationID);
    }
 }
 
 
 function detailsOfDonation(){
-Swal.fire({
-      type: 'info',
-      title: 'In progress',
-      text: 'The details of the donation will be updated soon!',
-      footer: 'Thanks for your patience.'
-    });
+        var donationID;
+        var dummy;
+
+        //Fetching the appointment ID of the selected row
+        var radiosAppointment = document.getElementsByClassName("selectionRadios");
+        for(var i = 0; i<radiosAppointment.length;i++){
+         if(radiosAppointment[i].type === "radio" && radiosAppointment[i].checked){
+               dummy = ++i;
+         }
+       }
+        donationID = donationTable.rows[dummy].cells[1].innerHTML;
+        console.log("donationID: " +donationID);
+
+        var xhttp = new XMLHttpRequest();
+        var getObject;
+        const url = "http://localhost:8000/hospitals/fetch-donation-details";
+        var searchParam = "?" + "donation_id=" +donationID;
+        //console.log(url+searchParam);
+        xhttp.onreadystatechange = function() {
+             if (this.readyState == 4 && this.status == 200) {
+                 getObject = JSON.parse(this.responseText);
+                 console.log("Number of donations: ",getObject.length);
+                 displayDonationDetails(getObject);
+
+             }
+        };
+        xhttp.open("GET",url+searchParam, true);
+        xhttp.send();
 }
+
+
+function displayDonationDetails(donation){
+
+var donationDiv = document.getElementById("donation_approvals");
+
+  var removeDiv = document.getElementById("details_of_donation");
+  if (removeDiv != null){
+      removeDiv.parentNode.removeChild(removeDiv);
+  }
+  var donationDetailsDiv = document.createElement("div");
+  donationDetailsDiv.classList = "card";
+  donationDetailsDiv.classList = "top";
+  donationDetailsDiv.id = "details_of_donation";
+  var firstDivChild = document.createElement("div");
+  firstDivChild.className = "card-header";
+  firstDivChild.appendChild(document.createTextNode("Donation Details"));
+
+  var secondDivChild = document.createElement("div");
+  secondDivChild.className = "card-body";
+
+  //Donor details
+  var gridContainerDiv = document.createElement("div");
+  gridContainerDiv.className = "details-grid-container";
+
+  var gridItem1 = document.createElement("div");
+  gridItem1.className = ".details-grid-item";
+
+  var firstName = document.createElement("p");
+  firstName.className = "card-text";
+  firstName.appendChild(document.createTextNode("First Name: " +donation[0].first_name));
+  gridItem1.appendChild(firstName);
+
+  var lastName = document.createElement("p");
+  lastName.className = "card-text";
+  lastName.appendChild(document.createTextNode("Last Name: " +donation[0].last_name));
+  gridItem1.appendChild(lastName);
+
+  var contactNo = document.createElement("p");
+  contactNo.className = "card-text";
+  contactNo.appendChild(document.createTextNode("Contact Number: " +donation[0].contact_number));
+  gridItem1.appendChild(contactNo);
+
+  var email = document.createElement("p");
+  email.className = "card-text";
+  email.appendChild(document.createTextNode("Email: " +donation[0].email));
+  gridItem1.appendChild(email);
+
+  var city = document.createElement("p");
+  city.className = "card-text";
+  city.appendChild(document.createTextNode("City: " +donation[0].city));
+  gridItem1.appendChild(city);
+
+  var country = document.createElement("p");
+  country.className = "card-text";
+  country.appendChild(document.createTextNode("Country: " +donation[0].country));
+  gridItem1.appendChild(country);
+
+  var province = document.createElement("p");
+  province.className = "card-text";
+  province.appendChild(document.createTextNode("Province: " +donation[0].province));
+  gridItem1.appendChild(province);
+
+  var gridItem2 = document.createElement("div");
+  gridItem2.className = ".details-grid-item";
+
+  var donation_id = document.createElement("p");
+  donation_id.className = "card-text";
+  donation_id.appendChild(document.createTextNode("Donation ID: " +donation[0].donation_id));
+  gridItem2.appendChild(donation_id);
+
+  var donation_status = document.createElement("p");
+  donation_status.className = "card-text";
+  donation_status.appendChild(document.createTextNode("Donation Status: " +donation[0].donation_status));
+  gridItem2.appendChild(donation_status);
+
+  var organ = document.createElement("p");
+  organ.className = "card-text";
+  organ.appendChild(document.createTextNode("Organ: " +donation[0].organ));
+  gridItem2.appendChild(organ);
+
+  var blood = document.createElement("p");
+  blood.className = "card-text";
+  blood.appendChild(document.createTextNode("Blood type: " +donation[0].blood_group));
+  gridItem2.appendChild(blood);
+
+  var family_member_name = document.createElement("p");
+  family_member_name.className = "card-text";
+  family_member_name.appendChild(document.createTextNode("Family Member Name: " +donation[0].family_member_name));
+  gridItem2.appendChild(family_member_name);
+
+  var family_member_relation = document.createElement("p");
+  family_member_relation.className = "card-text";
+  family_member_relation.appendChild(document.createTextNode("Family Member Relation: " +donation[0].family_member_relation));
+  gridItem2.appendChild(family_member_relation);
+
+  var family_member_contact = document.createElement("p");
+  family_member_contact.className = "card-text";
+  family_member_contact.appendChild(document.createTextNode("Family Member Contact: " +donation[0].family_member_contact));
+  gridItem2.appendChild(family_member_contact);
+
+
+  gridContainerDiv.appendChild(gridItem1);
+  gridContainerDiv.appendChild(gridItem2);
+  secondDivChild.appendChild(gridContainerDiv);
+  donationDetailsDiv.appendChild(firstDivChild);
+  donationDetailsDiv.appendChild(secondDivChild);
+
+  donationDiv.appendChild(donationDetailsDiv);
+}
+
+
 
 donationDetailsBtn.addEventListener("click", detailsOfDonation);
 donationAcceptBtn.addEventListener("click", acceptDonation);
@@ -690,6 +917,11 @@ donation_status.className = "card-text";
 donation_status.appendChild(document.createTextNode("Donation Status: " +donationDetails[0].donation_status));
 gridItem3.appendChild(donation_status);
 
+var approved_by = document.createElement("p");
+approved_by.className = "card-text";
+approved_by.appendChild(document.createTextNode("Approved by: " +donationDetails[0].approved_by));
+gridItem3.appendChild(approved_by);
+
 var gridItem4 = document.createElement("div");
 gridItem4.className = ".details-grid-item";
 
@@ -817,10 +1049,20 @@ function createPOSTRequest(url,isAppointment,isAccept,id){
                 rIndex = undefined;
              }
              else if(!isAppointment && isAccept){
+               Swal.fire({
+              type: 'success',
+              title: 'Done',
+              text: donorNameforDonation+ "\'s donation has been approved!",
+              footer: 'Next step: The donation can now be searched under the search donations tab.'
+            });
+              donationTable.deleteRow(dIndex);
+              dIndex = undefined;
 
              }
               else if(!isAppointment && !isAccept){
-
+                Swal.fire("Done",donorNameforDonation+ "\'s donation has been denied!","success");
+              donationTable.deleteRow(dIndex);
+              dIndex = undefined;
              }
          }
     };
