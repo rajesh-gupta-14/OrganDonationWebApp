@@ -46,6 +46,10 @@ def donor_login(request):
                 if not user.is_staff:
                     login(request, user)
                     return redirect(request.POST.get("next","donor-profile-update"))
+        else:
+            msg="Invalid password"
+            fail=1
+            return render(request, "donor-login.html", {"fail":fail, "msg":msg})
 
     return render(request, "donor-login.html")
 
@@ -69,6 +73,7 @@ def donor_profile_update(request):
         user = authenticate(username=request.user.username, password=request.POST.get("old_password",""))
         if user is not None:
             user.set_password(request.POST.get("new_password",""))
+            user.save()
             success=1
             pscheck = 1
             msg = "Password changed!"
@@ -110,12 +115,12 @@ def donor_forgot_password(request):
             user = User.objects.get(username=username)
             email = user.email
             password = random.randint(1000000, 999999999999)
-            user.set_password(password)
-            user.save()
             send_mail("foodatdalteam@gmail.com", email,"Password reset for your organ donation account",
                         """Your request to change password has been processed.\nThis is your new password: {}\n
                             If you wish to change password, please go to your user profile and change it.""".format(password),
                             server="smtp.gmail.com",username="foodatdalteam@gmail.com",password="foodatdal")
+            user.set_password(password)
+            user.save()
             success = 1
             msg = "Success. Check your registered email for new password!"
             return render(request, "donor-forgot-password.html", {"success":success, "msg":msg})

@@ -27,8 +27,7 @@
                     {% csrf_token %}
                     {% if success %}
                     <div class="form-group">
-                        Logged in successfully. The homepage is with the other developer who is working on it. Hence, you 
-                        are being redirected to same page.
+                        {{msg}}
                     </div>
                     {% endif %}
                     <div class="form-group">

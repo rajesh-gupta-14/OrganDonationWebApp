@@ -25,6 +25,11 @@
             <div class="card-content">
                 <form method="POST" action="{% url 'donor-login' %}">
                     {% csrf_token %}
+                    {% if fail %}
+                    <div class="form-group">
+                        {{msg}}
+                    </div>
+                    {% endif %}
                     <div class="form-group">
                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
                         <label for="username">Username:</label>

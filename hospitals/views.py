@@ -49,10 +49,17 @@ def hospital_login(request):
         if user is not None:
             if user.is_active:
                 if user.is_staff:
+                    msg = """Logged in successfully. The homepage is with the other developer who is working on it. But,
+                        the remaining functionality works the exact same way it does on donor side. Hence, you 
+                        are being redirected to same login page."""
                     login(request, user)
                     success=1 #remove
-                    return render(request, "hospital-login.html", {"success":success}) #redirect(request.POST.get("next", "hospital-register"))
-                    
+                    return render(request, "hospital-login.html", {"success":success, "msg":msg}) #redirect(request.POST.get("next", "hospital-register"))
+        else:
+            msg="Invalid password"
+            success=1
+            return render(request, "hospital-login.html", {"success":success, "msg":msg})
+
     return render(request, "hospital-login.html")
 
 
@@ -99,7 +106,7 @@ def hospital_forgot_password(request):
     return render(request, "hospital-forgot-password.html", {"success":success})
 
 def form_to_PDF(request, donor_id=1):
-    user = User.objects.get(username="abram") #change condition
+    user = User.objects.get(username="vivek") #change condition
     donation_request = DonationRequests.objects.get(donor=user)
     html_string = render_to_string('user-details.html', {'user': user})
     response = HttpResponse(content_type='application/pdf')
