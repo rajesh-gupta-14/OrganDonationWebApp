@@ -8,7 +8,7 @@
     <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
     <link rel="stylesheet" type="text/css" href="{% static 'css/style_hospital_homepage.css' %}">
 </head>
-<body>
+<body id = "body">
 <header class="zone blue">
   <div class = "nav-bar"><p id = "company_name" class = "push_this_left"><a href="hospital-main-page.html">We donate</a></p>
   </div>
@@ -39,14 +39,14 @@
       <div class="card-header">Action Item 1</div>
       <div class="card-body">
       <h5 class="card-title">Pending appointments</h5>
-      <p class="card-text">You have 8 appointments to approve. Click on the card to proceed.</p>
+      <p class="card-text">You have <strong id = "appointmentCount"></strong> to approve. Click on the card to proceed.</p>
       </div>
       </div>
       <div class="card text-white bg-primary mb-3 details-grid-item2" style="max-width: 18rem;" id = "donationsDiv">
       <div class="card-header">Action Item 2</div>
       <div class="card-body">
       <h5 class="card-title">Pending donations</h5>
-      <p class="card-text">You have 5 donations to approve. Click on the card to proceed.</p>
+      <p class="card-text">You have <strong id = "donationCount"></strong> to approve. Click on the card to proceed.</p>
       </div>
       </div>
     </div>

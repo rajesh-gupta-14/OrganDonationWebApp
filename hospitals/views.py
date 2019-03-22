@@ -223,3 +223,22 @@ def approve_donations(request):
         donation.donation_status = actionToPerform
         donation.save(update_fields=["donation_status"])
     return HttpResponse("success")
+
+
+def fetch_counts(request):
+    if request.POST:
+        pass
+    else:
+        appointment_count = Appointments.objects.filter(Q(hospital__hospital_name__iexact="IWK Health Centre") & Q(appointment_status__iexact="Pending")).count()
+        print("appointment count", appointment_count)
+        donation_status = "Pending"
+        appointment_status = "Approved"
+        donation_count = Appointments.objects.filter(Q(hospital__hospital_name__iexact="IWK Health Centre") & Q(appointment_status__iexact=appointment_status) & Q(donation_request__donation_status__iexact=donation_status)).count()
+        print("donation count", donation_count)
+        dummy_list = []
+        temp_dict = {}
+        temp_dict["appointment_count"] = appointment_count
+        temp_dict["donation_count"] = donation_count
+        dummy_list.append(temp_dict)
+        count_json = json.dumps(dummy_list)
+        return HttpResponse(count_json)

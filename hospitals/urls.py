@@ -11,5 +11,6 @@ urlpatterns = [
     re_path('fetch-donations/', views.fetch_donations, name='fetch-donations'),
     re_path('fetch-donation-details/', views.fetch_donation_details, name='fetch-donation-details'),
     re_path('appointments-approval/', views.approve_appointments, name='appointments-approval'),
-    re_path('donations-approval/', views.approve_donations, name='donations-approval')
+    re_path('donations-approval/', views.approve_donations, name='donations-approval'),
+    re_path('fetch-counts/', views.fetch_counts, name='fetch-counts')
 ]

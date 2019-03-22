@@ -1,4 +1,9 @@
 //Action items screen
+var appointmentCount = document.getElementById("appointmentCount");
+var donationCount = document.getElementById("donationCount");
+window.onload = function (){
+    fetchCounts();
+}
 
 //Switching to appointment approval tabs on clicking the card
 var appointmentLink = document.getElementById("appointDiv");
@@ -13,6 +18,42 @@ donationLink.onclick = function(){
       fetchDonations();
 }
 
+
+var actionItemTab = document.getElementById("actionItemTab");
+
+function fetchCounts(){
+var xhttp = new XMLHttpRequest();
+        var getObject;
+        const url = "http://localhost:8000/hospitals/fetch-counts";
+        xhttp.onreadystatechange = function() {
+             if (this.readyState == 4 && this.status == 200) {
+                 getObject = JSON.parse(this.responseText);
+                 count_of_appointments = getObject[0].appointment_count;
+                 count_of_donations = getObject[0].donation_count;
+                 while(appointmentCount.hasChildNodes() && donationCount.hasChildNodes() ){
+                   appointmentCount.removeChild(appointmentCount.lastChild);
+                   donationCount.removeChild(donationCount.lastChild);
+                 }
+                 if(count_of_appointments > 1){
+                  appointmentCount.appendChild(document.createTextNode( count_of_appointments+ " appointments"));
+                 }
+                 else{
+                   appointmentCount.appendChild(document.createTextNode(count_of_appointments + " appointment"));
+                 }
+                 if(count_of_donations > 1){
+                   donationCount.appendChild(document.createTextNode(count_of_donations+ " donations"));
+                 }
+                 else{
+                   donationCount.appendChild(document.createTextNode( count_of_donations+ " donation"));
+                 }
+
+             }
+        };
+        xhttp.open("GET",url, true);
+        xhttp.send();
+}
+
+actionItemTab.addEventListener("click",fetchCounts);
 
 //Update profile screen
 var saveButton = document.getElementById("updateSave");
