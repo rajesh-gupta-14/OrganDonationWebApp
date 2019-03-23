@@ -13,7 +13,7 @@ from django.shortcuts import get_object_or_404
 def home(request):
     if request.POST:
         pass
-    return render(request, "hospital_home.html", {'step2': 1})
+    return render(request, "hospital-main-page.html")
 
 
 def search_donations(request):
