@@ -749,6 +749,7 @@ function displaySearchResults(donors){
         var searchTable = document.getElementById("donationSearchTable");
         var tableBody = document.getElementById("searchTableBody");
         var rowLength = tableBody.getElementsByTagName("tr").length;
+        var sIndex;
 
         //Removing previous search results
         if(rowLength > 0){
@@ -776,14 +777,17 @@ function displaySearchResults(donors){
             td4.appendChild(document.createTextNode(donors[i].blood_group));
             tableBody.appendChild(row);
             row.onclick = function(){
+                console.log("type of sindex: " +typeof sIndex);
+                console.log("SIndex: " +sIndex);
+                console.log("Row index: " +this.rowIndex);
                 //removing the highlighting colour for the unselected rows
-                if(typeof dummyIndex !== "undefined"){
-            donationSearchTable.rows[dummyIndex].classList.toggle("blue");
+                if(typeof sIndex !== "undefined"){
+            searchTable.rows[sIndex].classList.toggle("blue");
             this.cells[0].childNodes[0].checked = false;
         }
         //highlighting the selected row and enabling the corresponding radio button
+              sIndex = this.rowIndex;
               this.classList.toggle("blue");
-              dummyIndex = this.rowIndex;
               donorToContact = this.cells[2].innerHTML;
               this.cells[0].childNodes[0].checked = true;
 
