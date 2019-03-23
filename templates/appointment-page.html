@@ -1,0 +1,146 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Custom CSS-->
+    
+    <link rel="stylesheet" href="{% static 'css/custom-stylesheet-login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/header-footer.css' %}">
+    <title>Appointment page</title>
+    
+  </head>
+  <body>
+    
+    <header class="custom-header">
+        Book an appointment
+    </header>
+    
+    <div class="container">
+	
+            <div class="row justify-content-center">
+            <div class="col-md-12">
+            <div class="card">
+            <header class="card-header">
+                <h4 class="card-title mt-2">Appointment</h4>
+            </header>
+            <div class="card-content">
+             <form>
+                        <!-- Form start -->
+                        <div class="row">
+                            
+                            <!-- Text input-->
+							
+							 <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label" for="donation-reqest">Donation request</label>
+                                    <input id="dreq" name="dreq" type="text"
+                                           class="form-control input-md">
+                                </div>
+								
+
+                            </div>
+							
+							<div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label" for="hospital-name">Hospital name</label>
+                                    <input id="hospital-name" name="hospital-name" type="text"
+                                           class="form-control input-md">
+                                </div>
+								
+
+                            </div>
+                            <!-- Text input-->
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                <div class='input-group date' id='datetimepicker1'>
+                                    <label>Date of appointment </label>
+                                <input type='text' class="form-control" placeholder="YYYY-MM-DD" />
+                                <span class="input-group-append">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                                </div>
+                            </div>
+ 
+                            </div>
+                            <!-- Select Basic -->
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label" for="time">Preferred Time</label>
+                                    <select id="time" name="time" class="form-control">
+										<option value="time0">Select preferred time</option>
+                                        <option value="8:00 to 9:00">8:00 to 9:00</option>
+                                        <option value="9:00 to 10:00">9:00 to 10:00</option>
+                                        <option value="10:00 to 1:00">10:00 to 11:00</option>
+                                        <option value="10:00 to 1:00">12:00 to 13:00</option>
+                                        <option value="10:00 to 1:00">13:00 to 14:00</option>
+                                        <option value="10:00 to 1:00">14:00 to 15:00</option>
+                                        <option value="10:00 to 1:00">15:00 to 16:00</option>
+                                        <option value="10:00 to 1:00">16:00 to 17:00</option>
+                                        <option value="10:00 to 1:00">17:00 to 18:00</option>
+                                        <option value="10:00 to 1:00">18:00 to 19:00</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- Select Basic -->
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label" for="appointmentfor">Appointment For</label>
+                                    <select id="appointmentfor" name="appointmentfor" class="form-control">
+										<option value="Service#0">Select an option</option> 
+                                        <option value="Service#1">Visit a Doctor</option>
+                                        <option value="Service#2">Regular checkup</option>
+                                        <option value="Service#3">Donate blood</option>
+                                        <option value="Service#4">Other inqueries</option>
+                                    </select>
+                                </div>
+                            </div>
+							
+							<div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label" for="appointmentstatus">Appointment status</label>
+                                    <select id="appointmentstatus" name="appointmentstatus" class="form-control">
+										<option value="Status#0">Select an option</option>                                       
+										<option value="Status#1">Pending</option>
+                                        <option value="Status#2">Not booked</option>
+                                        <option value="Status#3">Booked</option>
+										<option value="Status#4">Approved</option>
+										<option value="Status#5">Not Approved</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- Button -->
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <button id="singlebutton" name="singlebutton" class="btn btn-primary">Make An
+                                        Appointment
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+            </div>
+            </div>
+            </div>            
+            </div>
+        </div> 
+        <!--container end.//-->
+            
+    <footer class="custom-footer">
+        Copyrights reserved.
+    </footer>
+	
+		<script src="../js/donor-registration.js"></script>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
