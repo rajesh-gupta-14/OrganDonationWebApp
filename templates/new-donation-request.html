@@ -59,7 +59,7 @@
         <div class="col-md-6">
         <div class="card">
         <header class="card-header">
-            <h4 class="card-title mt-2 black">Donation request</h4>
+            <h4 class="card-title mt-2 black">New Donation request</h4>
         </header>
         <div class="card-content">
         <form>
@@ -67,66 +67,31 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                <label>First name</label>
-                <input type="text" class="form-control" value="" id="fn" required>
+                <label>Organ Type</label>
+                <input type="text" class="form-control" value="" id="organ_type" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    <label>Blood Type</label>
+                    <input type="text" class="form-control" value="" id="fblood_type" required>
                 </div>
                 <div class="form-group col-md-6">
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                <label>Last name</label>
-                <input type="text" class="form-control" value="" id="ln" required>
+                <label>Family Relation</label>
+                <input type="text" class="form-control" value="" id="family_relation" required>
                 </div>
-            </div>
-        
-            <div class="form-group">
-                <span class="input-group-addon"><i class="fa fa-at"></i></span>
-                <label>Email address</label>
-                <input type="email" class="form-control" placeholder="" required>
+                <div class="form-group col-md-6">
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    <label>Family Relation Name</label>
+                    <input type="text" class="form-control" value="" id="family_relation_name" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
+                        <label>Donor's  Realtionship Contact no. (+1)</label>
+                        <input type="text" class="form-control" id = "family_contact_number" maxlength="10" minlength="10">
+                        </div>
             </div>
 
-            <div class="form-group">
-                <span> Gender&nbsp;&nbsp;</span>
-                <label class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gender" value="option1">
-                    <span class="form-check-label"> Male </span>
-                </label>
-                <label class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gender" value="option2">
-                    <span class="form-check-label"> Female </span>
-                </label>
-                <label class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gender" value="option2">
-                    <span class="form-check-label"> Other </span>
-                </label>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                <span class="input-group-addon"><i class="fa fa-building"></i></span>
-                <label>City</label>
-                <input type="text" class="form-control" required>
-                </div>
-                <div class="form-group col-md-6">
-                <span class="input-group-addon"><i class="fa fa-building"></i></span>
-                <label>Preferred hospital of donation</label>
-                <select id="input-hospital" class="form-control">
-                    <option value="1">ABC hospital</option>
-                    <option value="2">XYZ hospital</option>
-                </select>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
-                <label>Contact no. (+1)</label>
-                <input type="text" class="form-control" maxlength="10" minlength="10">
-                </div>
-                <div class="form-group col-md-6">
-                <span class="input-group-addon"><i class="fa fa-building"></i></span>
-                <label>Country</label>
-                <select id="input-country" class="form-control">
-                    <option selected="">Canada</option>
-                </select>
-                </div>
-            </div>
             <div class="form-group">
                 <span> Has the above donor donated before?&nbsp;&nbsp;</span>
                 <label class="form-check form-check-inline">
@@ -148,11 +113,16 @@
                     <input class="form-check-input" type="radio" name="gender" value="option2" onchange="activate_create();">
                     <span class="form-check-label"> No </span>
                 </label>
+               
             </div>
-            <div class="custom-file">
-                    <input id="logo" type="file" class="custom-file-input" onchange="setName(this.value);">
-                    <label for="logo" class="custom-file-label text-truncate" id="customfield">Upload medical report..</label>
-            </div>
+            <div class="form-group">
+                    <span> Is fanily of the descesed are willing to donate the organ?*&nbsp;&nbsp;</span>
+                    <label class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" value="option1" onchange="activate_create();">
+                        <span class="form-check-label"> Yes </span>
+                    </label>
+                </div>
+            
             <div class="form-group">
 
             </div>
