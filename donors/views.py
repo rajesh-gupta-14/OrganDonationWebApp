@@ -23,12 +23,13 @@ def donor_donation_request(request):
         newdonationrequest = DonationRequests()
         newdonationrequest.donation_request = request.POST.get("newdonationreq","")
         newdonationrequest.organ_type = request.POST.get("organ_type","")
+        newdonationrequest.blood_type = request.POST.get("blood_type","")
         newdonationrequest.family_relation = request.POST.get("family_relation","")
         newdonationrequest.family_relation_name = request.POST.get("family_relation_name","")
         newdonationrequest.family_contact_number = request.POST.get("family_contact_number ","")
         newdonationrequest.donation_status = request.POST.get("donation_status","")
         newdonationrequest.family_consent = request.POST.get("family_consent","")
-        newdonationrequest.blood_type = request.POST.get("blood_type","")
+        
         newdonationrequest.save()
     return render(request, "new-donation-request.html")
 
