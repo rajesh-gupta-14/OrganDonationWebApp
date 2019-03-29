@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = "hospitals.User"
 
 # Application definition
 
@@ -127,3 +128,5 @@ STATICFILES_DIRS = [
 
 
 AUTH_USER_MODEL = "hospitals.User"
+MEDIA_URL ="/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")

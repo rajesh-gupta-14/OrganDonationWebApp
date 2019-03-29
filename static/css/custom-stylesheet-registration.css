@@ -1,0 +1,30 @@
+/* registration form customization */
+.container{
+    margin-top:5%;
+    margin-bottom: 10%;
+}
+
+.card{
+    width: 100%;
+}
+
+.card-header{
+    color: #000000;
+    background-color: #51EAEA;
+}
+
+.card-content{
+    padding: 25px;
+}
+
+.btn-color{
+    background-color:#51EAEA;
+}
+
+.fnt-color{
+    color: #000000;
+}
+
+.align-center{
+    text-align: center;
+}
