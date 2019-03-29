@@ -39,30 +39,31 @@ def home(request):
 
 
 def search_donations(request):
-    if request.POST:
-        pass
-    else:
-        search_keyword = request.GET.get('keyword', '')
-        status = "Approved"
-        # Search for donations based on organ type/blood type/donor name
-        donations = DonationRequests.objects.filter((Q(organ_type__iexact=search_keyword) | Q(blood_type__startswith=search_keyword) | Q(donor__first_name__iexact=search_keyword) | Q(donor__last_name__iexact=search_keyword)) & Q(donation_status__iexact=status))
-        print(donations)
-        # Search for donations based on donation id
-        if not donations:
-            if search_keyword.isdigit():
-                donations = DonationRequests.objects.filter(Q(id=int(search_keyword)) & Q(donation_status__iexact=status))
+	if request.POST:
+		pass
+	else:
+		search_keyword = request.GET.get('keyword', '')
+		print(search_keyword)
+		status = "Approved"
+		# Search for donations based on organ type/blood type/donor name
+		donations = DonationRequests.objects.filter((Q(organ_type__iexact=search_keyword) | Q(blood_type__startswith=search_keyword) | Q(donor__first_name__iexact=search_keyword) | Q(donor__last_name__iexact=search_keyword)) & Q(donation_status__iexact=status))
+		print(donations)
+		# Search for donations based on donation id
+		if not donations:
+			if search_keyword.isdigit():
+				donations = DonationRequests.objects.filter(Q(id=int(search_keyword)) & Q(donation_status__iexact=status))
 
-        donation_list = []
-        for donation in donations:
-            print(donation.donation_status)
-            temp_dict = {}
-            temp_dict["donor"] = f"{donation.donor.first_name} {donation.donor.last_name}"
-            temp_dict["organ"] = donation.organ_type
-            temp_dict["donation_id"] = donation.id
-            temp_dict["blood_group"] = donation.blood_type
-            donation_list.append(temp_dict)
-        search_list = json.dumps(donation_list)
-        return HttpResponse(search_list)
+		donation_list = []
+		for donation in donations:
+			print(donation.donation_status)
+			temp_dict = {}
+			temp_dict["donor"] = f"{donation.donor.first_name} {donation.donor.last_name}"
+			temp_dict["organ"] = donation.organ_type
+			temp_dict["donation_id"] = donation.id
+			temp_dict["blood_group"] = donation.blood_type
+			donation_list.append(temp_dict)
+		search_list = json.dumps(donation_list)
+		return HttpResponse(search_list)
 
 
 def search_donation_details(request):
