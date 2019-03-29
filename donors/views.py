@@ -86,7 +86,7 @@ def donor_profile_update(request):
     donor = User.objects.get(id=request.user.id)
     provinces = ["Nova Scotia", "British Columbia", "Ontario", "Quebec","Alberta" ,"New Brunswick", "Manitoba",
                     "Sasketchawan", "New Foundland and Labrador", "Prince Edward Island"]
-    provinces = [1 if donor.province in i else 0 for i in provinces]
+    provinces = [1 if donor.province is not None else 0 for i in provinces]
 
     return render(request, "donor-profile-update.html", {"provinces":provinces, "donor":donor, "success":success, "msg":msg, 
                     "pfcheck":pfcheck, "pscheck":pscheck})
