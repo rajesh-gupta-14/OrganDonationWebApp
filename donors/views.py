@@ -11,6 +11,8 @@ from email.mime.text import MIMEText
 from email.utils import COMMASPACE, formatdate
 from email import encoders
 import string, secrets, ast, random
+from .models import DonationRequests, Appointments
+from django.http import HttpResponse
 
 
 # Create your views here.
@@ -43,7 +45,7 @@ def donor_login(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             if user.is_active:
-                if not user.is_staff:
+                if user.is_staff:
                     login(request, user)
                     return redirect(request.POST.get("next","donor-profile-update"))
         else:
@@ -134,3 +136,30 @@ def donor_forgot_password(request):
 def donor_logout(request):
     logout(request)
     return redirect("donor-login")
+
+
+def donor_home(request):
+    donor_requests = DonationRequests.objects.filter(donor=request.user)
+    for donor_request in donor_requests:
+        try:
+            status = Appointments.objects.get(donation_request=donor_request).appointment_status
+        except Exception as e:
+            status = "Not Booked"
+        donor_request.appointment_status = status
+    return HttpResponse(donor_requests)
+
+def new_donation_request(request):
+    
+    if request.POST:
+        donation_request = DonationRequests()
+        donation_request.donation_request = request.POST.get("newdonationreq","")
+        donation_request.organ_type = request.POST.get("organ_type","")
+        donation_request.blood_type = request.POST.get("blood_type","")
+        donation_request.family_relation = request.POST.get("family_relation","")
+        donation_request.family_relation_name = request.POST.get("family_relation_name","")
+        donation_request.family_contact_number = request.POST.get("family_contact_number ","")
+        donation_request.donation_status = request.POST.get("donation_status","")
+        donation_request.family_consent = request.POST.get("family_consent","")
+        donation_request.save()
+    
+    return render(request, "new-donation-request.html")
