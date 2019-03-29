@@ -1,12 +1,33 @@
-<<<<<<< HEAD
+
 from django.shortcuts import render
-from hospitals.models import User
+
 from django.db.models import Q
 from donors.models import DonationRequests, Appointments
 import json
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
+
+from django.shortcuts import render, redirect
+from .models import User
+from django.contrib.auth import login, logout, authenticate
+from django.views.decorators.csrf import csrf_protect
+from django.contrib.auth.decorators import login_required
+import smtplib, getpass
+from email.mime.multipart import MIMEMultipart
+from email.mime.base import MIMEBase
+from email.mime.text import MIMEText
+from email.utils import COMMASPACE, formatdate
+from email import encoders
+import string, secrets, ast, random
+from donors.models import DonationRequests, Appointments
+from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from io import StringIO, BytesIO
+from xhtml2pdf import pisa
+from PyPDF2 import PdfFileMerger, PdfFileReader
+
 
 # Create your views here.
 
@@ -129,28 +150,6 @@ def fetch_donations(request):
 
         return HttpResponse(appointment_details)
 
-=======
-from django.shortcuts import render, redirect
-from .models import User
-from django.contrib.auth import login, logout, authenticate
-from django.views.decorators.csrf import csrf_protect
-from django.contrib.auth.decorators import login_required
-import smtplib, getpass
-from email.mime.multipart import MIMEMultipart
-from email.mime.base import MIMEBase
-from email.mime.text import MIMEText
-from email.utils import COMMASPACE, formatdate
-from email import encoders
-import string, secrets, ast, random
-from donors.models import DonationRequests, Appointments
-from django.core.files.storage import FileSystemStorage
-from django.http import HttpResponse
-from django.template.loader import render_to_string
-from io import StringIO, BytesIO
-from xhtml2pdf import pisa
-from PyPDF2 import PdfFileMerger, PdfFileReader
-
-# Create your views here.
 
 def hospital_register(request):
     
@@ -172,11 +171,28 @@ def hospital_register(request):
     return render(request, "hospital-registration.html")
 
 def hospital_login(request):
->>>>>>> develop
+	if request.POST:
+		username = request.POST.get("username", "")
+		password = request.POST.get("password", "")
+		user = authenticate(username=username, password=password)
+		if user is not None:
+			if user.is_active:
+				if user.is_staff:
+					msg = """Logged in successfully. The homepage is with the other developer who is working on it. But,
+					the remaining functionality works the exact same way it does on donor side. Hence, you 
+					are being redirected to same login page."""
+					login(request, user)
+					success=1 #remove
+					return render(request, "hospital-login.html", {"success":success, "msg":msg}) #redirect(request.POST.get("next", "hospital-register"))
+		else:
+			msg="Invalid password"
+			success=1
+			return render(request, "hospital-login.html", {"success":success, "msg":msg})
+
+	return render(request, "hospital-login.html")
 
 def fetch_appointment_details(request):
     if request.POST:
-<<<<<<< HEAD
         pass
     else:
         # Fetching appointment details
@@ -288,26 +304,6 @@ def fetch_counts(request):
         dummy_list.append(temp_dict)
         count_json = json.dumps(dummy_list)
         return HttpResponse(count_json)
-=======
-        username = request.POST.get("username", "")
-        password = request.POST.get("password", "")
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                if user.is_staff:
-                    msg = """Logged in successfully. The homepage is with the other developer who is working on it. But,
-                        the remaining functionality works the exact same way it does on donor side. Hence, you 
-                        are being redirected to same login page."""
-                    login(request, user)
-                    success=1 #remove
-                    return render(request, "hospital-login.html", {"success":success, "msg":msg}) #redirect(request.POST.get("next", "hospital-register"))
-        else:
-            msg="Invalid password"
-            success=1
-            return render(request, "hospital-login.html", {"success":success, "msg":msg})
-
-    return render(request, "hospital-login.html")
-
 
 def send_mail(send_from, send_to, subject, body_of_msg, files=[],
               server="localhost", port=587, username='', password='',
@@ -368,4 +364,4 @@ def form_to_PDF(request, donor_id=1):
     merger.append(usermedicalpdf)
     merger.write(response)
     return response
->>>>>>> develop
+
