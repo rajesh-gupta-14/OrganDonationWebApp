@@ -31,17 +31,23 @@
                 <h4 class="card-title mt-2">Appointment</h4>
             </header>
             <div class="card-content">
-             <form>
-                        <!-- Form start -->
+                {% if success %} Its a success!! {% endif %}
+                 <!-- Form start -->
+             <form method="post" action="{% url 'donor-appointment' %}">
+                 {% csrf_token %}
+
                         <div class="row">
                             
                             <!-- Text input-->
 							
 							 <div class="col-md-10">
                                 <div class="form-group">
-                                    <label class="control-label" for="donation-reqest">Donation request</label>
-                                    <input id="dreq" name="dreq" type="text"
-                                           class="form-control input-md">
+                                    <label class="control-label" for="donation-request">Donation request</label>
+                                    <select id="dreq" name="dreq" class="form-control">
+                                        {% for donor in donors %}
+                                        <option value={{donor.id}}>{{donor.id}}</option>
+                                        {% endfor %}
+                                    </select>
                                 </div>
 								
 
@@ -50,8 +56,11 @@
 							<div class="col-md-10">
                                 <div class="form-group">
                                     <label class="control-label" for="hospital-name">Hospital name</label>
-                                    <input id="hospital-name" name="hospital-name" type="text"
-                                           class="form-control input-md">
+                                    <select id="hospital-name" name="hospital-name" class="form-control">
+                                        {% for user in users %}
+                                        <option value={{user.username}}>{{user.username}}</option>
+                                        {% endfor %}
+                                    </select>
                                 </div>
 								
 

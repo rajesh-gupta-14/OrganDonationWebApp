@@ -1,7 +1,7 @@
 from django.db import models
 from hospitals.models import User
 
-# Create your models here.
+# Donation request model
 class DonationRequests(models.Model):
 
     STATUS = [  ("Pending","Pending"), ("Not Booked","Not Booked"), 
@@ -22,8 +22,9 @@ class DonationRequests(models.Model):
 
 
     def __str__(self):
-        return self.request_datetime
+        return self.donation_status
 
+# Appointment model
 class Appointments(models.Model):
 
     STATUS = [("Pending","Pending"), ("Not Booked","Not Booked"),
