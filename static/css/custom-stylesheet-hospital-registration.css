@@ -1,13 +1,12 @@
 /* registration form customization */
 body{
     margin: auto 0px;
-    background-image: url('../images/donor_background.jpg');
+    background-image: url('../images/hospital_background.jpg');
     background-attachment: fixed;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
-
 .container{
     margin-top:5%;
     margin-bottom: 10%;

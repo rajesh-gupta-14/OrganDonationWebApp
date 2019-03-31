@@ -303,3 +303,24 @@ height: 850px;
 .card:hover{
  box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
 }
+
+/*Update profile*/
+
+.align-center{
+    text-align: center;
+}
+
+.card-content{
+    padding: 25px;
+}
+
+.card-header{
+    color: #ffff;
+    background-color: #51EAEA;
+}
+
+.btn-color{
+    color:#ffff;
+    background: #007bff;
+    border-color: black;
+}
