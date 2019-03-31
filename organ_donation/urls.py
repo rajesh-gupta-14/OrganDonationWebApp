@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import include, re_path
 
 urlpatterns = [
-    re_path('^donors/', include('donors.urls')),
+	re_path('^donors/', include('donors.urls')),
     re_path('^hospitals/', include('hospitals.urls')),
     re_path('admin/', admin.site.urls),
 ]

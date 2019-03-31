@@ -285,12 +285,6 @@ height: 850px;
   padding: 10px;
 }
 
-@media only screen and (max-width: 620px){
- .details-grid-container{
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-}
-}
-
 .details-grid-item{
   padding: 20px;
   font-size: 30px;

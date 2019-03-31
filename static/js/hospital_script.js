@@ -876,10 +876,7 @@ donorDetailsDiv.classList = "card";
 donorDetailsDiv.classList = "top";
 donorDetailsDiv.id = "details_of_donation";
 var firstDivChild = document.createElement("div");
-firstDivChild.classList.add("card-header");
-firstDivChild.classList.add("bg-light");
-firstDivChild.classList.add("mb-3");
-firstDivChild.style.color = "black";
+firstDivChild.className = "card-header";
 firstDivChild.appendChild(document.createTextNode("Donor Details"));
 
 var secondDivChild = document.createElement("div");
@@ -938,10 +935,7 @@ donorDetailsDiv.appendChild(secondDivChild);
 
 //Donation details
 var thirdDivChild = document.createElement("div");
-thirdDivChild.classList.add("card-header");
-thirdDivChild.classList.add("bg-light");
-thirdDivChild.classList.add("mb-3");
-thirdDivChild.style.color = "black";
+thirdDivChild.className = "card-header";
 thirdDivChild.appendChild(document.createTextNode("Donation Details"));
 
 var fourthDivChild = document.createElement("div");
