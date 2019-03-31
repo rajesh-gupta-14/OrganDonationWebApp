@@ -854,7 +854,7 @@ var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
              if (this.readyState == 4 && this.status == 200) {
                  getObject = JSON.parse(this.responseText);
-                 console.log("name: " +getObject[0].user_name);
+                 
                  displaySearchDetailsResult(getObject);
          }
         }
@@ -865,140 +865,301 @@ var xhttp = new XMLHttpRequest();
 
 function displaySearchDetailsResult(donationDetails){
 
+
 var searchDiv = document.getElementById("search_donation");
 
+ 
+
 var removeDiv = document.getElementById("details_of_donation");
+
 if (removeDiv != null){
+
     removeDiv.parentNode.removeChild(removeDiv);
+
 }
+
 var donorDetailsDiv = document.createElement("div");
+
 donorDetailsDiv.classList = "card";
+
 donorDetailsDiv.classList = "top";
+
 donorDetailsDiv.id = "details_of_donation";
+
 var firstDivChild = document.createElement("div");
+
 firstDivChild.className = "card-header";
+
 firstDivChild.appendChild(document.createTextNode("Donor Details"));
 
+ 
+
 var secondDivChild = document.createElement("div");
+
 secondDivChild.className = "card-body";
 
+ 
+
 //Donor details
+
 var gridContainerDiv = document.createElement("div");
+
 gridContainerDiv.className = "details-grid-container";
 
+ 
+
 var gridItem1 = document.createElement("div");
+
 gridItem1.className = ".details-grid-item";
 
+ 
+
 var firstName = document.createElement("p");
+
 firstName.className = "card-text";
+
 firstName.appendChild(document.createTextNode("First Name: " +donationDetails[0].first_name));
+
 gridItem1.appendChild(firstName);
 
+ 
+
 var lastName = document.createElement("p");
+
 lastName.className = "card-text";
+
 lastName.appendChild(document.createTextNode("Last Name: " +donationDetails[0].last_name));
+
 gridItem1.appendChild(lastName);
 
+ 
+
 var contactNo = document.createElement("p");
+
 contactNo.className = "card-text";
+
 contactNo.appendChild(document.createTextNode("Contact Number: " +donationDetails[0].contact_number));
+
 gridItem1.appendChild(contactNo);
 
+ 
+
 var email = document.createElement("p");
+
 email.className = "card-text";
+
 email.appendChild(document.createTextNode("Email: " +donationDetails[0].email));
+
 gridItem1.appendChild(email);
 
+ 
+
 var gridItem2 = document.createElement("div");
+
 gridItem2.className = ".details-grid-item";
 
+ 
+
 var city = document.createElement("p");
+
 city.className = "card-text";
+
 city.appendChild(document.createTextNode("City: " +donationDetails[0].city));
+
 gridItem2.appendChild(city);
 
+ 
+
 var country = document.createElement("p");
+
 country.className = "card-text";
+
 country.appendChild(document.createTextNode("Country: " +donationDetails[0].country));
+
 gridItem2.appendChild(country);
 
+ 
+
 var province = document.createElement("p");
+
 province.className = "card-text";
+
 province.appendChild(document.createTextNode("Province: " +donationDetails[0].province));
+
 gridItem2.appendChild(province);
 
+ 
+
 gridContainerDiv.appendChild(gridItem1);
+
 gridContainerDiv.appendChild(gridItem2);
+
 secondDivChild.appendChild(gridContainerDiv);
+
 donorDetailsDiv.appendChild(firstDivChild);
+
 donorDetailsDiv.appendChild(secondDivChild);
 
+ 
+
 //Donation details
+
 var thirdDivChild = document.createElement("div");
+
 thirdDivChild.className = "card-header";
+
 thirdDivChild.appendChild(document.createTextNode("Donation Details"));
 
+ 
+
 var fourthDivChild = document.createElement("div");
+
 fourthDivChild.className = "card-body";
 
+ 
+
 var gridItem3 = document.createElement("div");
+
 gridItem3.className = ".details-grid-item";
 
+ 
+
 var gridContainerDiv2 = document.createElement("div");
+
 gridContainerDiv2.className = "details-grid-container";
 
+ 
+
 var organ = document.createElement("p");
+
 organ.className = "card-text";
+
 organ.appendChild(document.createTextNode("Organ: " +donationDetails[0].organ));
+
 gridItem3.appendChild(organ);
 
+ 
+
 var blood_group = document.createElement("p");
+
 blood_group.className = "card-text";
+
 blood_group.appendChild(document.createTextNode("Blood Group: " +donationDetails[0].blood_group));
+
 gridItem3.appendChild(blood_group);
 
+ 
+
 var donation_status = document.createElement("p");
+
 donation_status.className = "card-text";
+
 donation_status.appendChild(document.createTextNode("Donation Status: " +donationDetails[0].donation_status));
+
 gridItem3.appendChild(donation_status);
 
+ 
+
 var approved_by = document.createElement("p");
+
 approved_by.className = "card-text";
+
 approved_by.appendChild(document.createTextNode("Approved by: " +donationDetails[0].approved_by));
+
 gridItem3.appendChild(approved_by);
 
+ 
+
 var gridItem4 = document.createElement("div");
+
 gridItem4.className = ".details-grid-item";
 
+ 
+
 var family_member_name = document.createElement("p");
+
 family_member_name.className = "card-text";
+
 family_member_name.appendChild(document.createTextNode("Family Member Name: " +donationDetails[0].family_member_name));
+
 gridItem4.appendChild(family_member_name);
 
+ 
+
 var family_member_relation = document.createElement("p");
+
 family_member_relation.className = "card-text";
+
 family_member_relation.appendChild(document.createTextNode("Family Member Relation: " +donationDetails[0].family_member_relation));
+
 gridItem4.appendChild(family_member_relation);
 
+ 
+
 var family_member_contact = document.createElement("p");
+
 family_member_contact.className = "card-text";
+
 family_member_contact.appendChild(document.createTextNode("Family Member Contact: " +donationDetails[0].family_member_contact));
+
 gridItem4.appendChild(family_member_contact);
 
+ 
+
 gridContainerDiv2.appendChild(gridItem3);
+
 gridContainerDiv2.appendChild(gridItem4);
+
 fourthDivChild.appendChild(gridContainerDiv2);
+
 donorDetailsDiv.appendChild(thirdDivChild);
+
 donorDetailsDiv.appendChild(fourthDivChild);
 
+ 
+
 var buttonDivChild = document.createElement("div");
+
 buttonDivChild.style.textAlign = "center";
+
 var downloadPDF = document.createElement("button");
+
 downloadPDF.classList.add("blue");
+
 downloadPDF.classList.add("buttons");
+
 downloadPDF.appendChild(document.createTextNode("Download PDF"));
+
+downloadPDF.id = "download_pdf";
+
+downloadPDF.onclick = function(){
+
+     var xhttp = new XMLHttpRequest();
+
+     var URL_ = "http://localhost:8000/hospitals/view-pdf/1/";
+
+     xhttp.onreadystatechange = function() {
+
+             if (this.readyState == 4 && this.status == 200) {
+				 var blob = new Blob([this.response], {type: 'application/pdf'}); // pass a useful mime type here
+				var url = URL.createObjectURL(blob);
+                 window.open(url);
+
+         }
+
+        }
+
+        xhttp.open("GET",URL_, true);
+		xhttp.responseType= "arraybuffer";
+        xhttp.send();
+
+ 
+
+}
 buttonDivChild.appendChild(downloadPDF);
+
 donorDetailsDiv.appendChild(buttonDivChild);
+
 
 searchDiv.appendChild(donorDetailsDiv);
 }

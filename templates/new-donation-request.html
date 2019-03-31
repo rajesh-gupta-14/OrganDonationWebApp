@@ -29,10 +29,10 @@
                 <a class="nav-link" href="#">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Book an appointment</a>
+                <a class="nav-link" href="{% url 'book-appointment' %}">Book an appointment</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'donor-profile-update'  %}">New donation request</a>
+                <a class="nav-link" href="{% url 'new-donation-request'  %}">New donation request</a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
@@ -60,72 +60,72 @@
             <h4 class="card-title mt-2 black">New Donation request</h4>
         </header>
         <div class="card-content">
-        <form>
-            
+        <form method="POST" enctype="multipart/form-data" action="{% url 'new-donation-request' %}">
+            {% csrf_token %}
             <div class="form-row">
                 <div class="form-group col-md-6">
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
                 <label>Organ Type</label>
-                <input type="text" class="form-control" value="" id="organ_type" required>
+                <input type="text" name="organ_type" class="form-control" value="" id="organ_type" required>
                 </div>
                 <div class="form-group col-md-6">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
                     <label>Blood Type</label>
-                    <input type="text" class="form-control" value="" id="fblood_type" required>
+                    <input type="text" name="blood_type" class="form-control" value="" id="fblood_type" required>
                 </div>
                 <div class="form-group col-md-6">
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
                 <label>Family Relation</label>
-                <input type="text" class="form-control" value="" id="family_relation" required>
+                <input type="text" class="form-control" name="family_relation" value="" id="family_relation" required>
                 </div>
                 <div class="form-group col-md-6">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
                     <label>Family Relation Name</label>
-                    <input type="text" class="form-control" value="" id="family_relation_name" required>
-                    </div>
-                    <div class="form-group col-md-6">
+                    <input type="text" class="form-control" name="family_relation_name" value="" id="family_relation_name" required>
+                </div>
+                <div class="form-group col-md-12">
                         <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
                         <label>Donor's  Relationship Contact no. (+1)</label>
-                        <input type="text" class="form-control" id = "family_contact_number" maxlength="10" minlength="10">
-                        </div>
+                        <input type="text" class="form-control" name="family_contact_number" maxlength="10" minlength="10">
+                </div>
             </div>
-
+            <div class="form-row">
+            <div class="form-group col-md-12">
+            <div class="custom-file">
+                <input id="logo" type="file" class="custom-file-input" name="file" onchange="setName(this.value);">
+                <label for="logo" class="custom-file-label text-truncate"   id="customfield">Upload medical report..</label>
+            </div>
+            </div>
+            </div>
             <div class="form-group">
                 <span> Has the above donor donated before?&nbsp;&nbsp;</span>
                 <label class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="gender" value="option1">
+                  <input class="form-check-input" type="radio" name="donated_before" value="True">
                   <span class="form-check-label"> Yes </span>
                 </label>
                 <label class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="gender" value="option2">
+                  <input class="form-check-input" type="radio" name="donated_before" value="False">
                   <span class="form-check-label"> No </span>
                 </label>
             </div>
+            
             <div class="form-group">
-                <span> Is the donor above 18 years of age?*&nbsp;&nbsp;</span>
+                <span> Is your family okay with donating your organ?&nbsp;&nbsp;</span>
                 <label class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gender" value="option1" onchange="activate_create();">
-                    <span class="form-check-label"> Yes </span>
+                  <input class="form-check-input" type="radio" name="family_consent" value="True">
+                  <span class="form-check-label"> Yes </span>
                 </label>
                 <label class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gender" value="option2" onchange="activate_create();">
-                    <span class="form-check-label"> No </span>
+                  <input class="form-check-input" type="radio" name="family_consent" value="False">
+                  <span class="form-check-label"> No </span>
                 </label>
-               
-            </div>
-            <div class="form-group">
-                    <span> Is the family okay with you donating the organ?*&nbsp;&nbsp;</span>
-                    <label class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="gender" value="option1" onchange="activate_create();">
-                        <span class="form-check-label"> Yes </span>
-                    </label>
                 </div>
             
             <div class="form-group">
 
             </div>
             <div class="form-group">
-                <button type="submit" id="submit" class="btn navbar-bg btn-block" disabled> Create </button>
+                <button type="submit" id="submit" class="btn navbar-bg btn-block"> Create </button>
             </div>      
             
         </form>

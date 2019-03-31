@@ -29,6 +29,8 @@ ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = "hospitals.User"
 
+WKHTMLTOPDF = os.path.join(BASE_DIR, "wkhtmltopdf", "wkhtmltopdf.exe")
+
 # Application definition
 
 INSTALLED_APPS = [

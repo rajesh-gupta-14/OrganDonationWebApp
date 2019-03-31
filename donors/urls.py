@@ -10,4 +10,5 @@ urlpatterns = [
     re_path('forgot-password/$', views.donor_forgot_password, name='donor-forgot-password'),
     re_path('logout/$', views.donor_logout, name="donor-logout"),
     re_path('new-donation-request/$', views.new_donation_request, name='new-donation-request'),
+    re_path('book-appointment/$', views.book_appointment, name='book-appointment'),
 ]

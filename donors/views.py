@@ -37,7 +37,7 @@ def donor_register(request):
     return render(request, "donor-registration.html")
 
 def donor_login(request):
-
+    
     # If method is post
     if request.POST:
         username = request.POST.get("username", "")
@@ -45,7 +45,7 @@ def donor_login(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             if user.is_active:
-                if user.is_staff:
+                if not user.is_staff:
                     login(request, user)
                     return redirect(request.POST.get("next","donor-profile-update"))
         else:
@@ -157,9 +157,32 @@ def new_donation_request(request):
         donation_request.blood_type = request.POST.get("blood_type","")
         donation_request.family_relation = request.POST.get("family_relation","")
         donation_request.family_relation_name = request.POST.get("family_relation_name","")
-        donation_request.family_contact_number = request.POST.get("family_contact_number ","")
-        donation_request.donation_status = request.POST.get("donation_status","")
+        donation_request.family_contact_number = request.POST.get("family_contact_number","")
+        donation_request.donation_status = "Pending"
+        donation_request.donor = request.user
+        donation_request.upload_medical_doc = request.FILES.get("file","")
         donation_request.family_consent = request.POST.get("family_consent","")
+        donation_request.donated_before = request.POST.get("donated_before","")
         donation_request.save()
     
     return render(request, "new-donation-request.html")
+
+
+
+def book_appointment(request):
+    # If method is post
+    if request.POST:
+
+        apmt = Appointments()
+        apmt.donation_request = DonationRequests.objects.get(id=int(request.POST.get("dreq","")))
+        apmt.hospital = User.objects.get(username=request.POST.get("hospital-name",""))
+        apmt.date = request.POST.get("date","")
+        apmt.time = request.POST.get("time","")
+        apmt.appointment_status = "Pending"
+        apmt.save()
+        return render(request, "book-appointment.html")
+
+    donors = DonationRequests.objects.filter(donor=request.user.id)
+    users = User.objects.filter(is_staff=True)
+
+    return render(request, "book-appointment.html", {"users":users, "donors":donors})

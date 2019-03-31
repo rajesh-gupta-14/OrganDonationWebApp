@@ -1,13 +1,15 @@
 
 from django.shortcuts import render
-
+import pdfkit
+from django.conf import settings
 from django.db.models import Q
 from donors.models import DonationRequests, Appointments
 import json
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, FileResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
-
+from django.template import RequestContext
+from django.template.loader import get_template
 from django.shortcuts import render, redirect
 from .models import User
 from django.contrib.auth import login, logout, authenticate
@@ -62,6 +64,7 @@ def search_donations(request):
             temp_dict["blood_group"] = donation.blood_type
             donation_list.append(temp_dict)
         search_list = json.dumps(donation_list)
+        print("hi",search_list)
         return HttpResponse(search_list)
 
 
@@ -95,6 +98,7 @@ def search_donation_details(request):
             temp_dict["family_member_contact"] = donation.donation_request.family_contact_number
             donation_list.append(temp_dict)
         donation_details = json.dumps(donation_list)
+        
         return HttpResponse(donation_details)
 
 
@@ -347,15 +351,24 @@ def hospital_forgot_password(request):
 
     return render(request, "hospital-forgot-password.html", {"success":success})
 
-def form_to_PDF(request, donor_id=1):
-    user = User.objects.get(username="vivek") #change condition
-    donation_request = DonationRequests.objects.get(donor=user)
-    html_string = render_to_string('user-details.html', {'user': user})
+def form_to_PDF(request, donor_id=7):
+    user = User.objects.get(username="rajesh") #change condition
+    donation_request = DonationRequests.objects.get(id=7)
+    donations = DonationRequests.objects.filter(donor=user)
+    html_string = render_to_string('user-details.html', {'user': user, 'donors':donations})
+    template = get_template("user-details.html")
+    html = template.render({'user': user, 'donors':donations})
+    config = pdfkit.configuration(wkhtmltopdf=settings.WKHTMLTOPDF)
+    try:
+        pdf = pdfkit.from_string(html,False,configuration=config)
+    except Exception as e:
+        print(e)
+        pass
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'inline; filename="report.pdf"'
     result = BytesIO()
-    pisa.CreatePDF(html_string, result)
-    userpdf=PdfFileReader(result)
+    pisa.CreatePDF(html, result)
+    userpdf=PdfFileReader(BytesIO(pdf))
     usermedicaldoc=donation_request.upload_medical_doc.read()
     usermedbytes=BytesIO(usermedicaldoc)
     usermedicalpdf=PdfFileReader(usermedbytes)
