@@ -20,5 +20,6 @@ urlpatterns = [
     re_path('get-user-details/', views.get_user_details, name='get-user-details'),
     re_path('update-user-details/', views.update_user_details, name='update-user-details'),
     re_path('update-pwd-details/', views.update_pwd_details, name='update-pwd-details'),
-    re_path('hospital-logout/$', views.hospital_login, name='hospital-logout')
+    re_path('hospital-logout/$', views.hospital_login, name='hospital-logout'),
+    re_path('wedonate/$', views.wedonate, name='wedonate'),
 ]
