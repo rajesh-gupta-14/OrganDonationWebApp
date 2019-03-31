@@ -9,32 +9,34 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    
+    <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
     <!-- Custom CSS-->
     <link rel="stylesheet" href="{% static 'css/header-footer.css' %}">
-    <link rel="stylesheet" href="{% static 'css/custom-stylesheet-registration.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom-stylesheet-hospital-registration.css' %}">
     <title>Hospital Registration</title>
     
   </head>
   <body>
-    
-    <header class="custom-header">
-        Hospital management
-    </header>
+
+   <header class="zone blue">
+    <div class = "nav-bar"><p id = "company_name" class = "push_this_left"><a href="hospital-main-page.html">We Donate</a></p>
+    </div>
+   </header>
     <!-- Registration form for hospital--><!--Please see Reference: [4] in README.txt-->
+    <div class = "overlay">
     <div class="container">
             <div class="row justify-content-center">
             <div class="col-md-6">
             <div class="card">
-            <header class="card-header">
-                <h4 class="card-title mt-2">Registration</h4>
+            <header class="card-header bg-light mb-3">
+                <h4 class="card-title mt-2 bg-light mb-3">Registration</h4>
             </header>
             <div class="card-content">
             <form method="POST" action="{% url 'hospital-register' %}">
                 {% csrf_token %}
                 <div class="form-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                    <label>Hospital name</label>   
+                    <label>Hospital name</label>
                     <input type="text" name="hospital_name" class="form-control" placeholder="" required>
                 </div>
             
@@ -111,11 +113,9 @@
             </div>
         </div> 
         <!--container end.//-->
-            
-    <footer class="custom-footer">
-        Copyrights reserved.
-    </footer>
-	
+</div>
+    <footer class="zone blue footer_style">Copyright © 2019. We donate Inc. All rights reserved. | <a href= "#">About us | </a> <a href= "#">Contact us. </a> </footer>
+
 		<script src="{% static 'js/hospital-registration.js' %}"></script>
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
