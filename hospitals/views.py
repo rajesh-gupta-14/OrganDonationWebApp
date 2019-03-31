@@ -378,3 +378,9 @@ def form_to_PDF(request, donor_id=7):
     merger.write(response)
     return response
 
+def email_donor(request):
+    donor = DonationRequests.objects.get(id=donor_id).donor
+    send_mail("foodatdalteam@gmail.com", donor.email, "Organ Donation",
+                        """You've been requested by {} to donate organ. Thanks!""".format(request.user.first_name),
+                            server="smtp.gmail.com",username="foodatdalteam@gmail.com",password="foodatdal")
+    return HttpResponse("Success")
