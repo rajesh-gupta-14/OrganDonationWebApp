@@ -17,5 +17,10 @@ urlpatterns = [
     re_path('login/$', views.hospital_login, name='hospital-login'),
     re_path('forgot-password/$', views.hospital_forgot_password, name='hospital-forgot-password'),
     re_path('view-pdf/(?P<donor_id>\d+)/$', views.form_to_PDF, name="form-to-pdf"),
+    re_path('get-user-details/', views.get_user_details, name='get-user-details'),
+    re_path('update-user-details/', views.update_user_details, name='update-user-details'),
+    re_path('update-pwd-details/', views.update_pwd_details, name='update-pwd-details'),
+    re_path('hospital-logout/$', views.hospital_login, name='hospital-logout'),
+    re_path('wedonate/$', views.wedonate, name='wedonate'),
     re_path('email-donor/$', views.email_donor, name='email-donor'),
 ]
