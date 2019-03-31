@@ -42,6 +42,12 @@ def home(request):
     return render(request, "hospital-main-page.html")
 
 
+def wedonate(request):
+    if request.POST:
+        pass
+    return render(request, "index.html")
+
+
 def search_donations(request):
     if request.POST:
         pass
