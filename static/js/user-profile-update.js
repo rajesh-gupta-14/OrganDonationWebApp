@@ -19,5 +19,4 @@ function enableeditpasswords(){
 	document.getElementById('password1').disabled = false;
 	document.getElementById('password2').disabled = false;
 	document.getElementById('password3').disabled = false;
-	document.getElementById('update-password').disabled = false;
 }

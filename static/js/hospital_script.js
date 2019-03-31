@@ -56,8 +56,8 @@ var xhttp = new XMLHttpRequest();
 actionItemTab.addEventListener("click",fetchCounts);
 
 //Update profile screen
-/*var saveButton = document.getElementById("updateSave");
-var clearButton = document.getElementById("updateClear");*/
+var saveButton = document.getElementById("updateSave");
+var clearButton = document.getElementById("updateClear");
 
 //Function to alert the user when the profile is updated
 function saveUpdatedDetails(){
@@ -68,12 +68,12 @@ function saveUpdatedDetails(){
     });
 }
 
-/*function clearUpdatedDetails(){
+function clearUpdatedDetails(){
 document.getElementById("hospitalUpdateForm").reset();
 }
 
 saveButton.addEventListener("click", saveUpdatedDetails);
-clearButton.addEventListener("click", clearUpdatedDetails);*/
+clearButton.addEventListener("click", clearUpdatedDetails);
 
 //Appointment approval page
 var appointmentTable = document.getElementById("appointmentTable"),rIndex;
@@ -887,10 +887,9 @@ donorDetailsDiv.classList = "top";
 donorDetailsDiv.id = "details_of_donation";
 
 var firstDivChild = document.createElement("div");
-firstDivChild.classList.add("card-header");
-firstDivChild.classList.add("bg-light");
-firstDivChild.classList.add("mb-3");
-firstDivChild.style.color = "black";
+
+firstDivChild.className = "card-header";
+
 firstDivChild.appendChild(document.createTextNode("Donor Details"));
 
  
@@ -1006,10 +1005,9 @@ donorDetailsDiv.appendChild(secondDivChild);
 //Donation details
 
 var thirdDivChild = document.createElement("div");
-thirdDivChild.classList.add("card-header");
-thirdDivChild.classList.add("bg-light");
-thirdDivChild.classList.add("mb-3");
-thirdDivChild.style.color = "black";
+
+thirdDivChild.className = "card-header";
+
 thirdDivChild.appendChild(document.createTextNode("Donation Details"));
 
  
@@ -1195,21 +1193,21 @@ searchEmail.addEventListener("click", emailDonor);
 
 //Change password and Log out
 
-/*var logOut = document.getElementById("logOut");
+var logOut = document.getElementById("logOut");
 //var changePassword = document.getElementById("changePassword");
 
 //Function to alert the user when logout option is selected
 function performLogOut(){
 Swal.fire({
       type: 'info',
-      title: 'In progress',1
+      title: 'In progress',
       text: 'The logout feature will be availabe soon!',
       footer: 'Thanks for your patience.'
     });
 }
 
 logOut.addEventListener("click", performLogOut);
-*/
+
 
 //Rest API creation
 function createGETRequest(url){
@@ -1278,107 +1276,4 @@ function createPOSTRequest(url,isAppointment,isAccept,id){
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("ID=" +id+ "&action=" +actionToPerform);
 
-}
-
-var updateProfileTab = document.getElementById("updateProfileTab");
-
-updateProfileTab.addEventListener("click", getProfileDetails);
-
-function getProfileDetails(){
-  console.log("in getProfileDetails");
-  var xhttp = new XMLHttpRequest();
-  var url = "http://localhost:8000/hospitals/get-user-details";
-  var hospital;
-  xhttp.onreadystatechange = function() {
-             if (this.readyState == 4 && this.status == 200) {
-                 hospital = JSON.parse(this.responseText);
-                 displayProfileDetails(hospital);
-         }
-        }
-        xhttp.open("GET",url, true);
-        xhttp.send();
-}
-
-function displayProfileDetails(hospital){
-  document.getElementById("hospitalName").value = hospital[0].hospital_name;
-  document.getElementById("emailHospital").value = hospital[0].hospital_email;
-  document.getElementById("city").value = hospital[0].hospital_city;
-  document.getElementById("hospitalContact").value = hospital[0].hospital_contact;
-  document.getElementById('input-province').value = hospital[0].hospital_province;
-
-}
-
-function checkpassword(){
-  if (document.getElementById('password3').value == document.getElementById('password2').value) {
-    document.getElementById('password-validation-msg').innerHTML = "Passwords matched!";
-    document.getElementById('update-password').disabled = false;
-  } else {
-    document.getElementById('password-validation-msg').innerHTML = "Passwords do not match yet!";
-    document.getElementById('update-password').disabled = true;
-  }
-}
-function enableedituserprofile(){
-  document.getElementById('hospitalName').disabled = false;
-  document.getElementById('emailHospital').disabled = false;
-  document.getElementById('city').disabled = false;
-  document.getElementById('input-province').disabled = false;
-  document.getElementById('hospitalContact').disabled = false;
-  document.getElementById('submitUpdateProf').disabled = false;
-}
-function enableeditpasswords(){
-  document.getElementById('password1').disabled = false;
-  document.getElementById('password2').disabled = false;
-  document.getElementById('password3').disabled = false;
-  document.getElementById('update-password').disabled = false;
-}
-
-var updateProfile = document.getElementById("submitUpdateProf");
-
-updateProfile.addEventListener("click", updateProfileDetails);
-
-function updateProfileDetails(){
-  var url = "http://localhost:8000/hospitals/update-user-details/";
-  var name = document.getElementById("hospitalName").value;
-  var email = document.getElementById("emailHospital").value;
-  var city =  document.getElementById("city").value;
-  var contact = document.getElementById("hospitalContact").value;
-  var province = document.getElementById('input-province').value;
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-             if (this.readyState == 4 && this.status == 200) {
-               console.log("profile updated");
-            updateSuccess();
-         }
-        }
-        xhttp.open("POST",url,true);
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send("name=" +name+ "&email=" +email+ "&city=" +city+
-          "&contact=" +contact+ "&province=" +province);
-
-}
-
-var updatePwd = document.getElementById("update-password");
-
-updatePwd.addEventListener("click", updatePasswordDetails);
-
-function updatePasswordDetails(){
-  console.log("in updatePasswordDetails()");
-  var url = "http://localhost:8000/hospitals/update-pwd-details/";
-  var old_password = document.getElementById("password1").value;
-  var new_password = document.getElementById("password2").value;
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-             if (this.readyState == 4 && this.status == 200) {
-               console.log("pwd updated");
-            Swal.fire("Done","Password details updated successfully!","success");
-         }
-        }
-        xhttp.open("POST",url,true);
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send("old_password=" +old_password+ "&new_password=" +new_password);
-
-}
-
-function updateSuccess(){
-  Swal.fire("Done","Profile details updated successfully!","success");
 }

@@ -9,22 +9,19 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
     <!-- Custom CSS-->
-    <link rel="stylesheet" href="{% static 'css/custom-stylesheet-hospital-login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom-stylesheet-login.css' %}">
     <link rel="stylesheet" href="{% static 'css/header-footer.css' %}">
     <title>Hospital Login</title>
   </head>
   <body>
     <!-- Login form for hospital-->
-    <header class="zone blue">
-      <div class = "nav-bar"><p id = "company_name" class = "push_this_left">We Donate</p>
-      </div>
+    <header class="custom-header">
+        Hospital management
     </header>
-    <div class = "overlay">
     <div class = "container">
-    <div class="card bg-light mb-3">
-        <div class="card-header bg-light mb-3"><b>Hospital Login</b></div>
+    <div class="card">
+        <div class="card-header"><b>Hospital Login</b></div>
             <div class="card-content">
                 <form method="POST" action="{% url 'hospital-login' %}">
                     {% csrf_token %}
@@ -57,12 +54,14 @@
             
     </div>
 </div>
-</div>
 
 
 
 
-<footer class="zone blue footer_style">Copyright © 2019. We donate Inc. All rights reserved. | <a href= "#">About us | </a> <a href= "#">Contact us. </a> </footer>
+
+<footer class="custom-footer">
+        Copyrights reserved.
+    </footer>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

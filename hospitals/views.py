@@ -40,12 +40,6 @@ def home(request):
     return render(request, "hospital-main-page.html")
 
 
-def wedonate(request):
-    if request.POST:
-        pass
-    return render(request, "index.html")
-
-
 def search_donations(request):
     if request.POST:
         pass
@@ -70,6 +64,7 @@ def search_donations(request):
             temp_dict["blood_group"] = donation.blood_type
             donation_list.append(temp_dict)
         search_list = json.dumps(donation_list)
+        print("hi",search_list)
         return HttpResponse(search_list)
 
 
@@ -113,7 +108,7 @@ def fetch_appointments(request):
     else:
         # Fetching appointment details
         status = "Pending"
-        appointments = Appointments.objects.filter(Q(hospital__id__iexact=request.user.id) & Q(appointment_status__iexact=status))
+        appointments = Appointments.objects.filter(Q(hospital__hospital_name__iexact="IWK Health Centre") & Q(appointment_status__iexact=status))
         appointment_list = []
         for appointment in appointments:
             temp_dict = {}
@@ -139,7 +134,7 @@ def fetch_donations(request):
     else:
         donation_status = "Pending"
         appointment_status = "Approved"
-        appointments = Appointments.objects.filter(Q(hospital__id__iexact=request.user.id) & Q(appointment_status__iexact=appointment_status) & Q(donation_request__donation_status__iexact=donation_status))
+        appointments = Appointments.objects.filter(Q(hospital__hospital_name__iexact="IWK Health Centre") & Q(appointment_status__iexact=appointment_status) & Q(donation_request__donation_status__iexact=donation_status))
         appointment_list = []
         for appointment in appointments:
             temp_dict = {}
@@ -180,26 +175,25 @@ def hospital_register(request):
     return render(request, "hospital-registration.html")
 
 def hospital_login(request):
-    if request.POST:
-        username = request.POST.get("username", "")
-        password = request.POST.get("password", "")
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                if user.is_staff:
+	if request.POST:
+		username = request.POST.get("username", "")
+		password = request.POST.get("password", "")
+		user = authenticate(username=username, password=password)
+		if user is not None:
+			if user.is_active:
+				if user.is_staff:
+					msg = """Logged in successfully. The homepage is with the other developer who is working on it. But,
+					the remaining functionality works the exact same way it does on donor side. Hence, you 
+					are being redirected to same login page."""
+					login(request, user)
+					success=1 #remove
+					return render(request, "hospital-login.html", {"success":success, "msg":msg}) #redirect(request.POST.get("next", "hospital-register"))
+		else:
+			msg="Invalid password"
+			success=1
+			return render(request, "hospital-login.html", {"success":success, "msg":msg})
 
-                 #                msg = """Logged in successfully. The homepage is with the other developer who is working on it. But,
-                                        # the remaining functionality works the exact same way it does on donor side. Hence, you
-                                        # are being redirected to same login page."""
-                    login(request, user)
-                    return redirect(request.POST.get("next", "home"))
-        else:
-            msg = "Invalid password"
-            success = 1
-            return render(request, "hospital-login.html", {"success": success, "msg": msg})
-
-    return render(request, "hospital-login.html")
-
+	return render(request, "hospital-login.html")
 
 def fetch_appointment_details(request):
     if request.POST:
@@ -390,54 +384,3 @@ def email_donor(request):
                         """You've been requested by {} to donate organ. Thanks!""".format(request.user.first_name),
                             server="smtp.gmail.com",username="foodatdalteam@gmail.com",password="foodatdal")
     return HttpResponse("Success")
-	
-def get_user_details(request):
-    if request.POST:
-        pass
-    else:
-        user_details = []
-        temp_dict = {}
-        hospital = User.objects.get(id=request.user.id)
-        temp_dict["hospital_name"] = hospital.hospital_name
-        temp_dict["hospital_email"] = hospital.email
-        temp_dict["hospital_city"] = hospital.city
-        temp_dict["hospital_province"] = hospital.province
-        temp_dict["hospital_contact"] = hospital.contact_number
-        user_details.append(temp_dict)
-        user_json = json.dumps(user_details)
-    return HttpResponse(user_json)
-
-
-@csrf_exempt
-def update_user_details(request):
-    if request.POST:
-        name = request.POST.get('name', '')
-        email = request.POST.get('email', '')
-        city = request.POST.get('city', '')
-        contact = request.POST.get('contact', '')
-        province = request.POST.get('province', '')
-        user = User.objects.get(id=request.user.id)
-        user.email = request.POST.get('email', '')
-        user.hospital_name = request.POST.get('name', '')
-        user.city = request.POST.get('city', '')
-        user.province = request.POST.get('province', '')
-        user.contact_number = request.POST.get('contact', '')
-        print("about to save...")
-        user.save()
-    return HttpResponse("success")
-
-
-@csrf_exempt
-def update_pwd_details(request):
-    if request.POST:
-        user = authenticate(username=request.user.username, password=request.POST.get("old_password", ""))
-        if user is not None:
-            user.set_password(request.POST.get("new_password", ""))
-            print("about to save password...")
-            user.save(update_fields=["password"])
-    return HttpResponse("success")
-
-
-def hospital_logout(request):
-    logout(request)
-    return redirect("hospital-login")

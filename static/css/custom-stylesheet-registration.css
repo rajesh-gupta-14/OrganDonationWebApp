@@ -1,13 +1,4 @@
 /* registration form customization */
-body{
-    margin: auto 0px;
-    background-image: url('../images/donor_background.jpg');
-    background-attachment: fixed;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
 .container{
     margin-top:5%;
     margin-bottom: 10%;
@@ -36,11 +27,4 @@ body{
 
 .align-center{
     text-align: center;
-}
-.overlay{
- position: absolute;
- min-height: 100%;
- min-width: 100%;
- left: 0;
- background: rgba(244, 244, 244, 0.5);
 }

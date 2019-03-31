@@ -1,11 +1,6 @@
 /* Customize login form to fit the centre horizontally and vertically */
 body{
     margin: auto 0px;
-    background-image: url('../images/donor_background.jpg');
-    background-attachment: fixed;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
 }
 
 .container {
@@ -58,11 +53,4 @@ body{
         margin-top: 7%;
         height:50%
     }
-}
-.overlay{
- position: absolute;
- min-height: 100%;
- min-width: 100%;
- left: 0;
- background: rgba(244, 244, 244, 0.5);
 }
