@@ -854,7 +854,7 @@ var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
              if (this.readyState == 4 && this.status == 200) {
                  getObject = JSON.parse(this.responseText);
-                 
+
                  displaySearchDetailsResult(getObject);
          }
         }
@@ -868,7 +868,7 @@ function displaySearchDetailsResult(donationDetails){
 
 var searchDiv = document.getElementById("search_donation");
 
- 
+
 
 var removeDiv = document.getElementById("details_of_donation");
 
@@ -893,13 +893,13 @@ firstDivChild.classList.add("mb-3");
 firstDivChild.style.color = "black";
 firstDivChild.appendChild(document.createTextNode("Donor Details"));
 
- 
+
 
 var secondDivChild = document.createElement("div");
 
 secondDivChild.className = "card-body";
 
- 
+
 
 //Donor details
 
@@ -907,13 +907,13 @@ var gridContainerDiv = document.createElement("div");
 
 gridContainerDiv.className = "details-grid-container";
 
- 
+
 
 var gridItem1 = document.createElement("div");
 
 gridItem1.className = ".details-grid-item";
 
- 
+
 
 var firstName = document.createElement("p");
 
@@ -923,7 +923,7 @@ firstName.appendChild(document.createTextNode("First Name: " +donationDetails[0]
 
 gridItem1.appendChild(firstName);
 
- 
+
 
 var lastName = document.createElement("p");
 
@@ -933,7 +933,7 @@ lastName.appendChild(document.createTextNode("Last Name: " +donationDetails[0].l
 
 gridItem1.appendChild(lastName);
 
- 
+
 
 var contactNo = document.createElement("p");
 
@@ -943,7 +943,7 @@ contactNo.appendChild(document.createTextNode("Contact Number: " +donationDetail
 
 gridItem1.appendChild(contactNo);
 
- 
+
 
 var email = document.createElement("p");
 
@@ -953,13 +953,13 @@ email.appendChild(document.createTextNode("Email: " +donationDetails[0].email));
 
 gridItem1.appendChild(email);
 
- 
+
 
 var gridItem2 = document.createElement("div");
 
 gridItem2.className = ".details-grid-item";
 
- 
+
 
 var city = document.createElement("p");
 
@@ -969,7 +969,7 @@ city.appendChild(document.createTextNode("City: " +donationDetails[0].city));
 
 gridItem2.appendChild(city);
 
- 
+
 
 var country = document.createElement("p");
 
@@ -979,7 +979,7 @@ country.appendChild(document.createTextNode("Country: " +donationDetails[0].coun
 
 gridItem2.appendChild(country);
 
- 
+
 
 var province = document.createElement("p");
 
@@ -989,7 +989,7 @@ province.appendChild(document.createTextNode("Province: " +donationDetails[0].pr
 
 gridItem2.appendChild(province);
 
- 
+
 
 gridContainerDiv.appendChild(gridItem1);
 
@@ -1001,7 +1001,7 @@ donorDetailsDiv.appendChild(firstDivChild);
 
 donorDetailsDiv.appendChild(secondDivChild);
 
- 
+
 
 //Donation details
 
@@ -1012,25 +1012,25 @@ thirdDivChild.classList.add("mb-3");
 thirdDivChild.style.color = "black";
 thirdDivChild.appendChild(document.createTextNode("Donation Details"));
 
- 
+
 
 var fourthDivChild = document.createElement("div");
 
 fourthDivChild.className = "card-body";
 
- 
+
 
 var gridItem3 = document.createElement("div");
 
 gridItem3.className = ".details-grid-item";
 
- 
+
 
 var gridContainerDiv2 = document.createElement("div");
 
 gridContainerDiv2.className = "details-grid-container";
 
- 
+
 
 var organ = document.createElement("p");
 
@@ -1040,7 +1040,7 @@ organ.appendChild(document.createTextNode("Organ: " +donationDetails[0].organ));
 
 gridItem3.appendChild(organ);
 
- 
+
 
 var blood_group = document.createElement("p");
 
@@ -1050,7 +1050,7 @@ blood_group.appendChild(document.createTextNode("Blood Group: " +donationDetails
 
 gridItem3.appendChild(blood_group);
 
- 
+
 
 var donation_status = document.createElement("p");
 
@@ -1060,7 +1060,7 @@ donation_status.appendChild(document.createTextNode("Donation Status: " +donatio
 
 gridItem3.appendChild(donation_status);
 
- 
+
 
 var approved_by = document.createElement("p");
 
@@ -1070,13 +1070,13 @@ approved_by.appendChild(document.createTextNode("Approved by: " +donationDetails
 
 gridItem3.appendChild(approved_by);
 
- 
+
 
 var gridItem4 = document.createElement("div");
 
 gridItem4.className = ".details-grid-item";
 
- 
+
 
 var family_member_name = document.createElement("p");
 
@@ -1086,7 +1086,7 @@ family_member_name.appendChild(document.createTextNode("Family Member Name: " +d
 
 gridItem4.appendChild(family_member_name);
 
- 
+
 
 var family_member_relation = document.createElement("p");
 
@@ -1096,7 +1096,7 @@ family_member_relation.appendChild(document.createTextNode("Family Member Relati
 
 gridItem4.appendChild(family_member_relation);
 
- 
+
 
 var family_member_contact = document.createElement("p");
 
@@ -1106,7 +1106,7 @@ family_member_contact.appendChild(document.createTextNode("Family Member Contact
 
 gridItem4.appendChild(family_member_contact);
 
- 
+
 
 gridContainerDiv2.appendChild(gridItem3);
 
@@ -1118,7 +1118,7 @@ donorDetailsDiv.appendChild(thirdDivChild);
 
 donorDetailsDiv.appendChild(fourthDivChild);
 
- 
+
 
 var buttonDivChild = document.createElement("div");
 
@@ -1136,9 +1136,23 @@ downloadPDF.id = "download_pdf";
 
 downloadPDF.onclick = function(){
 
+       //Fetching donation id
+        var donationId;
+        var dummy;
+
+        //Fetching the donation ID of the selected row
+        var radiosDonation = document.getElementsByClassName("searchRadios");
+        for(var i = 0; i<radiosDonation.length;i++){
+         if(radiosDonation[i].type === "radio" && radiosDonation[i].checked){
+               dummy = ++i;
+         }
+       }
+        donationId = donationSearchTable.rows[dummy].cells[1].innerHTML;
+        console.log("donId for pdf: " +donationId);
+
      var xhttp = new XMLHttpRequest();
 
-     var URL_ = "http://localhost:8000/hospitals/view-pdf/1/";
+     var URL_ = "http://localhost:8000/hospitals/view-pdf/" + donationId + "/";
 
      xhttp.onreadystatechange = function() {
 
@@ -1152,10 +1166,10 @@ downloadPDF.onclick = function(){
         }
 
         xhttp.open("GET",URL_, true);
-		xhttp.responseType= "arraybuffer";
+		    xhttp.responseType= "arraybuffer";
         xhttp.send();
 
- 
+
 
 }
 buttonDivChild.appendChild(downloadPDF);
@@ -1172,11 +1186,39 @@ searchDiv.appendChild(donorDetailsDiv);
 //Function to alert the user when email button is clicked
 function emailDonor(){
     if(isSearchRowSelected()){
-    Swal.fire({
+      //Fetching donation id
+        var donationId;
+        var dummy;
+
+        //Fetching the donation ID of the selected row
+        var radiosDonation = document.getElementsByClassName("searchRadios");
+        for(var i = 0; i<radiosDonation.length;i++){
+         if(radiosDonation[i].type === "radio" && radiosDonation[i].checked){
+               dummy = ++i;
+         }
+       }
+        donationId = donationSearchTable.rows[dummy].cells[1].innerHTML;
+        console.log("donId for pdf: " +donationId);
+
+      var xhttp = new XMLHttpRequest();
+
+     var URL_ = "http://localhost:8000/hospitals/email-donor/" + donationId + "/";
+
+     xhttp.onreadystatechange = function() {
+
+             if (this.readyState == 4 && this.status == 200) {
+           Swal.fire({
           type: 'success',
           title: 'Done',
           text: 'An email has been sent to ' +donorToContact,
           });
+
+         }
+
+        }
+        xhttp.open("GET",URL_, true);
+        xhttp.send();
+
     }
     else{
     Swal.fire({

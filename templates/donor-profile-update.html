@@ -15,7 +15,7 @@
     <title>User Profile Update</title>
   </head>
   <body>
-    
+
 	<!--Please see Reference: [3][4] in README.txt in README.txt -->
     <!-- navbar -->
     <nav class="navbar fixed-top navbar-bg navbar-expand-sm navbar-light" id="navbar">
@@ -26,7 +26,7 @@
         <div class="collapse navbar-collapse" id="navbarTop">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="#">Home</a>
+                <a class="nav-link" href="{% url 'donor-home' %}">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'book-appointment' %}">Book an appointment</a>
@@ -62,7 +62,7 @@
                 </button>
             <h4 class="card-title mt-2 black">User profile</h4>
         </header>
-        
+
         <div class="card-content">
         <form method="POST" action="{% url 'donor-profile-update'  %}">
             {% csrf_token %}
@@ -72,7 +72,7 @@
             </div>
             <div class="form-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                <label>Donor name</label>   
+                <label>Donor name</label>
                 <input type="text" name="donor_name" value="{{ donor.first_name }}" id="fn" class="form-control" placeholder="" required disabled>
             </div>
             <div class="form-group">
@@ -121,9 +121,9 @@
             </div>
             <div class="form-group">
                 <button name="profile" type="submit" id="submit" class="btn navbar-bg btn-block" disabled> Update </button>
-            </div>      
-            
-        
+            </div>
+
+
         </div>
         </div>
         </div>
@@ -136,16 +136,16 @@
                     <h4 class="card-title mt-2 black">Password details</h4>
                 </header>
                 <div class="card-content">
-                
+
                     <div class="form-group">
                         {% if success and pscheck %} {{msg}} {% endif %}
                     </div>
                     <div class="form-group">
                         <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                        <label>Old password</label>   
+                        <label>Old password</label>
                         <input type="password" id="password1" name="old_password" class="form-control" disabled required>
                     </div>
-                
+
                     <div class="form-group">
                         <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                         <label>New password</label>
@@ -161,12 +161,12 @@
                     </div>
                     <div class="form-group">
                         <button name="password" type="submit" id="update-password" class="btn navbar-bg btn-block" disabled> Update </button>
-                    </div>      
-                    
+                    </div>
+
                 </form>
                 </div>
                 </div>
-                </div>            
+                </div>
         </div>
     </div>
 
@@ -180,6 +180,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-filestyle/2.1.0/bootstrap-filestyle.min.js"> </script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    
+
     </body>
 </html>

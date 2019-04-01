@@ -104,7 +104,7 @@ def search_donation_details(request):
             temp_dict["family_member_contact"] = donation.donation_request.family_contact_number
             donation_list.append(temp_dict)
         donation_details = json.dumps(donation_list)
-        
+
         return HttpResponse(donation_details)
 
 
@@ -162,7 +162,7 @@ def fetch_donations(request):
 
 
 def hospital_register(request):
-    
+
     # If method is post
     if request.POST:
         user = User()
@@ -177,7 +177,7 @@ def hospital_register(request):
         user.is_staff = True
         user.save()
         return redirect('hospital-login')
-    
+
     return render(request, "hospital-registration.html")
 
 def hospital_login(request):
@@ -358,11 +358,11 @@ def hospital_forgot_password(request):
 
     return render(request, "hospital-forgot-password.html", {"success":success})
 
-def form_to_PDF(request, donor_id=7):
-    user = User.objects.get(username="rajesh") #change condition
-    donation_request = DonationRequests.objects.get(id=7)
+def form_to_PDF(request, donor_id=1):
+
+    donation_request = DonationRequests.objects.get(id=donor_id)
+    user = donation_request.donor
     donations = DonationRequests.objects.filter(donor=user)
-    html_string = render_to_string('user-details.html', {'user': user, 'donors':donations})
     template = get_template("user-details.html")
     html = template.render({'user': user, 'donors':donations})
     config = pdfkit.configuration(wkhtmltopdf=settings.WKHTMLTOPDF)
@@ -373,8 +373,6 @@ def form_to_PDF(request, donor_id=7):
         pass
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'inline; filename="report.pdf"'
-    result = BytesIO()
-    pisa.CreatePDF(html, result)
     userpdf=PdfFileReader(BytesIO(pdf))
     usermedicaldoc=donation_request.upload_medical_doc.read()
     usermedbytes=BytesIO(usermedicaldoc)
@@ -385,10 +383,10 @@ def form_to_PDF(request, donor_id=7):
     merger.write(response)
     return response
 
-def email_donor(request):
+def email_donor(request, donor_id=1):
     donor = DonationRequests.objects.get(id=donor_id).donor
     send_mail("foodatdalteam@gmail.com", donor.email, "Organ Donation",
-                        """You've been requested by {} to donate organ. Thanks!""".format(request.user.first_name),
+                        """You've been requested by {} to donate organ. Thanks!""".format(request.user.hospital_name),
                             server="smtp.gmail.com",username="foodatdalteam@gmail.com",password="foodatdal")
     return HttpResponse("Success")
 
@@ -443,4 +441,4 @@ def update_pwd_details(request):
 def hospital_logout(request):
     logout(request)
     return redirect("hospital-login")
-	
+

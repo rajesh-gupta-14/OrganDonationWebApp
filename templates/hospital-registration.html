@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{% static 'css/header-footer.css' %}">
     <link rel="stylesheet" href="{% static 'css/custom-stylesheet-hospital-registration.css' %}">
     <title>Hospital Registration</title>
-    
+
   </head>
   <body>
 
@@ -39,7 +39,7 @@
                     <label>Hospital name</label>
                     <input type="text" name="hospital_name" class="form-control" placeholder="" required>
                 </div>
-            
+
                 <div class="form-group">
                     <span class="input-group-addon"><i class="fa fa-at"></i></span>
                     <label>Email address</label>
@@ -48,7 +48,7 @@
 
                 <div class="form-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                    <label>Enter Username</label>   
+                    <label>Enter Username</label>
                     <input type="text" name="username" class="form-control" placeholder="" required>
                 </div>
 
@@ -98,23 +98,23 @@
                         <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                         <label>Confirm password</label>
                         <input class="form-control" type="password" id="password2" oninput="checkpassword();" required>
-                </div> 
+                </div>
                 <div class="form-group">
                     <span id="password-validation-msg"></span>
-                </div>  
+                </div>
                 <div class="form-group">
                     <button type="submit" id="submit" class="btn btn-color btn-block" disabled> Register  </button>
-                </div>      
+                </div>
                 <div class="form-group align-center">If you already have an account, <a href="{% url 'hospital-login' %}" class="fnt-color">click here</a></div>
             </form>
             </div>
             </div>
-            </div>            
             </div>
-        </div> 
+            </div>
+        </div>
         <!--container end.//-->
 </div>
-    <footer class="zone blue footer_style">Copyright © 2019. We donate Inc. All rights reserved. | <a href= "#">About us | </a> <a href= "#">Contact us. </a> </footer>
+    <footer class="zone blue footer_style">Copyright &copy; 2019. We donate Inc. All rights reserved. | <a href= "#">About us | </a> <a href= "#">Contact us. </a> </footer>
 
 		<script src="{% static 'js/hospital-registration.js' %}"></script>
         <!-- Optional JavaScript -->

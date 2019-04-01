@@ -22,5 +22,5 @@ urlpatterns = [
     re_path('update-pwd-details/', views.update_pwd_details, name='update-pwd-details'),
     re_path('hospital-logout/$', views.hospital_login, name='hospital-logout'),
     re_path('wedonate/$', views.wedonate, name='wedonate'),
-    re_path('email-donor/$', views.email_donor, name='email-donor'),
+    re_path('email-donor/(?P<donor_id>\d+)/$', views.email_donor, name='email-donor'),
 ]

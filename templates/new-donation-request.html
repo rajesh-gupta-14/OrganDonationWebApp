@@ -15,7 +15,7 @@
     <title>User Profile Update</title>
   </head>
   <body>
-    
+
 	<!--Please see Reference: [3][4] in README.txt in README.txt -->
     <!-- navbar -->
     <nav class="navbar fixed-top navbar-bg navbar-expand-sm navbar-light" id="navbar">
@@ -26,7 +26,7 @@
         <div class="collapse navbar-collapse" id="navbarTop">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="#">Home</a>
+                <a class="nav-link" href="{% url 'donor-home' %}">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'book-appointment' %}">Book an appointment</a>
@@ -108,7 +108,7 @@
                   <span class="form-check-label"> No </span>
                 </label>
             </div>
-            
+
             <div class="form-group">
                 <span> Is your family okay with donating your organ?&nbsp;&nbsp;</span>
                 <label class="form-check form-check-inline">
@@ -120,20 +120,20 @@
                   <span class="form-check-label"> No </span>
                 </label>
                 </div>
-            
+
             <div class="form-group">
 
             </div>
             <div class="form-group">
                 <button type="submit" id="submit" class="btn navbar-bg btn-block"> Create </button>
-            </div>      
-            
+            </div>
+
         </form>
         </div>
         </div>
-        </div>            
         </div>
-    </div> 
+        </div>
+    </div>
 
 
     <footer class="custom-footer navbar-bg">
@@ -146,6 +146,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="js/bootstrap-filestyle.min.js"> </script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    
+
     </body>
 </html>
