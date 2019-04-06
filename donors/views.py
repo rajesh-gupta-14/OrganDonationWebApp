@@ -145,6 +145,10 @@ def donor_logout(request):
     return redirect("donor-login")
 
 
+def donor_landing_page(request):
+    return render(request, "donor_landing_page.html")
+
+
 def donor_home(request):
     donor_requests = DonationRequests.objects.filter(donor=request.user)
     for donor_request in donor_requests:
@@ -195,3 +199,9 @@ def book_appointment(request):
     users = User.objects.filter(is_staff=True)
 
     return render(request, "book-appointment.html", {"users": users, "donors": donors})
+
+
+def wedonate(request):
+    if request.POST:
+        pass
+    return render(request, "index.html")

@@ -15,13 +15,17 @@ from .models import User
 from django.contrib.auth import login, logout, authenticate
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
-import smtplib, getpass
+import smtplib
+import getpass
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
 from email.utils import COMMASPACE, formatdate
 from email import encoders
-import string, secrets, ast, random
+import string
+import secrets
+import ast
+import random
 from donors.models import DonationRequests, Appointments
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
@@ -38,12 +42,6 @@ def home(request):
     if request.POST:
         pass
     return render(request, "hospital-main-page.html")
-
-
-def wedonate(request):
-    if request.POST:
-        pass
-    return render(request, "index.html")
 
 
 def search_donations(request):
@@ -70,7 +68,7 @@ def search_donations(request):
             temp_dict["blood_group"] = donation.blood_type
             donation_list.append(temp_dict)
         search_list = json.dumps(donation_list)
-        print("hi",search_list)
+        print("hi", search_list)
         return HttpResponse(search_list)
 
 
@@ -113,6 +111,7 @@ def fetch_appointments(request):
         pass
     else:
         # Fetching appointment details
+        print("fetching appointments from db...")
         status = "Pending"
         appointments = Appointments.objects.filter(Q(hospital__id__iexact=request.user.id) & Q(appointment_status__iexact=status))
         appointment_list = []
@@ -166,19 +165,20 @@ def hospital_register(request):
     # If method is post
     if request.POST:
         user = User()
-        user.username = request.POST.get("username","")
-        user.set_password(request.POST.get("password",""))
-        user.email = request.POST.get("email","")
-        user.first_name = request.POST.get("hospital_name","")
-        user.city = request.POST.get("city","")
-        user.province = request.POST.get("province","")
-        user.country = request.POST.get("country","")
-        user.contact_number = request.POST.get("contact_number","")
+        user.username = request.POST.get("username", "")
+        user.set_password(request.POST.get("password", ""))
+        user.email = request.POST.get("email", "")
+        user.first_name = request.POST.get("hospital_name", "")
+        user.city = request.POST.get("city", "")
+        user.province = request.POST.get("province", "")
+        user.country = request.POST.get("country", "")
+        user.contact_number = request.POST.get("contact_number", "")
         user.is_staff = True
         user.save()
         return redirect('hospital-login')
 
     return render(request, "hospital-registration.html")
+
 
 def hospital_login(request):
     if request.POST:
@@ -316,22 +316,22 @@ def fetch_counts(request):
         count_json = json.dumps(dummy_list)
         return HttpResponse(count_json)
 
+
 def send_mail(send_from, send_to, subject, body_of_msg, files=[],
               server="localhost", port=587, username='', password='',
               use_tls=True):
-		message = MIMEMultipart()
-		message['From'] = send_from
-		message['To'] = send_to
-		message['Date'] = formatdate(localtime=True)
-		message['Subject'] = subject
-		message.attach(MIMEText(body_of_msg))
-		smtp = smtplib.SMTP(server, port)
-		if use_tls:
-			smtp.starttls()
-		smtp.login(username, password)
-		smtp.sendmail(send_from, send_to, message.as_string())
-		smtp.quit()
-
+    message = MIMEMultipart()
+    message['From'] = send_from
+    message['To'] = send_to
+    message['Date'] = formatdate(localtime=True)
+    message['Subject'] = subject
+    message.attach(MIMEText(body_of_msg))
+    smtp = smtplib.SMTP(server, port)
+    if use_tls:
+        smtp.starttls()
+    smtp.login(username, password)
+    smtp.sendmail(send_from, send_to, message.as_string())
+    smtp.quit()
 
 
 def hospital_forgot_password(request):
@@ -345,18 +345,19 @@ def hospital_forgot_password(request):
             user.set_password(password)
             user.save()
             send_mail("foodatdalteam@gmail.com", email, "Password reset for your organ donation account",
-                        """Your request to change password has been processed.\nThis is your new password: {}\n
+                      """Your request to change password has been processed.\nThis is your new password: {}\n
                             If you wish to change password, please go to your user profile and change it.""".format(password),
-                            server="smtp.gmail.com",username="foodatdalteam@gmail.com",password="foodatdal")
+                      server="smtp.gmail.com", username="foodatdalteam@gmail.com", password="foodatdal")
             success = 1
             msg = "Success. Check your registered email for new password!"
-            return render(request, "hospital-forgot-password.html", {"success":success, "msg":msg})
+            return render(request, "hospital-forgot-password.html", {"success": success, "msg": msg})
         except:
             success = 1
             msg = "User does not exist!"
-            return render(request, "hospital-forgot-password.html", {"success":success, "msg":msg})
+            return render(request, "hospital-forgot-password.html", {"success": success, "msg": msg})
 
-    return render(request, "hospital-forgot-password.html", {"success":success})
+    return render(request, "hospital-forgot-password.html", {"success": success})
+
 
 def form_to_PDF(request, donor_id=1):
 
@@ -364,30 +365,31 @@ def form_to_PDF(request, donor_id=1):
     user = donation_request.donor
     donations = DonationRequests.objects.filter(donor=user)
     template = get_template("user-details.html")
-    html = template.render({'user': user, 'donors':donations})
+    html = template.render({'user': user, 'donors': donations})
     config = pdfkit.configuration(wkhtmltopdf=settings.WKHTMLTOPDF)
     try:
-        pdf = pdfkit.from_string(html,False,configuration=config)
+        pdf = pdfkit.from_string(html, False, configuration=config)
     except Exception as e:
         print(e)
         pass
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'inline; filename="report.pdf"'
-    userpdf=PdfFileReader(BytesIO(pdf))
-    usermedicaldoc=donation_request.upload_medical_doc.read()
-    usermedbytes=BytesIO(usermedicaldoc)
-    usermedicalpdf=PdfFileReader(usermedbytes)
+    userpdf = PdfFileReader(BytesIO(pdf))
+    usermedicaldoc = donation_request.upload_medical_doc.read()
+    usermedbytes = BytesIO(usermedicaldoc)
+    usermedicalpdf = PdfFileReader(usermedbytes)
     merger = PdfFileMerger()
     merger.append(userpdf)
     merger.append(usermedicalpdf)
     merger.write(response)
     return response
 
+
 def email_donor(request, donor_id=1):
     donor = DonationRequests.objects.get(id=donor_id).donor
     send_mail("foodatdalteam@gmail.com", donor.email, "Organ Donation",
-                        """You've been requested by {} to donate organ. Thanks!""".format(request.user.hospital_name),
-                            server="smtp.gmail.com",username="foodatdalteam@gmail.com",password="foodatdal")
+              """You've been requested by {} to donate organ. Thanks!""".format(request.user.hospital_name),
+              server="smtp.gmail.com", username="foodatdalteam@gmail.com", password="foodatdal")
     return HttpResponse("Success")
 
 
@@ -441,4 +443,3 @@ def update_pwd_details(request):
 def hospital_logout(request):
     logout(request)
     return redirect("hospital-login")
-

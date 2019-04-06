@@ -18,15 +18,18 @@
 
 	<!--Please see Reference: [3][4] in README.txt in README.txt -->
     <!-- navbar -->
-    <nav class="navbar fixed-top navbar-bg navbar-expand-sm navbar-light" id="navbar">
-        <a class="navbar-brand" href="#">We Donate</a>
+      <nav class="navbar fixed-top navbar-dark navbar-expand-sm bg-primary" id="navbar">
+        <a class="navbar-brand" href="{% url 'donor-landing-page' %}">We Donate</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTop" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarTop">
         <ul class="navbar-nav mr-auto">
+             <li class="nav-item">
+                <a class="nav-link" href="{% url 'donor-landing-page' %}">Home</a>
+            </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'donor-home' %}">Home</a>
+                <a class="nav-link" href="{% url 'donor-home' %}">Donation history</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'book-appointment' %}">Book an appointment</a>
@@ -56,11 +59,11 @@
         <div class="row">
         <div class="col-md-6">
         <div class="card">
-        <header class="card-header">
+        <header class="card-header bg-light mb-3">
                 <button class="btn btn-warning float-right mt-1 bg-for-all" type="reset" onclick="enableedituserprofile();">
                     <i class="fa fa-edit"></i>&nbsp;Edit
                 </button>
-            <h4 class="card-title mt-2 black">User profile</h4>
+            <h4 class="card-title bg-light mb-3">User profile</h4>
         </header>
 
         <div class="card-content">
@@ -120,7 +123,7 @@
             <div class="form-group">
             </div>
             <div class="form-group">
-                <button name="profile" type="submit" id="submit" class="btn navbar-bg btn-block" disabled> Update </button>
+                <button name="profile" type="submit" id="submit" class="btn btn-info btn-block" disabled> Update </button>
             </div>
 
 
@@ -129,11 +132,11 @@
         </div>
         <div class="col-md-6">
                 <div class="card">
-                <header class="card-header">
+                <header class="card-heade bg-light mb-3r">
                         <button class="btn btn-warning float-right mt-1 bg-for-all" type="reset" onclick="enableeditpasswords();">
                                 <i class="fa fa-edit"></i>&nbsp;Edit
                         </button>
-                    <h4 class="card-title mt-2 black">Password details</h4>
+                    <h4 class="card-title bg-light mb-3" style = "text-align: center; padding: 2px;">Password details</h4>
                 </header>
                 <div class="card-content">
 
@@ -160,7 +163,7 @@
                         <span id="password-validation-msg"></span>
                     </div>
                     <div class="form-group">
-                        <button name="password" type="submit" id="update-password" class="btn navbar-bg btn-block" disabled> Update </button>
+                        <button name="password" type="submit" id="update-password" class="btn btn-info btn-block" disabled> Update </button>
                     </div>
 
                 </form>
@@ -170,9 +173,9 @@
         </div>
     </div>
 
-    <footer class="custom-footer navbar-bg">
-        Copyrights reserved.
-    </footer>
+   <footer class="custom-footer bg-primary">
+        Copyright &copy; 2019. We donate Inc. All rights reserved. | <a href= "#">About us | </a> <a href= "#">Contact us. </a>     </footer>
+
 		<script src="{% static 'js/user-profile-update.js' %}"></script>
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->

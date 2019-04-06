@@ -12,21 +12,24 @@
     <!-- Custom CSS-->
     <link rel="stylesheet" href="{% static 'css/header-footer.css' %}">
     <link rel="stylesheet" href="{% static 'css/new-donation-request.css' %}">
-    <title>User Profile Update</title>
+    <title>Book Appointment</title>
   </head>
   <body>
 
 	<!--Please see Reference: [3][4] in README.txt in README.txt -->
     <!-- navbar -->
-    <nav class="navbar fixed-top navbar-bg navbar-expand-sm navbar-light" id="navbar">
-        <a class="navbar-brand" href="#">We Donate</a>
+        <nav class="navbar fixed-top navbar-dark navbar-expand-sm bg-primary" id="navbar">
+        <a class="navbar-brand" href="{% url 'donor-landing-page' %}">We Donate</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTop" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarTop">
         <ul class="navbar-nav mr-auto">
+             <li class="nav-item">
+                <a class="nav-link" href="{% url 'donor-landing-page' %}">Home</a>
+            </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'donor-home' %}">Home</a>
+                <a class="nav-link" href="{% url 'donor-home' %}">Donation history</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'book-appointment' %}">Book an appointment</a>
@@ -50,14 +53,13 @@
         </ul>
     </div>
     </nav>
-
     <!-- donation request form--><!--Please see Reference: [4] in README.txt -->
     <div class="container">
         <div class="row justify-content-center">
         <div class="col-md-6">
         <div class="card">
-        <header class="card-header">
-            <h4 class="card-title mt-2 black">New Appointment request</h4>
+        <header class="card-header bg-light mb-3">
+            <h4 class="card-title bg-light mb-3">New Appointment request</h4>
         </header>
         <div class="card-content">
         <form method="POST" enctype="multipart/form-data" action="{% url 'book-appointment' %}">
@@ -86,7 +88,7 @@
             </div>
             <div class="form-row">
                     <div class="form-group col-md-12">
-                            <label class="control-label" for="appointmentstatus">Appointment status</label>
+                            <label class="control-label" for="appointmentstatus">Appointment date</label>
                             <input type="date" id="start" name="date"
                             value="2019-04-02"
                                         min="2019-04-02" max="2020-12-31">
@@ -113,7 +115,7 @@
 
 
             <div class="form-group">
-                <button type="submit" id="submit" class="btn navbar-bg btn-block"> Book </button>
+                <button type="submit" id="submit" class="btn btn-info btn-block"> Book </button>
             </div>
 
         </form>
@@ -124,8 +126,8 @@
     </div>
 
 
-    <footer class="custom-footer navbar-bg">
-        Copyrights reserved.
+    <footer class="custom-footer bg-primary">
+       Copyright &copy; 2019. We donate Inc. All rights reserved. | <a href= "#">About us | </a> <a href= "#">Contact us. </a>
     </footer>
 		<script src="{% static 'js/new-donation-request.js' %}"></script>
         <!-- Optional JavaScript -->

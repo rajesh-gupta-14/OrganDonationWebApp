@@ -1,6 +1,7 @@
 body{
     padding-top: 100px;
     padding-bottom: 70px;
+    /*background: #DDDDDD;*/
 }
 
 /* custom navbar properties properties */
@@ -39,4 +40,74 @@ body{
 
 .top{
     margin-top: 2%;
+}
+.centerText{
+    text-align: center;
+}
+
+.blue{
+    background: #7abcff; /* Old browsers */
+    background: -moz-linear-gradient(top, #7abcff 0%, #60abf8 44%, #4096ee 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7abcff), color-stop(44%,#60abf8), color-stop(100%,#4096ee)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #7abcff 0%,#60abf8 44%,#4096ee 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #7abcff 0%,#60abf8 44%,#4096ee 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #7abcff 0%,#60abf8 44%,#4096ee 100%); /* IE10+ */
+    background: linear-gradient(to top, #7abcff 0%,#60abf8 44%,#4096ee 100%); /* W3C */
+}
+.overlay{
+ position: absolute;
+ min-height: 100%;
+ height: 100%;
+ min-width: 100%;
+ left: 0;
+ background: rgba(244, 244, 244, 0.85);
+}
+
+.description{
+    position: absolute;
+    top: 2%;
+    margin: auto;
+    padding: 2em;
+}
+.description h1{
+ color: #2e4053;
+/* color:brown;*/
+}
+.description>p{
+ color:#666;
+ font-size: 20px;
+ width: 50%;
+ line-height: 1.5;
+}
+
+@media only screen and (max-width: 620px){
+ .description{
+    position: absolute;
+    top: 5%;
+    left:2%;
+    margin: auto;
+    padding: 1em;
+}
+.description h1{
+ /*color:#F97300 ;*/
+ color:brown;
+ font-size: 14px;
+}
+.description>p{
+ color:#666;
+ font-size: 8px;
+ width: 50%;
+}
+.overlay{
+    background: rgba(244, 244, 244, 0);
+}
+
+
+
+}
+
+.card-header, .card-footer{
+    color: #000000;
+    text-align: center;
+    background-color: #51EAEA;
 }

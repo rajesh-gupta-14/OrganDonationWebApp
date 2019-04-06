@@ -20,4 +20,5 @@ urlpatterns = [
     re_path('^donors/', include('donors.urls')),
     re_path('^hospitals/', include('hospitals.urls')),
     re_path('admin/', admin.site.urls),
+    re_path('home/', include('donors.urls')),
 ]
