@@ -26,7 +26,7 @@
     <div class="card bg-light mb-3">
         <div class="card-header bg-light mb-3"><b>Donor Login</b></div>
             <div class="card-content">
-                <form method="POST" action="{% url 'donor-landing-page' %}">
+                <form method="POST" action="{% url 'donor-login' %}">
                     {% csrf_token %}
                     {% if fail %}
                     <div class="form-group">

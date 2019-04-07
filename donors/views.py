@@ -42,7 +42,6 @@ def donor_register(request):
 
 
 def donor_login(request):
-
     # If method is post
     if request.POST:
         username = request.POST.get("username", "")
@@ -52,7 +51,8 @@ def donor_login(request):
             if user.is_active:
                 if not user.is_staff:
                     login(request, user)
-                    return redirect(request.POST.get("next", "donor-home"))
+                    print(request.user, "helo")
+                    return redirect(request.POST.get("next", "donor-landing-page"))
         else:
             msg = "Invalid password"
             fail = 1
@@ -162,7 +162,7 @@ def donor_home(request):
 
 
 def new_donation_request(request):
-
+    
     if request.POST:
         donation_request = DonationRequests()
         donation_request.donation_request = request.POST.get("newdonationreq", "")
@@ -185,10 +185,10 @@ def new_donation_request(request):
 def book_appointment(request):
     # If method is post
     if request.POST:
-
+        print(request.POST.get("hospital-name", ""))
         apmt = Appointments()
         apmt.donation_request = DonationRequests.objects.get(id=int(request.POST.get("dreq", "")))
-        apmt.hospital = User.objects.get(username=request.POST.get("hospital-name", ""))
+        apmt.hospital = User.objects.get(hospital_name=request.POST.get("hospital-name", ""))
         apmt.date = request.POST.get("date", "")
         apmt.time = request.POST.get("time", "")
         apmt.appointment_status = "Pending"
@@ -197,7 +197,6 @@ def book_appointment(request):
 
     donors = DonationRequests.objects.filter(donor=request.user.id)
     users = User.objects.filter(is_staff=True)
-
     return render(request, "book-appointment.html", {"users": users, "donors": donors})
 
 

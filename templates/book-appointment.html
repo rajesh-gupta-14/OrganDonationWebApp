@@ -70,7 +70,7 @@
                         <select id="hospital-name" name="dreq" class="form-control">
                             <option value="None" selected>None</option>
                             {% for donor in donors %}
-                            <option value={{donor.id}}>{{donor.id}}</option>
+                            <option value="{{donor.id}}">{{donor.id}}</option>
                             {% endfor %}
                         </select>
                 </div>
@@ -81,7 +81,7 @@
                     <select id="hospital-name" name="hospital-name" class="form-control">
                         <option value="None" selected>None</option>
                         {% for user in users %}
-                        <option value={{user.username}}>{{user.username}}</option>
+                        <option value="{{user.hospital_name}}">{{user.hospital_name}}</option>
                         {% endfor %}
                     </select>
             </div>

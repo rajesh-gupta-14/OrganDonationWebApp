@@ -12,6 +12,4 @@ urlpatterns = [
     re_path('new-donation-request/$', views.new_donation_request, name='new-donation-request'),
     re_path('book-appointment/$', views.book_appointment, name='book-appointment'),
     re_path('home/$', views.donor_landing_page, name="donor-landing-page"),
-    re_path('', views.wedonate, name='wedonate'),
-
 ]
