@@ -1,17 +1,3 @@
-<<<<<<< HEAD
-from django.shortcuts import render
-
-# Create your views here.
-def register(request):
-    
-    # If method is post
-    if request.POST:
-        pass
-    
-    return render(request, "hospital-registration.html")
-
-def login(request):
-=======
 from django.shortcuts import render, redirect
 from hospitals.models import User
 from .models import DonationRequests
@@ -54,16 +40,9 @@ def donor_register(request):
 
     return render(request, "donor-registration.html")
 
->>>>>>> develop
-
 def donor_login(request):
     # If method is post
     if request.POST:
-<<<<<<< HEAD
-        pass
-
-    return render(request, "hospital-login.html")
-=======
         username = request.POST.get("username", "")
         password = request.POST.get("password", "")
         user = authenticate(username=username, password=password)
@@ -224,4 +203,3 @@ def wedonate(request):
     if request.POST:
         pass
     return render(request, "index.html")
->>>>>>> develop

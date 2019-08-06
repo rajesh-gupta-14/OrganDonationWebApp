@@ -3,11 +3,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-<<<<<<< HEAD
-    path('register/', views.register, name='hospital-register'),
-    path('login/', views.login, name='hospital-login')
-]
-=======
     re_path('home/$', views.home, name='home'),
     re_path('search-donations/', views.search_donations, name='search-donations'),
     re_path('search-donation-details/', views.search_donation_details, name='search-donation-details'),
@@ -28,4 +23,3 @@ urlpatterns = [
     re_path('hospital-logout/$', views.hospital_login, name='hospital-logout'),
     re_path('email-donor/(?P<donor_id>\d+)/$', views.email_donor, name='email-donor'),
 ]
->>>>>>> develop

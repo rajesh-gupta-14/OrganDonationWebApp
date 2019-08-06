@@ -1,18 +1,3 @@
-<<<<<<< HEAD
-from django.shortcuts import render
-
-# Create your views here.
-def register(request):
-    
-    # If method is post
-    if request.POST:
-        pass
-    
-    return render(request, "hospital-registration.html")
-
-def login(request):
-=======
-
 from django.shortcuts import render
 import pdfkit
 from django.conf import settings
@@ -458,8 +443,6 @@ def update_pwd_details(request):
             print("about to save password...")
             user.save(update_fields=["password"])
     return HttpResponse("success")
-
->>>>>>> develop
 
 def hospital_logout(request):
     logout(request)

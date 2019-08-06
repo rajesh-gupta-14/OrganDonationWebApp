@@ -1,8 +1,4 @@
 from django.contrib import admin
-
-<<<<<<< HEAD
-# Register your models here.
-=======
 class UserAdmin(UserAdmin):
 
     fieldsets = UserAdmin.fieldsets + (
@@ -11,4 +7,3 @@ class UserAdmin(UserAdmin):
 
 
 admin.site.register(User, UserAdmin)
->>>>>>> develop

@@ -3,10 +3,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-<<<<<<< HEAD
-    path('register/', views.register, name='donor-register'),
-]
-=======
     re_path('register/$', views.donor_register, name='donor-register'),
     re_path('login/$', views.donor_login, name='donor-login'),
     re_path('update_profile/$', views.donor_profile_update, name="donor-profile-update"),
@@ -17,4 +13,3 @@ urlpatterns = [
     re_path('book-appointment/$', views.book_appointment, name='book-appointment'),
     re_path('home/$', views.donor_landing_page, name="donor-landing-page"),
 ]
->>>>>>> develop
