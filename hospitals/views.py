@@ -179,13 +179,8 @@ def hospital_register(request):
 
     return render(request, "hospital-registration.html")
 
->>>>>>> develop
-
 def hospital_login(request):
     if request.POST:
-<<<<<<< HEAD
-        pass
-=======
         username = request.POST.get("username", "")
         password = request.POST.get("password", "")
         user = authenticate(username=username, password=password)
