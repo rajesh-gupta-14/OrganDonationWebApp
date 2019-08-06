@@ -9,21 +9,34 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
     <!-- Custom CSS-->
-    <link rel="stylesheet" href="{% static 'css/custom-stylesheet-login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom-stylesheet-hospital-login.css' %}">
     <link rel="stylesheet" href="{% static 'css/header-footer.css' %}">
     <title>Hospital Login</title>
   </head>
   <body>
     <!-- Login form for hospital-->
-    <header class="custom-header">
-        Hospital management
+    <header class="zone blue">
+      <div class = "nav-bar"><p id = "company_name" class = "push_this_left">We Donate</p>
+      </div>
     </header>
+    <div class = "overlay">
     <div class = "container">
-    <div class="card">
-        <div class="card-header"><b>Hospital Login</b></div>
+    <div class="card bg-light mb-3">
+        <div class="card-header bg-light mb-3"><b>Hospital Login</b></div>
             <div class="card-content">
+<<<<<<< HEAD
                 <form>
+=======
+                <form method="POST" action="{% url 'hospital-login' %}">
+                    {% csrf_token %}
+                    {% if success %}
+                    <div class="form-group">
+                        {{msg}}
+                    </div>
+                    {% endif %}
+>>>>>>> develop
                     <div class="form-group">
                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
                         <label for="username">Username:</label>
@@ -32,27 +45,36 @@
                     <div class="form-group">
                         <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                         <label for="pwd">Password:</label>
+<<<<<<< HEAD
                         <input type="password" class="form-control" id="pwd" required>                    
                     </div>
                     <div class="form-group align-center">
                     <button type="submit" class="btn btn-primary form-control">Login</button>
+=======
+                        <input type="password" name="password" class="form-control" id="pwd" required>
                     </div>
                     <div class="form-group align-center">
-                    <a href="#"><b>Forgot password?</b></a> or <a href="hospital-registration.html"><b>New user?</b></a>
+                    {% if request.GET.next %}
+                    <input type="hidden" name="next" value="{{ request.GET.next }}">
+                    {% endif %}
+                    <button type="submit" class="btn btn-color form-control">Login</button>
+>>>>>>> develop
+                    </div>
+                    <div class="form-group align-center">
+                    <a href="{% url 'hospital-forgot-password' %}" class="fnt-color"><b>Forgot password?</b></a> or <a href="{% url 'hospital-register' %}" class="fnt-color"><b>New user?</b></a>
                     </div>
                 </form>
             </div>
-            
+
     </div>
+</div>
+<div class = "homeButton top"><a href="{% url 'wedonate' %}"><button class="btn btn-color">Home</button></a></div>
 </div>
 
 
 
 
-
-<footer class="custom-footer">
-        Copyrights reserved.
-    </footer>
+<footer class="zone blue footer_style">Copyright &copy; 2019. We donate Inc. All rights reserved. | <a href= "#">About us | </a> <a href= "#">Contact us. </a> </footer>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

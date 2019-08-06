@@ -28,6 +28,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+WKHTMLTOPDF = os.path.join(BASE_DIR, "wkhtmltopdf", "wkhtmltopdf.exe")
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -124,3 +126,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+
+AUTH_USER_MODEL = "hospitals.User"
+MEDIA_URL ="/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")

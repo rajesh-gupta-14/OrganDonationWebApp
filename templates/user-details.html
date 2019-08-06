@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+    <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <title>User Profile</title>
+    </head>
+    
+    <body>
+
+    
+    <div class="container">
+    <div class="row">
+
+    <table class="table table-md table-success justify-content-center">
+        
+        <tbody>
+          <thead>
+              <tr>
+                <th scope="row"><h3>USER DETAILS</h3></th>
+              </tr>
+          </thead>
+          <tr>
+            <th scope="row">Name </th>
+            <td>{{ user.first_name }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Email ID</th>
+            <td>{{ user.email }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Contact no.</th>
+            <td colspan="2">{{ user.contact_number }}</td>
+          </tr>
+          <tr>
+            <th scope="row">City</th>
+            <td colspan="2">{{ user.city }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Province</th>
+            <td colspan="2">{{ user.province }}</td>
+            </tr>
+          <tr>
+            <th scope="row">Country</th>
+            <td colspan="2">{{ user.country }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
+    <div class="container">
+            <div class="row">
+        
+            <table class="table table-md table-success justify-content-center">
+                
+                <tbody>
+                  <thead>
+                      <tr>
+                        <th scope="row"><h3>DONATION HISTORY</h3></th>
+                      </tr>
+                  </thead>
+                  <thead>
+                        <tr>
+                          <th scope="row">ORGAN TYPE</th>
+                          <th scope="row">BLOOD TYPE</th>
+                          <th scope="row">DONATION STATUS</th>
+                          <th scope="row">DATE AND TIME</th>
+                        </tr>
+                    </thead>
+                    {% for donor in donors %}
+                  <tr>
+                    <th scope="row">{{ donor.organ_type }}</th>
+                    <td>{{ donor.blood_type }}</td>
+                    <td>{{ donor.donation_status }}</td>
+                    <td>{{ donor.request_datetime }}</td>
+                  </tr>
+                  {% endfor %}
+                  
+                </tbody>
+              </table>
+            </div>
+            </div>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
+    </body>
+</html>

@@ -1,0 +1,45 @@
+/* registration form customization */
+body{
+    margin: auto 0px;
+    background-image: url('../images/hospital_background.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.container{
+    margin-top:5%;
+    margin-bottom: 10%;
+}
+
+.card{
+    width: 100%;
+}
+
+.card-header{
+    color: #000000;
+    background-color: #51EAEA;
+}
+
+.card-content{
+    padding: 25px;
+}
+
+.btn-color{
+    background-color:#51EAEA;
+}
+
+.fnt-color{
+    color: #000000;
+}
+
+.align-center{
+    text-align: center;
+}
+.overlay{
+ position: absolute;
+ min-height: 100%;
+ min-width: 100%;
+ left: 0;
+ background: rgba(244, 244, 244, 0.5);
+}

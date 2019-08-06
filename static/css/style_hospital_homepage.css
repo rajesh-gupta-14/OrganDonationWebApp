@@ -1,0 +1,332 @@
+body{
+    margin: auto 0px;
+    font-family: Arial;
+    background-color: #ffffff;
+    /*background-color: #E4E8EC;*/
+    /*#eafaea*/
+}
+
+/* nav bar for company name header*/
+.nav-bar{
+    display: flex;
+    font-size: 0.8em;
+   /* background-color: #51EAEA;*/
+}
+li{
+   padding: 20px;
+   list-style: none;
+}
+
+#company_name{
+    text-align: left;
+    margin-left: 1%;
+    font-family:'Sofia';
+    font-weight: bolder;
+    color: brown;
+    font-size: 0.75em;
+}
+
+#company_name > a{
+    color: brown;
+}
+
+.custom-settings{
+  color: black;
+  font-size: 0.8em;
+}
+.push_this{
+    margin-left: auto;
+}
+
+.push_this_left{
+    margin-right: auto;
+}
+/*footer{
+  background-color: #51EAEA;
+}*/
+
+footer a{
+    color: white;
+    text-decoration: none;
+}
+
+a:link{
+  text-decoration: none!important;
+}
+
+.ml-auto{
+  margin-right: 5%;
+}
+
+/***********************************************************************
+ *  Blue Background
+ **********************************************************************/
+.blue{
+    background: #7abcff; /* Old browsers */
+    background: -moz-linear-gradient(top, #7abcff 0%, #60abf8 44%, #4096ee 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7abcff), color-stop(44%,#60abf8), color-stop(100%,#4096ee)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #7abcff 0%,#60abf8 44%,#4096ee 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #7abcff 0%,#60abf8 44%,#4096ee 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #7abcff 0%,#60abf8 44%,#4096ee 100%); /* IE10+ */
+    background: linear-gradient(to top, #7abcff 0%,#60abf8 44%,#4096ee 100%); /* W3C */
+}
+
+.zone {
+    cursor:pointer;
+    font-size:2em;
+    border-radius:4px;
+    border:1px solid #bbb;
+    transition: all 0.3s linear;
+}
+
+.zone:hover {
+    -webkit-box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
+    -moz-box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
+    -o-box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
+    box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
+}
+
+@media only screen and (max-width: 620px){
+    .nav-bar{
+    display: flex;
+    font-size: 0.2em;
+}
+ .footer_style{
+   text-align: center;
+   font-size: 0.4em;
+   bottom: 0;
+   position: fixed;
+   width: 100%;
+   height: 5%;
+
+}
+}
+
+.footer_style{
+   text-align: center;
+   font-size: 1em;
+   bottom: 0;
+   left: 0;
+   position: fixed;
+   width: 100%;
+}
+
+@media only screen and (max-width: 1000px){
+  .footer_style{
+   text-align: center;
+   font-size: 0.8em;
+   bottom: 0;
+   position: fixed;
+   width: 100%;
+}
+}
+
+.top{
+    margin-top: 2%;
+}
+
+.card_container{
+   display: grid;
+   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+   grid-gap: 5%;
+   justify-items: center;
+   margin-left: 2%;
+   /*background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/organ-donation-1.jpg');*/
+}
+
+.text-size{
+  font-size: 1em;
+}
+
+.flex_container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.anchor_prop{
+  text-decoration: none;
+  color: black;
+}
+.anchor_prop:hover{
+  text-decoration: none;
+  color: #f5f5f6;
+}
+.search_box{
+   position: absolute;
+   transform: translate(-50%,-50%);
+   margin-left: 45%;
+}
+.buttons{
+  border: 0px;
+}
+.container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.child1{
+    align-self: center;
+}
+.child2{
+    width: 100%;
+}
+.child3{
+    align-self: center;
+}
+.buttons:hover{
+    cursor: pointer;
+    -webkit-box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
+    -moz-box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
+    -o-box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
+    box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
+    color: #f5f5f6;
+}
+.update-flex{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*Customizing boostrap's nav bar - Starts*/
+.nav{
+  /*background: #CCCCFF;*/
+  padding-left: 0.25%;
+  margin-top: 2%;
+  background-color:#ebebff;
+ /* background-color: #51EAEA;*/
+}
+.nav-tabs {
+   text-align: center;
+   border-bottom: 2px solid #000000;
+   border-top: 2px solid #000000;
+}
+.nav-tabs > li {
+   float: none;
+   display: inline-flex;
+   margin-bottom: -2.5px;
+}
+.nav-tabs > li > a {
+color: #000000;
+border: 1.25px solid transparent;
+}
+.nav-tabs > li > a.active {
+color: #cd0000;
+font-size: 1.25em;
+}
+.nav-tabs > li.focus-prop > a:hover {
+color: #cd0000;
+}
+
+.nav-tabs:hover{
+-webkit-box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
+-moz-box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
+-o-box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
+box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
+}
+.nav-tabs .nav-link{
+border: 1px ridge ;
+}
+.tab-pane{
+  padding: 2%;
+}
+/*Customizing boostrap's nav bar - Ends*/
+
+.child2{
+overflow-y: auto;
+height: 275px;
+-ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+@media only screen and (max-width: 620px){
+    .child2{
+    height: 200px;
+}
+}
+.update-flex{
+  display: flex;
+}
+ .update-flex-child2{
+   text-align: center;
+ }
+.selectable_row{
+  cursor:pointer;
+  transition:all .25s ease-in-out;
+}
+.selectable_row:hover{
+  background: linear-gradient(to top, #7abcff 0%,#60abf8 44%,#4096ee 100%);
+  box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
+}
+#cpContainer{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cpform-container{
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+}
+.div-highlight{
+  background: #ddd;
+  padding: 30px;
+  border-radius: 9px;
+}
+
+.enable-scroll{
+overflow: auto;
+height: 850px;
+}
+
+.details-grid-container{
+  display: grid;
+  grid-template-columns: 50% 50%;
+  padding: 10px;
+}
+
+@media only screen and (max-width: 620px){
+ .details-grid-container{
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+}
+
+.details-grid-item{
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.details-grid-item2{
+  padding: 20px;
+  text-align: center;
+}
+
+.card{
+  cursor: pointer;
+}
+
+.card:hover{
+ box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
+}
+
+/*Update profile*/
+
+.align-center{
+    text-align: center;
+}
+
+.card-content{
+    padding: 25px;
+}
+
+.card-header{
+    color: #ffff;
+    background-color: #51EAEA;
+}
+
+.btn-color{
+    color:#ffff;
+    background: #007bff;
+    border-color: black;
+}

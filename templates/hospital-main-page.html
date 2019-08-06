@@ -1,0 +1,331 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Donor registry</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style_hospital_homepage.css' %}">
+</head>
+<body id = "body">
+<header class="zone blue">
+  <div class = "nav-bar"><p id = "company_name" class = "push_this_left"><a href="{% url 'home' %}">We Donate</a></p>
+  </div>
+</header>
+<!-- bootstrap for tabbed interface- starts -->
+<ul class="nav nav-tabs" role="tablist">
+    <li class="focus-prop" id = "actionItemTab"><a class = "active" data-toggle="tab" href="#home" >Action items</a></li>
+    <li id = "appointmentTab" class = "focus-prop"><a data-toggle="tab" href="#appointment_approvals">Pending appointment approvals</a></li>
+    <li id = "donationTab" class = "focus-prop"><a data-toggle="tab" href="#donation_approvals">Pending donation approvals</a></li>
+    <li class = "focus-prop"><a data-toggle="tab" href="#search_donation">Search donations</a></li>
+    <li class="nav-item dropdown ml-auto">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Settings</a>
+    <div class="dropdown-menu">
+      <a data-toggle="tab" class="dropdown-item" href="#update_profile"id ="updateProfileTab">Update profile</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="{% url 'hospital-logout' %}" id="logOut">Log out</a>
+    </div>
+  </li>
+</ul>
+<div class="tab-content">
+<!-- Tab content for the Action item page starts -->
+    <div id="home" class="tab-pane active">
+      <div class = "flex_container">
+
+      <div class = "top summary"><h3>Summary of action items</h3></div>
+      <div class = "card_container top details-grid-container">
+      <div class="card text-white bg-primary mb-3 details-grid-item2" style="max-width: 18rem;" id = "appointDiv">
+      <div class="card-header bg-light mb-3" style="color: black">Action Item 1</div>
+      <div class="card-body">
+      <h5 class="card-title">Pending appointments</h5>
+      <p class="card-text">You have <strong id = "appointmentCount"></strong> to approve. Click on the card to proceed.</p>
+      </div>
+      </div>
+      <div class="card text-white bg-primary mb-3 details-grid-item2" style="max-width: 18rem;" id = "donationsDiv">
+      <div class="card-header bg-light mb-3" style="color: black">Action Item 2</div>
+      <div class="card-body">
+      <h5 class="card-title">Pending donations</h5>
+      <p class="card-text">You have <strong id = "donationCount"></strong> to approve. Click on the card to proceed.</p>
+      </div>
+      </div>
+    </div>
+    </div>
+  </div>
+    <!-- Tab content for the Action item page ends -->
+    <div id="appointment_approvals" class="tab-pane fade">
+      <!-- Tab content for the Pending appointments page starts -->
+      <div class = "container top">
+      <div class = "child1" > <h3>Pending appointments </h3> </div>
+      <div class = "child2 top" >
+      <table class="table table-bordered" id = "appointmentTable">
+        <thead>
+          <tr>
+            <th scope="col">Selection</th>
+            <th scope="col">Appointment ID</th>
+            <th scope="col">Donor</th>
+            <th scope="col">Organ</th>
+            <th scope="col">Appointment date</th>
+            <th scope="col">Appointment time</th>
+          </tr>
+        </thead>
+        <tbody id="appointmentsTableBody">
+
+        </tbody>
+      </table>
+      </div>
+      <div class="child3 top">
+        <input type="button" value="Details"  id= "appointmentDtls" class = "blue buttons">
+        <input type="button" value="Approve" id= "appointmentApprv" class = "approvals blue buttons">
+        <input type="button" value="Deny" id= "appointmentDeny" class = "denials blue buttons">
+      </div>
+    </div>
+    </div>
+    <!-- Tab content for the Pending appointment page Ends -->
+    <!-- Tab content for the Pending donations page Starts -->
+    <div id="donation_approvals" class="tab-pane fade">
+      <div class = "container top">
+   <div class = "child1" > <h3>Pending donations </h3> </div>
+    <div class = "child2 top" >
+    <table class="table table-bordered" id = "donationTable">
+      <thead>
+        <tr>
+          <th scope="col">Selection</th>
+          <th scope="col">Donation ID</th>
+          <th scope="col">Donor</th>
+          <th scope="col">Organ</th>
+          <th scope="col">Blood group</th>
+        </tr>
+      </thead>
+      <tbody id="donationTableBody">
+
+      </tbody>
+    </table>
+    </div>
+     <div class="child3 top">
+        <input type="button" value="Details" id= "donationDtls" class = "blue buttons">
+        <input type="button" value="Approve"  id= "donationApprv" class = "approvals blue buttons">
+        <input type="button" value="Deny" id= "donationDeny" class = "denials blue buttons">
+      </div>
+    </div>
+    </div>
+    <!-- Tab content for the Pending donation page Ends -->
+    <!-- Tab content for the Search donation page Starts -->
+    <div id="search_donation" class="tab-pane fade">
+      <div class = "container top">
+    <div class = "child1">
+    <input class = "search_text" type="text" name="search_key" size = "75" placeholder="Search by Organ/Donor name/Donation ID/Blood Group" id = "searchInput">
+    <input type="button" id="search_btn" value="Search" class = "blue buttons">
+    </div>
+    <div class="child_text top"><h5>Search results:</h5> </div>
+    <div class = "child2" id = "search_table_area">
+    <table class="table table-bordered" id = "donationSearchTable">
+      <thead>
+        <tr>
+          <th scope="col">Selection</th>
+          <th scope="col">Donation ID</th>
+          <th scope="col">Donor</th>
+          <th scope="col">Organ</th>
+          <th scope="col">Blood group</th>
+        </tr>
+      </thead>
+      <tbody id="searchTableBody">
+
+      </tbody>
+    </table>
+    </div>
+    <div class="child3 top">
+       <input type="button" value="Details" id= "searchDtls" class = "blue buttons">
+       <input type="button" value="Email Donor" id= "searchEmail" class = "blue buttons">
+      </div>
+    </div>
+    </div>
+    <!-- Tab content for the Search donation page Ends -->
+    <!-- Tab content for the Update profile page Starts -->
+    <div id="update_profile" class="tab-pane fade">
+      <!-- <div class = "update-flex">
+        <form id = "hospitalUpdateForm" class="div-highlight">
+          <div class="update-flex-child1 form-row">
+            <div class="form-group col-md-12">
+              <label for="updateName">Hospital ID</label>
+              <input type="text" class="form-control" id="hospitalID" placeholder="600028" readonly>
+            </div>
+             <div class="form-group col-md-12">
+              <label for="updateName">Hospital name</label>
+              <input type="text" class="form-control" id="updateName" value = "IWK Hospital" required>
+            </div>
+            <div class="form-group col-md-12">
+              <label for="updateEmail">Email</label>
+              <input type="email" class="form-control" id="updateEmail" value = "iwkadmin@iwk.ca" required>
+            </div>
+            <div class="form-group col-md-12">
+              <label for="updateContact">Contact Number</label>
+              <input type="text" class="form-control" id="updateContact" value = "+1 902-412-1234" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="updateCity">City</label>
+              <input type="text" class="form-control" id="updateCity" value= "Halifax" required>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="updateState">State</label>
+              <select id="updateState" class="form-control">
+                <option>Select</option>
+                <option selected>Nova Scotia</option>
+                <option>Ontario</option>
+                <option>...</option>
+              </select>
+            </div>
+            <div class="form-group col-md-2">
+              <label for="updateZip">Zip</label>
+              <input type="text" class="form-control" id="updateZip" value = "B3J 2K9" required>
+            </div>
+            <div class="form-group col-md-2">
+              <label for="updateCountry">Country</label>
+              <input type="text" class="form-control" id="updateCountry" value = "Canada" required>
+            </div>
+          </div>
+          <div class="form-group cpChild2">
+            <label for="newPassword">New Password</label>
+            <input type="password" class="form-control" id="newPassword" placeholder="New Password">
+          </div>
+          <div class="form-group cpChild3">
+            <label for="confirm_new_Password">Confirm New Password</label>
+            <input type="password" class="form-control" id="confirm_new_Password" placeholder="Confirm Password">
+          </div>
+          <div class="update-flex-child2">
+          <input type="submit" class="blue buttons" id = "updateSave" value = "Save changes">
+          <input type = "reset" class="blue buttons" value = "Restore to defaults" id = "updateClear">
+          </div>
+        </form>
+        </div> -->
+        <div class="container">
+        <div class="row">
+        <div class="col-md-6">
+        <div class="card bg-light mb-3">
+        <header class="card-header bg-light mb-3">
+                <button class="btn btn-warning float-right mt-1 bg-for-all" type="reset" onclick="enableedituserprofile();">
+                    <i class="fa fa-edit"></i>&nbsp;Edit
+                </button>
+            <h4 class="card-title bg-light mb-3" style="color: black">User profile</h4>
+        </header>
+
+        <div class="card-content">
+        <form id = "updateDetailsForm">
+            <!-- {% csrf_token %} -->
+           <!--  <div class="form-group">
+                {% if success and pfcheck %} {{msg}} {% endif %}
+
+            </div> -->
+            <div class="form-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <label>Hospital name</label>
+                <input type="text" name="hospital_name" id="hospitalName" class="form-control" placeholder="" required disabled>
+            </div>
+            <div class="form-group">
+                <span class="input-group-addon"><i class="fa fa-at"></i></span>
+                <label>Email address</label>
+                <input type="email" class="form-control" name="email" placeholder="" id="emailHospital" disabled required>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                <span class="input-group-addon"><i class="fa fa-building"></i></span>
+                <label>City</label>
+                <input type="text" id="city" name="city" class="form-control" disabled>
+                </div>
+                <div class="form-group col-md-6">
+                    <span class="input-group-addon"><i class="fa fa-building"></i></span>
+                    <label>Province</label>
+                    <select id="input-province" name="province" value="Ontario" class="form-control" disabled>
+                        <option value="Nova Scotia">Nova Scotia</option>
+                        <option value="British Columbia">British Columbia</option>
+                        <option value="Ontario">Ontario</option>
+                        <option value="Quebec">Quebec</option>
+                        <option value="Alberta">Alberta</option>
+                        <option value="New Brunswick">New Brunswick</option>
+                        <option value="Manitoba">Manitoba</option>
+                        <option value="Sasketchawan"
+                        >Sasketchawan</option>
+                        <option value="New Foundland and Labrador">New Foundland and Labrador</option>
+                        <option value="Prince Edward Island">Prince Edward Island</option>
+                    </select>
+                    </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
+                <label>Contact no. (+1)</label>
+                <input type="text" id="hospitalContact" name="contact" class="form-control" maxlength="10" minlength="10" disabled>
+                </div>
+                <div class="form-group col-md-6">
+                <span class="input-group-addon"><i class="fa fa-building"></i></span>
+                <label>Country</label>
+                <select id="input-country" name="country" class="form-control" disabled>
+                    <option selected="">Canada</option>
+                </select>
+                </div>
+            </div>
+            <div class="form-group">
+            </div>
+            <div class="form-group">
+                <button name="profile" type="submit" id="submitUpdateProf" class="btn navbar-bg btn-block blue buttons" disabled> Update </button>
+            </div>
+
+
+        </div>
+        </div>
+        </div>
+        <div class="col-md-6">
+                <div class="card bg-light mb-3">
+                <header class="card-header bg-light mb-3">
+                        <button class="btn btn-warning float-right mt-1 bg-for-all" onclick="enableeditpasswords();">
+                                <i class="fa fa-edit"></i>&nbsp;Edit
+                        </button>
+                    <h4 class="card-title mt-2 black bg-light mb-3" style="color: black">Password details</h4>
+                </header>
+                <div class="card-content">
+
+                    <!-- <div class="form-group">
+                        {% if success and pscheck %} {{msg}} {% endif %}
+                    </div> -->
+                    <div class="form-group">
+                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                        <label>Old password</label>
+                        <input type="password" id="password1" name="old_password" class="form-control" disabled required>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                        <label>New password</label>
+                        <input class="form-control" type="password" name="new_password" minlength="6" pattern="(?=.*[a-z])(?=.*\d).{6,}" title="Please include 1 uppercase letter, 1 lowercase letter and 1 digit in your password" id="password2" disabled required>
+                    </div>
+                    <div class="form-group">
+                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                        <label>Confirm password</label>
+                        <input class="form-control" type="password" id="password3" oninput="checkpassword();" disabled required>
+                    </div>
+                    <div class="form-group">
+                        <span id="password-validation-msg"></span>
+                    </div>
+                    <div class="form-group">
+                        <button name="password" type="submitPwd" id="update-password" class="btn navbar-bg btn-block blue buttons" disabled> Update </button>
+                    </div>
+
+                </form>
+                </div>
+                </div>
+                </div>
+        </div>
+    </div>
+    </div>
+</div>
+<footer class="zone blue footer_style">Copyright &copy; 2019. We donate Inc. All rights reserved. | <a href= "#" id="dummyAboutUs">About us | </a> <a href= "#">Contact us. </a> </footer>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<script src = "{% static 'js/hospital_script.js' %}"></script>
+</body>
+</html>

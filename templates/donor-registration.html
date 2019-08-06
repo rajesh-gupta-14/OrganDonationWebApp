@@ -1,0 +1,127 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
+
+    <!-- Custom CSS-->
+
+    <link rel="stylesheet" href="{% static 'css/header-footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom-stylesheet-registration.css' %}">
+    <title>Donor Registration</title>
+
+  </head>
+  <body>
+
+<header class="zone blue">
+    <div class = "nav-bar"><p id = "company_name" class = "push_this_left"><a href="hospital-main-page.html">We Donate</a></p>
+    </div>
+</header>
+    <div class = "overlay">
+    <form method="POST" action="{% url 'donor-register' %}">
+        {% csrf_token %}
+    <div class="container">
+            <div class="row justify-content-center">
+            <div class="col-md-6">
+            <div class="card bg-light mb-3">
+            <header class="card-header bg-light mb-3">
+                <h4 class="card-title mt-2 bg-light mb-3">Registration</h4>
+            </header>
+            <div class="card-content">
+
+                <div class="form-group">
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    <label>Donor name</label>
+                    <input type="text" name="donor_name" class="form-control" placeholder="" required>
+                </div>
+
+                <div class="form-group">
+                    <span class="input-group-addon"><i class="fa fa-at"></i></span>
+                    <label>Email address</label>
+                    <input type="email" name="email" class="form-control" placeholder="" required>
+                </div>
+                <div class="form-group">
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    <label>Enter Username</label>
+                    <input type="text" name="username" class="form-control" placeholder="" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                    <span class="input-group-addon"><i class="fa fa-building"></i></span>
+                    <label>City</label>
+                    <input type="text" name="city" class="form-control">
+                    </div>
+                    <div class="form-group col-md-6">
+                    <span class="input-group-addon"><i class="fa fa-building"></i></span>
+                    <label>Province</label>
+                    <select id="input-province" name="province" class="form-control">
+                        <option value="Nova Scotia">Nova Scotia</option>
+                        <option value="British Columbia">British Columbia</option>
+                        <option value="Ontario">Ontario</option>
+                        <option value="Quebec">Quebec</option>
+                        <option value="Alberta">Alberta</option>
+                        <option value="New Brunswick">New Brunswick</option>
+                        <option value="Manitoba">Manitoba</option>
+                        <option value="Sasketchawan">Sasketchawan</option>
+                        <option value="New Foundland and Labrador">New Foundland and Labrador</option>
+                        <option value="Prince Edward Island">Prince Edward Island</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                    <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
+                    <label>Contact no. (+1)</label>
+                    <input type="text" name="contact_number" class="form-control" maxlength="10" minlength="10">
+                    </div>
+                    <div class="form-group col-md-6">
+                    <span class="input-group-addon"><i class="fa fa-building"></i></span>
+                    <label>Country</label>
+                    <select id="input-country" name="country" class="form-control">
+                        <option selected="">Canada</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                    <label>Create password</label>
+                    <input class="form-control" name="password" type="password" minlength="6" pattern="(?=.*[a-z])(?=.*\d).{6,}" title="Please include 1 lowercase letter and 1 digit in your password" id="password1" required>
+                </div>
+                <div class="form-group">
+                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                        <label>Confirm password</label>
+                        <input class="form-control" type="password" id="password2" oninput="checkpassword();" required>
+                </div>
+                <div class="form-group">
+                    <span id="password-validation-msg"></span>
+                </div>
+                <div class="form-group">
+                    <button type="submit" id="submit" class="btn btn-color btn-block"> Register  </button>
+                </div>
+                <div class="form-group align-center">If you already have an account, <a href="{% url 'donor-login' %}" class="fnt-color">click here</a></div>
+            </div>
+            </div>
+            </div>
+            </div>
+        </div>
+        <!--container end.//-->
+    </form>
+</div>
+    <footer class="zone blue footer_style">Copyright &copy; 2019. We donate Inc. All rights reserved. | <a href= "#">About us | </a> <a href= "#">Contact us. </a> </footer>
+
+		<script src="{% static 'js/donor-registration.js' %}"></script>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

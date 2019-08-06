@@ -1,0 +1,56 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>We Donate</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style_landing_page.css' %}">
+</head>
+<body>
+<header class="zone blue">
+<div class = "nav-bar"><p id = "company_name" class = "push_this_left"><a href="hospital-main-page.html">We Donate</a></p>
+</div>
+</header>
+<div class="overlay">
+    <div class = "container">
+       <div class = "description">
+           <h1>    We Donate </h1>
+        <p id = "aboutCompany">    The value of life is not in its duration, but in its donation. Join with us and be an organ donor for someone in need.
+    </p>
+     <div class = "details-grid-container" id = "donorCard">
+        <!-- Donor card -->
+         <div class="card details-grid-item" style="width: 18rem;">
+          <img src="{% static 'images/donors.jpg' %}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Donor module</h5>
+            <p class="card-text Details">Register as a donor, submit your donation requests and book an appointment for getting your donations approved. </p>
+            <a href="{% url 'donor-login' %}" class="btn btn-primary">Donor</a>
+          </div>
+        </div>
+        <!-- Hospital card -->
+     <div class="card details-grid-item" style="width: 18rem;">
+          <img src="{% static 'images/hospital.jpg' %}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Hospital module</h5>
+            <p class="card-text Details">Accept/deny appointments and donations. Access a centralized repository of approved donations.</p>
+            <a href="{% url 'hospital-login' %}" class="btn btn-primary">Hospital</a>
+          </div>
+    </div>
+     </div>
+
+    </div>
+    </div>
+
+</div>
+<footer class="zone blue footer_style">Copyright &copy; 2019. We donate Inc. All rights reserved. | <a href= "#">About us | </a> <a href= "#">Contact us. </a> </footer>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<script src = "{% static 'js/hospital_script.js' %}"></script>
+
+
+</body>
+</html>

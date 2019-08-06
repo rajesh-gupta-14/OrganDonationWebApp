@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+<<<<<<< HEAD
 from django.urls import include, path
 
 urlpatterns = [
@@ -21,3 +22,13 @@ urlpatterns = [
     path('hospitals/', include('hospitals.urls')),
     path('admin/', admin.site.urls),
 ]
+=======
+from django.urls import include, re_path
+from donors import views as v
+urlpatterns = [
+    re_path('^donors/', include('donors.urls')),
+    re_path('^hospitals/', include('hospitals.urls')),
+    re_path('admin/', admin.site.urls),
+    re_path('home/$', v.wedonate, name='wedonate'),
+]
+>>>>>>> develop

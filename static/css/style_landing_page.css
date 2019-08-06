@@ -1,0 +1,231 @@
+body{
+    margin: auto 0px;
+    font-family: Arial;
+    background-color: #ffffff;
+    background-image: url('../images/background.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+	  background-repeat: no-repeat;
+   }
+/* nav bar for company name header*/
+.nav-bar{
+
+    display: flex;
+    font-size: 0.8em;
+   /* background-color: #51EAEA;*/
+}
+#company_name{
+    text-align: left;
+    margin-left: 1%;
+    font-family:'Sofia';
+    font-weight: bolder;
+    color: brown;
+    font-size: 0.75em;
+}
+
+#company_name > a{
+    color: brown;
+}
+
+.custom-settings{
+  color: black;
+  font-size: 0.8em;
+}
+.push_this{
+    margin-left: auto;
+}
+
+.push_this_left{
+    margin-right: auto;
+}
+/*footer{
+  background-color: #51EAEA;
+}*/
+
+footer a{
+    color: white;
+    text-decoration: none;
+}
+
+a:link{
+  text-decoration: none!important;
+}
+
+.ml-auto{
+  margin-right: 5%;
+}
+
+/***********************************************************************
+ *  Blue Background
+ **********************************************************************/
+.blue{
+    background: #7abcff; /* Old browsers */
+    background: -moz-linear-gradient(top, #7abcff 0%, #60abf8 44%, #4096ee 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7abcff), color-stop(44%,#60abf8), color-stop(100%,#4096ee)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #7abcff 0%,#60abf8 44%,#4096ee 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #7abcff 0%,#60abf8 44%,#4096ee 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #7abcff 0%,#60abf8 44%,#4096ee 100%); /* IE10+ */
+    background: linear-gradient(to top, #7abcff 0%,#60abf8 44%,#4096ee 100%); /* W3C */
+}
+
+.zone {
+    cursor:pointer;
+    font-size:2em;
+    border-radius:4px;
+    border:1px solid #bbb;
+    transition: all 0.3s linear;
+}
+
+.zone:hover {
+    -webkit-box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
+    -moz-box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
+    -o-box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
+    box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
+}
+
+@media only screen and (max-width: 620px){
+    .nav-bar{
+    display: flex;
+    font-size: 0.2em;
+}
+ .footer_style{
+   text-align: center;
+   font-size: 0.4em;
+   bottom: 0;
+   position: fixed;
+   width: 100%;
+   height: 5%;
+
+}
+}
+
+.footer_style{
+   text-align: center;
+   font-size: 1em;
+   bottom: 0;
+   left: 0;
+   position: fixed;
+   width: 100%;
+}
+
+@media only screen and (max-width: 1000px){
+  .footer_style{
+   text-align: center;
+   font-size: 0.8em;
+   bottom: 0;
+   position: fixed;
+   width: 100%;
+}
+}
+.overlay{
+ position: absolute;
+ min-height: 100%;
+ min-width: 100%;
+ left: 0;
+ background: rgba(244, 244, 244, 0.5);
+}
+.description{
+    position: absolute;
+    top: 2%;
+    margin: auto;
+    padding: 2em;
+}
+.description h1{
+ /*color:#F97300 ;*/
+ color:brown;
+}
+.description>p{
+ color:#666;
+ font-size: 20px;
+ width: 50%;
+ line-height: 1.5;
+}
+.description button{
+ border:1px  solid #F97300;
+ background:#F97300;
+ color:#fff;
+}
+@media only screen and (max-width: 620px){
+ .description{
+    position: absolute;
+    top: 1%;
+	  left:2%;
+    margin: auto;
+    padding: 1em;
+}
+.description h1{
+ /*color:#F97300 ;*/
+ color:brown;
+ font-size: 20px;
+}
+.description>p{
+ color:#666;
+ font-size: 15px;
+ width: 50%;
+ line-height: 1;
+}
+.overlay{
+	background: rgba(244, 244, 244, 0);
+}
+
+
+
+}
+
+
+#aboutCompany{
+    color: black;
+}
+.details-grid-container{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  padding: 10px;
+  grid-gap: 10%;
+  margin-top: 5%;
+}
+
+.details-grid-item{
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.Details{
+    font-size: 14px;
+    font-style: italic;
+}
+
+.container{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+}
+
+/* responsiveness */
+@media only screen and (max-width: 599px){
+    .card{
+        width: 70%;
+        }
+    .container{
+        margin-top: 20%;
+        height: 50%
+    }
+}
+
+@media only screen and (min-width: 600px){
+    .card{
+        width: 45%;
+        }
+    .container{
+        margin-top: 7%;
+        height:50%
+    }
+}
+
+.update-flex{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

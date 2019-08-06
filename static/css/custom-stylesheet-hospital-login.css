@@ -1,0 +1,76 @@
+/* Customize login form to fit the centre horizontally and vertically */
+body{
+    margin: auto 0px;
+    background-image: url('../images/hospital_background.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.container {
+    display:flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    vertical-align: middle;
+    margin-top: 6.5%;
+}
+
+.card-header, .card-footer{
+    color: #000000;
+    text-align: center;
+    background-color: #51EAEA;
+}
+
+.btn-color{
+    background-color:#51EAEA;
+}
+
+.fnt-color{
+    color: #000000;
+}
+
+.card-content{
+    padding: 25px;
+}
+
+.align-center{
+    text-align: center;
+}
+
+/* responsiveness */
+@media only screen and (max-width: 599px){
+    .card{
+        width: 70%;
+        }
+    .container{
+        margin-top: 20%;
+        height: 50%
+    }
+}
+
+@media only screen and (min-width: 600px){
+    .card{
+        width: 45%;
+        }
+    .container{
+        margin-top: 7%;
+        height:50%
+    }
+}
+
+.overlay{
+ position: absolute;
+ min-height: 100%;
+ min-width: 100%;
+ left: 0;
+ background: rgba(244, 244, 244, 0.5);
+}
+
+.homeButton{
+    text-align: center;
+}
+.top{
+margin-top: 2%;
+}

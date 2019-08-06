@@ -10,43 +10,44 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <!-- Custom CSS-->
-    
     <link rel="stylesheet" href="{% static 'css/header-footer.css' %}">
     <link rel="stylesheet" href="{% static 'css/new-donation-request.css' %}">
-    <title>Donation request</title>
-    
+    <title>Donation Request</title>
   </head>
   <body>
-    
-	<!--Please see Reference: [3][4] in README.txt -->
+
+	<!--Please see Reference: [3][4] in README.txt in README.txt -->
     <!-- navbar -->
-    <nav class="navbar fixed-top navbar-bg navbar-expand-sm navbar-light" id="navbar">
-        <a class="navbar-brand" href="#">We Donate</a>
+        <nav class="navbar fixed-top navbar-dark navbar-expand-sm bg-primary" id="navbar">
+        <a class="navbar-brand" href="{% url 'donor-landing-page' %}">We Donate</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTop" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarTop">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="#">Home</a>
+             <li class="nav-item">
+                <a class="nav-link" href="{% url 'donor-landing-page' %}">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Book an appointment</a>
+                <a class="nav-link" href="{% url 'donor-home' %}">Donation history</a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="new-donation-request.html">New donation request</a>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'book-appointment' %}">Book an appointment</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'new-donation-request'  %}">New donation request</a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
             <!-- Dropdown -->
-            <li class="nav-item dropdown">
+            <li class="nav-item active dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                         Settings
                 </a>
                 <div class="dropdown-menu custom-dropdown">
-                    <a class="dropdown-item" href="user-profile-update.html">User profile</a>
-                    <a class="dropdown-item" href="user-profile-update.html">Change password</a>
-                    <a class="dropdown-item" href="#">Log out</a>
+                    <a class="dropdown-item" href="{% url 'donor-profile-update' %}">User profile</a>
+                    <a class="dropdown-item" href="{% url 'donor-profile-update' %}">Change password</a>
+                    <a class="dropdown-item" href="{% url 'donor-logout' %}">Log out</a>
                 </div>
             </li>
         </ul>
@@ -58,119 +59,88 @@
         <div class="row justify-content-center">
         <div class="col-md-6">
         <div class="card">
-        <header class="card-header">
-            <h4 class="card-title mt-2 black">Donation request</h4>
+        <header class="card-header bg-light mb-3">
+            <h4 class="card-title bg-light mb-3">New Donation request</h4>
         </header>
         <div class="card-content">
-        <form>
-            
+        <form method="POST" enctype="multipart/form-data" action="{% url 'new-donation-request' %}">
+            {% csrf_token %}
             <div class="form-row">
                 <div class="form-group col-md-6">
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                <label>First name</label>
-                <input type="text" class="form-control" value="" id="fn" required>
+                <label>Organ Type</label>
+                <input type="text" name="organ_type" class="form-control" value="" id="organ_type" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    <label>Blood Type</label>
+                    <input type="text" name="blood_type" class="form-control" value="" id="fblood_type" required>
                 </div>
                 <div class="form-group col-md-6">
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                <label>Last name</label>
-                <input type="text" class="form-control" value="" id="ln" required>
-                </div>
-            </div>
-        
-            <div class="form-group">
-                <span class="input-group-addon"><i class="fa fa-at"></i></span>
-                <label>Email address</label>
-                <input type="email" class="form-control" placeholder="" required>
-            </div>
-
-            <div class="form-group">
-                <span> Gender&nbsp;&nbsp;</span>
-                <label class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gender" value="option1">
-                    <span class="form-check-label"> Male </span>
-                </label>
-                <label class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gender" value="option2">
-                    <span class="form-check-label"> Female </span>
-                </label>
-                <label class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gender" value="option2">
-                    <span class="form-check-label"> Other </span>
-                </label>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                <span class="input-group-addon"><i class="fa fa-building"></i></span>
-                <label>City</label>
-                <input type="text" class="form-control" required>
+                <label>Family Relation</label>
+                <input type="text" class="form-control" name="family_relation" value="" id="family_relation" required>
                 </div>
                 <div class="form-group col-md-6">
-                <span class="input-group-addon"><i class="fa fa-building"></i></span>
-                <label>Preferred hospital of donation</label>
-                <select id="input-hospital" class="form-control">
-                    <option value="1">ABC hospital</option>
-                    <option value="2">XYZ hospital</option>
-                </select>
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    <label>Family Relation Name</label>
+                    <input type="text" class="form-control" name="family_relation_name" value="" id="family_relation_name" required>
+                </div>
+                <div class="form-group col-md-12">
+                        <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
+                        <label>Donor's  Relationship Contact no. (+1)</label>
+                        <input type="text" class="form-control" name="family_contact_number" maxlength="10" minlength="10">
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-6">
-                <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
-                <label>Contact no. (+1)</label>
-                <input type="text" class="form-control" maxlength="10" minlength="10">
-                </div>
-                <div class="form-group col-md-6">
-                <span class="input-group-addon"><i class="fa fa-building"></i></span>
-                <label>Country</label>
-                <select id="input-country" class="form-control">
-                    <option selected="">Canada</option>
-                </select>
-                </div>
+            <div class="form-group col-md-12">
+            <div class="custom-file">
+                <input id="logo" type="file" class="custom-file-input" name="file" onchange="setName(this.value);">
+                <label for="logo" class="custom-file-label text-truncate"   id="customfield">Upload medical report..</label>
+            </div>
+            </div>
             </div>
             <div class="form-group">
                 <span> Has the above donor donated before?&nbsp;&nbsp;</span>
                 <label class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="gender" value="option1">
+                  <input class="form-check-input" type="radio" name="donated_before" value="True">
                   <span class="form-check-label"> Yes </span>
                 </label>
                 <label class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="gender" value="option2">
+                  <input class="form-check-input" type="radio" name="donated_before" value="False">
                   <span class="form-check-label"> No </span>
                 </label>
             </div>
+
             <div class="form-group">
-                <span> Is the donor above 18 years of age?*&nbsp;&nbsp;</span>
+                <span> Is your family okay with donating your organ?&nbsp;&nbsp;</span>
                 <label class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gender" value="option1" onchange="activate_create();">
-                    <span class="form-check-label"> Yes </span>
+                  <input class="form-check-input" type="radio" name="family_consent" value="True">
+                  <span class="form-check-label"> Yes </span>
                 </label>
                 <label class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gender" value="option2" onchange="activate_create();">
-                    <span class="form-check-label"> No </span>
+                  <input class="form-check-input" type="radio" name="family_consent" value="False">
+                  <span class="form-check-label"> No </span>
                 </label>
-            </div>
-            <div class="custom-file">
-                    <input id="logo" type="file" class="custom-file-input" onchange="setName(this.value);">
-                    <label for="logo" class="custom-file-label text-truncate" id="customfield">Upload medical report..</label>
-            </div>
+                </div>
+
             <div class="form-group">
 
             </div>
             <div class="form-group">
-                <button type="submit" id="submit" class="btn navbar-bg btn-block" disabled> Create </button>
-            </div>      
-            
+                <button type="submit" id="submit" class="btn btn-info btn-block"> Create </button>
+            </div>
+
         </form>
         </div>
         </div>
-        </div>            
         </div>
-    </div> 
+        </div>
+    </div>
 
 
-    <footer class="custom-footer navbar-bg">
-        Copyrights reserved.
-    </footer>
+    <footer class="custom-footer bg-primary">
+        Copyright &copy; 2019. We donate Inc. All rights reserved. | <a href= "#">About us | </a> <a href= "#">Contact us. </a>     </footer>
 		<script src="{% static 'js/new-donation-request.js' %}"></script>
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -178,6 +148,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="js/bootstrap-filestyle.min.js"> </script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    
+
     </body>
 </html>

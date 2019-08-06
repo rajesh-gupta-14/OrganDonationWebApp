@@ -1,0 +1,108 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
+    <!-- Custom CSS-->
+    <link rel="stylesheet" href="{% static 'css/header-footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new-donation-request.css' %}">
+    <title>Donation History</title>
+  </head>
+  <body>
+
+	<!--Please see Reference: [3][4] in README.txt in README.txt -->
+    <!-- navbar -->
+    <header>
+    <nav class="navbar fixed-top navbar-dark navbar-expand-sm bg-primary" id="navbar">
+        <a class="navbar-brand" href="{% url 'donor-landing-page' %}">We Donate</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTop" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTop">
+        <ul class="navbar-nav mr-auto">
+             <li class="nav-item">
+                <a class="nav-link" href="{% url 'donor-landing-page' %}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'donor-home' %}">Donation history</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'book-appointment' %}">Book an appointment</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'new-donation-request'  %}">New donation request</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <!-- Dropdown -->
+            <li class="nav-item active dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                        Settings
+                </a>
+                <div class="dropdown-menu custom-dropdown">
+                    <a class="dropdown-item" href="{% url 'donor-profile-update' %}">User profile</a>
+                    <a class="dropdown-item" href="{% url 'donor-profile-update' %}">Change password</a>
+                    <a class="dropdown-item" href="{% url 'donor-logout' %}">Log out</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    </nav>
+    </header>
+     <div class="container">
+
+<!-- <table>
+{% for dreq in donationrequests %}
+<tr>
+<td>{{dreq.id}}</td>
+<td>{{dreq.organ_type}}</td>
+</tr>
+{% endfor %}
+</table> -->
+<h3>Donation History</h3>
+<table class="table table-bordered top" id = "searchHistoryTable">
+      <thead>
+        <tr class = "table-light">
+          <th scope="col">Donation ID</th>
+          <th scope="col">Organ</th>
+          <th scope="col">Blood group</th>
+          <th scope="col">Donation Status</th>
+          <th scope="col">Appointment Status</th>
+          <th scope="col">Request Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for dreq in donationrequests %}
+        <tr>
+        <td>{{dreq.id}}</td>
+        <td>{{dreq.organ_type}}</td>
+        <td>{{dreq.blood_type}}</td>
+        <td>{{dreq.donation_status}}</td>
+		<td>{{dreq.appointment_status}}</td>
+        <td>{{dreq.datetime}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+</table>
+
+<div class = "centerText top"><a href="{% url 'new-donation-request' %}"><button class="btn btn-info">New donation</button></a></div>
+    </div>
+    <footer class="custom-footer bg-primary">
+        Copyright &copy; 2019. We donate Inc. All rights reserved. | <a href= "#">About us | </a> <a href= "#">Contact us. </a>    </footer>
+		<script src="{% static 'js/user-profile-update.js' %}"></script>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-filestyle/2.1.0/bootstrap-filestyle.min.js"> </script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    </body>
+</html>

@@ -1,0 +1,73 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
+    <!-- Custom CSS-->
+    <link rel="stylesheet" href="{% static 'css/custom-stylesheet-login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/header-footer.css' %}">
+    <title>Donor Login</title>
+  </head>
+  <body>
+    <!-- Login form for hospital-->
+    <header class="zone blue">
+    <div class = "nav-bar"><p id = "company_name" class = "push_this_left"><a href="hospital-main-page.html">We Donate</a></p>
+    </div>
+    </header>
+    <div class = "overlay">
+    <div class = "container">
+    <div class="card bg-light mb-3">
+        <div class="card-header bg-light mb-3"><b>Donor Login</b></div>
+            <div class="card-content">
+                <form method="POST" action="{% url 'donor-login' %}">
+                    {% csrf_token %}
+                    {% if fail %}
+                    <div class="form-group">
+                        {{msg}}
+                    </div>
+                    {% endif %}
+                    <div class="form-group">
+                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                        <label for="username">Username:</label>
+                        <input type="text" name="username" class="form-control increase-width" id="username" required autofocus>
+                    </div>
+                    <div class="form-group">
+                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                        <label for="pwd">Password:</label>
+                        <input type="password" name="password" class="form-control" id="pwd" required>
+                    </div>
+                    <div class="form-group align-center">
+                    {% if request.GET.next %}
+                    <input type="hidden" name="next" value="{{ request.GET.next }}">
+                    {% endif %}
+                    <button type="submit" class="btn btn-color form-control">Login</button>
+                    </div>
+                    <div class="form-group align-center">
+                    <a href="{% url 'donor-forgot-password' %}" class="fnt-color"><b>Forgot password?</b></a> or <a href="{% url 'donor-register' %}" class="fnt-color"><b>New user?</b></a>
+                    </div>
+                </form>
+            </div>
+
+    </div>
+</div>
+<div class = "homeButton top"><a href="{% url 'wedonate' %}"><button class="btn btn-color">Home</button></a></div>
+</div>
+
+
+
+<footer class="zone blue footer_style">Copyright &copy; 2019. We donate Inc. All rights reserved. | <a href= "#">About us | </a> <a href= "#">Contact us. </a> </footer>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
