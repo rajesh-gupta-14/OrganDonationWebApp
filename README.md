@@ -6,25 +6,24 @@
 ### Go to: ```http://localhost:8000/home/```
 
 ## Hospital side login: ##
-Uname: rajesh
+Uname: rajesh<br/>
 Pass: rajesh14
 
 ## Donor side login: ##
-Uname: hemanth
+Uname: hemanth<br/>
 Pass: rajesh15
 
-### PLEASE NOTE THAT IF YOU USE EXISTING DB, all the forgot password emails will be directed to "rajesh.gupta@dal.ca". Hence, create a new user in the existing DB to test such features. ###
+### Please note that if you use existing db, all the forgot password emails will be directed to "rajesh.gupta@dal.ca". Hence, create a new user in the existing DB to test such features. ###
 
-## TO CREATE NEW DB AND DELETE EXISTING DETAILS: ##
+## To create new db and delete existing details: ##
 - Delete db.sqlite3 file
 - Delete migrations/ folder inside donors/ and hospitals/ folder
 
 ## Run these commands: ##
-```python manage.py makemigrations hospitals donors```
+```python manage.py makemigrations hospitals donors```<br/>
 ```python manage.py migrate```
 
-## WORKING INSTRUCTIONS ON HOSPITAL SIDE: ##
-
+## Working instructions on hospital side ##
 - Open a browser and visit http://localhost:8000/hospitals/login/ to login.
 - The home page displays an action items tab which gives the summary of number of pending appointments and pending donations.
 - The count displayed is dynamic and gets updated automatically as and when the appointment/donation requests come for approval.
@@ -39,7 +38,7 @@ Pass: rajesh15
 - Navigate to the 'Search donations' tab. Enter any keyword related to the donation, such as organ/blood group/donor first name/donor last name/donation ID (For eg: Kidney/Hemanth) and click on search button. 
 - From the search results displayed, select a record and click on the 'Details' button. The entire details of the donation will be displayed below the table. Note that only the approved donations will be displayed in the search results. 
 
-## Note: ## 
+## Note ## 
 For viewing the database records, kindly follow the below steps:
 - Stop the server by pressing CTRL + C
 - Run python manage.py createsuperuser
@@ -48,7 +47,7 @@ For viewing the database records, kindly follow the below steps:
 - Visit http://127.0.0.1:8000/admin/ and login using the username and password that was created in step 3. 
 - The users table consists of user records, the appointments table consist of appointment information, and the donation requests table contains donation related information.
    
-## WORKING INSTRUCTIONS ON DONOR SIDE: ##
+## Working instructions on donor side ##
 - Open a browser and visit http://localhost:8000/donors/login/ to login.
 - Create Donation Request and create a corresponding appointment for that donation request.
 - View Donation History on homepage
